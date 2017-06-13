@@ -1543,7 +1543,7 @@ class Server{
 				mkdir($pluginPath, 0777);
 			}
 
-			if(!$pluginPath . "Tesseract/"){
+			if(!file_exists($pluginPath . "Tesseract/")){
 				mkdir($pluginPath . "Tesseract/", 0777);
 			}
 
