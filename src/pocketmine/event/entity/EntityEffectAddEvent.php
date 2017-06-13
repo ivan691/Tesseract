@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *
  *  ____            _        _   __  __ _                  __  __ ____
  * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
@@ -14,44 +14,39 @@
  * (at your option) any later version.
  *
  * @author PocketMine Team
- * @link http://www.pocketmine.net/
+ * @link   http://www.pocketmine.net/
  *
  *
-*/
+ */
 
 namespace pocketmine\event\entity;
 
-use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
 
-class EntityEffectAddEvent extends EntityEffectEvent{
+use pocketmine\event\Cancellable;
+use pocketmine\entity\Effect;
+
+class EntityEffectAddEvent extends EntityEvent implements Cancellable{
+
 	public static $handlerList = null;
 
-	/** @var bool */
-	private $modify;
 	/** @var Effect */
-	private $oldEffect;
+	protected $effect;
 
-	public function __construct(Entity $entity, Effect $effect, $modify, $oldEffect){
-		parent::__construct($entity, $effect);
-		$this->modify = $modify;
-		$this->oldEffect = $oldEffect;
-	}
-
-	public function willModify() : bool{
-		return $this->modify;
-	}
-
-	public function hasOldEffect() : bool{
-		return $this->oldEffect instanceof Effect;
+	public function __construct(Entity $entity, Effect $effect){
+		$this->entity = $entity;
+		$this->effect = $effect;
 	}
 
 	/**
-	 * @return Effect|null
+	 * @return Effect
 	 */
-	public function getOldEffect(){
-		return $this->oldEffect;
+	public function getEffect(){
+		return $this->effect;
 	}
 
+	public function getName(){
+		return "EntityEffectAddEvent";
+	}
 
 }

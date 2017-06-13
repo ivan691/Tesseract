@@ -47,7 +47,7 @@ class PharPluginLoader implements PluginLoader{
 	 *
 	 * @return Plugin
 	 *
-	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	public function loadPlugin($file){
 		if(($description = $this->getPluginDescription($file)) instanceof PluginDescription){
@@ -95,8 +95,8 @@ class PharPluginLoader implements PluginLoader{
 	/**
 	 * Returns the filename patterns that this loader accepts
 	 *
-	 * @return string
-	 */
+	 * @return array|string
+     */
 	public function getPluginFilters(){
 		return "/\\.phar$/i";
 	}

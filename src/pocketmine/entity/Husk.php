@@ -2,45 +2,38 @@
 
 /*
  *
- *    _______                                _
- *   |__   __|                              | |
- *      | | ___  ___ ___  ___ _ __ __ _  ___| |_
- *      | |/ _ \/ __/ __|/ _ \  __/ _` |/ __| __|
- *      | |  __/\__ \__ \  __/ | | (_| | (__| |_
- *      |_|\___||___/___/\___|_|  \__,_|\___|\__|
- *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
- * 
+ * @author iTX Technologies
+ * @link https://itxtech.org
  *
  */
 
 namespace pocketmine\entity;
 
-use pocketmine\item\Item as ItemItem;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
 use pocketmine\Player;
+use pocketmine\network\protocol\AddEntityPacket;
 
-class Husk extends Monster{
+class Husk extends Zombie{
 	const NETWORK_ID = 47;
 	
-	public $width = 0.3;
-	public $length = 0.9;
-	public $height = 1.8;
-	
-	public function getName(){
+	public function getName() : string{
 		return "Husk";
 	}
 	
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
-		$pk->entityRuntimeId = $this->getId();
+		$pk->eid = $this->getId();
 		$pk->type = Husk::NETWORK_ID;
 		$pk->x = $this->x;
 		$pk->y = $this->y;
@@ -54,13 +47,5 @@ class Husk extends Monster{
 		$player->dataPacket($pk);
 
 		Entity::spawnTo($player);
-	}
-	
-	public function getDrops(){
-		$drops = [
-			ItemItem::get(ItemItem::ROTTEN_FLESH, 0, mt_rand(0 , 2))
-		];
-
-		return $drops;
 	}
 }

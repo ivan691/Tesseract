@@ -21,38 +21,46 @@
 
 namespace pocketmine\event\player;
 
-use pocketmine\event\TranslationContainer;
 use pocketmine\Player;
 
 /**
  * Called when a player leaves the server
  */
 class PlayerQuitEvent extends PlayerEvent{
+
 	public static $handlerList = null;
 
-	/** @var TranslationContainer|string */
+	/** @var string */
 	protected $quitMessage;
+	protected $autoSave = true;
 
-	/**
-	 * @param Player                      $player
-	 * @param TranslationContainer|string $quitMessage
-	 */
-	public function __construct(Player $player, $quitMessage){
+	public function __construct(Player $player, $quitMessage, $autoSave = true){
 		$this->player = $player;
 		$this->quitMessage = $quitMessage;
+		$this->autoSave = $autoSave;
 	}
 
-	/**
-	 * @param TranslationContainer|string $quitMessage
-	 */
 	public function setQuitMessage($quitMessage){
 		$this->quitMessage = $quitMessage;
 	}
 
-	/**
-	 * @return TranslationContainer|string
-	 */
 	public function getQuitMessage(){
 		return $this->quitMessage;
 	}
+
+	public function getAutoSave(){
+		return $this->autoSave;
+	}
+
+	public function setAutoSave($value = true){
+		$this->autoSave = (bool) $value;
+	}
+
+	/**
+	 * @return EventName|string
+     */
+	public function getName(){
+		return "PlayerQuitEvent";
+	}
+
 }

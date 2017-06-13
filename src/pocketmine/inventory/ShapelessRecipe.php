@@ -66,8 +66,12 @@ class ShapelessRecipe implements Recipe{
 			throw new \InvalidArgumentException("Shapeless recipes cannot have more than 9 ingredients");
 		}
 
+		$it = clone $item;
+		$it->setCount(1);
+
 		while($item->getCount() > 0){
-			$this->ingredients[] = $item->pop();
+			$this->ingredients[] = clone $it;
+			$item->setCount($item->getCount() - 1);
 		}
 
 		return $this;

@@ -109,7 +109,7 @@ class Permission{
 	/**
 	 * @return string
 	 */
-	public function getName(){
+	public function getName() : string{
 		return $this->name;
 	}
 
@@ -173,13 +173,13 @@ class Permission{
 	 * @param string|Permission $name
 	 * @param                   $value
 	 *
-	 * @return Permission|null Permission if $name is a string, null if it's a Permission
+	 * @return Permission|void Permission if $name is a string, void if it's a Permission
 	 */
 	public function addParent($name, $value){
 		if($name instanceof Permission){
 			$name->getChildren()[$this->getName()] = $value;
 			$name->recalculatePermissibles();
-			return null;
+			return;
 		}else{
 			$perm = Server::getInstance()->getPluginManager()->getPermission($name);
 			if($perm === null){
@@ -216,7 +216,7 @@ class Permission{
 	 *
 	 * @return Permission
 	 *
-	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	public static function loadPermission($name, array $data, $default = self::DEFAULT_OP, &$output = []){
 		$desc = null;

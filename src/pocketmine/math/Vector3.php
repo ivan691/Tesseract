@@ -21,6 +21,8 @@
 
 namespace pocketmine\math;
 
+use pocketmine\utils\Random;
+
 class Vector3{
 
 	const SIDE_DOWN = 0;
@@ -157,29 +159,23 @@ class Vector3{
 		}
 	}
 
-	/**
-	 * Return a Vector3 instance
-	 * 
-	 * @return Vector3
-	 */
-	public function asVector3() : Vector3{
-		return new Vector3($this->x, $this->y, $this->z);
-	}
-
-	/**
-	 * Returns the Vector3 side number opposite the specified one
-	 *
-	 * @param int $side 0-5 one of the Vector3::SIDE_* constants
-	 * @return int
-	 *
-	 * @throws \InvalidArgumentException if an invalid side is supplied
-	 */
-	public static function getOppositeSide(int $side) : int{
-		if($side >= 0 and $side <= 5){
-			return $side ^ 0x01;
+	public static function getOppositeSide($side){
+		switch((int) $side){
+			case Vector3::SIDE_DOWN:
+				return Vector3::SIDE_UP;
+			case Vector3::SIDE_UP:
+				return Vector3::SIDE_DOWN;
+			case Vector3::SIDE_NORTH:
+				return Vector3::SIDE_SOUTH;
+			case Vector3::SIDE_SOUTH:
+				return Vector3::SIDE_NORTH;
+			case Vector3::SIDE_WEST:
+				return Vector3::SIDE_EAST;
+			case Vector3::SIDE_EAST:
+				return Vector3::SIDE_WEST;
+			default:
+				return -1;
 		}
-
-		throw new \InvalidArgumentException("Invalid side $side given to getOppositeSide");
 	}
 
 	public function distance(Vector3 $pos){
@@ -259,7 +255,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($x, $this->y + $yDiff * $f, $this->z + $zDiff * $f);
+			return new Vector3($this->x + $xDiff * $f, $this->y + $yDiff * $f, $this->z + $zDiff * $f);
 		}
 	}
 
@@ -286,7 +282,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($this->x + $xDiff * $f, $y, $this->z + $zDiff * $f);
+			return new Vector3($this->x + $xDiff * $f, $this->y + $yDiff * $f, $this->z + $zDiff * $f);
 		}
 	}
 
@@ -313,7 +309,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($this->x + $xDiff * $f, $this->y + $yDiff * $f, $z);
+			return new Vector3($this->x + $xDiff * $f, $this->y + $yDiff * $f, $this->z + $zDiff * $f);
 		}
 	}
 
@@ -331,8 +327,26 @@ class Vector3{
 		return $this;
 	}
 
+	/**
+	 * @param Vector3 $pos
+	 * @param         $x
+	 * @param         $y
+	 * @param         $z
+	 *
+	 * @return $this
+	 */
+	public function fromObjectAdd(Vector3 $pos, $x, $y, $z){
+		$this->x = $pos->x + $x;
+		$this->y = $pos->y + $y;
+		$this->z = $pos->z + $z;
+		return $this;
+	}
+
 	public function __toString(){
 		return "Vector3(x=" . $this->x . ",y=" . $this->y . ",z=" . $this->z . ")";
 	}
 
+	public static function createRandomDirection(Random $random){
+		return VectorMath::getDirection3D($random->nextFloat() * 2 * pi(), $random->nextFloat() * 2 * pi());
+	}
 }

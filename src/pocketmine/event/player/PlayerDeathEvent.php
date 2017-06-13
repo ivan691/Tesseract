@@ -27,11 +27,13 @@ use pocketmine\item\Item;
 use pocketmine\Player;
 
 class PlayerDeathEvent extends EntityDeathEvent{
+
 	public static $handlerList = null;
 
 	/** @var TextContainer|string */
 	private $deathMessage;
 	private $keepInventory = false;
+	private $keepExperience = false;
 
 	/**
 	 * @param Player               $entity
@@ -44,15 +46,15 @@ class PlayerDeathEvent extends EntityDeathEvent{
 	}
 
 	/**
-	 * @return Player
-	 */
+	 * @return \pocketmine\entity\Entity|Player
+     */
 	public function getEntity(){
 		return $this->entity;
 	}
 
 	/**
-	 * @return Player
-	 */
+	 * @return \pocketmine\entity\Entity|Player
+     */
 	public function getPlayer(){
 		return $this->entity;
 	}
@@ -71,12 +73,27 @@ class PlayerDeathEvent extends EntityDeathEvent{
 		$this->deathMessage = $deathMessage;
 	}
 
-	public function getKeepInventory(){
+	public function getKeepInventory() : bool{
 		return $this->keepInventory;
 	}
 
-	public function setKeepInventory($keepInventory){
-		$this->keepInventory = (bool) $keepInventory;
+	public function setKeepInventory(bool $keepInventory){
+		$this->keepInventory = $keepInventory;
+	}
+
+	public function getKeepExperience() : bool{
+		return $this->keepExperience;
+	}
+
+	public function setKeepExperience(bool $keepExperience){
+		$this->keepExperience = $keepExperience;
+	}
+
+	/**
+	 * @return EventName|string
+     */
+	public function getName(){
+		return "PlayerDeathEvent";
 	}
 
 }

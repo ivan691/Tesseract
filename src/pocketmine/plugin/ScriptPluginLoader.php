@@ -48,7 +48,7 @@ class ScriptPluginLoader implements PluginLoader{
 	 *
 	 * @return Plugin
 	 *
-	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	public function loadPlugin($file){
 		if(($description = $this->getPluginDescription($file)) instanceof PluginDescription){
@@ -99,7 +99,7 @@ class ScriptPluginLoader implements PluginLoader{
 
 				if($key === "notscript"){
 					return null;
-				}
+ 				}
 
 				$data[$key] = $content;
 			}
@@ -118,8 +118,8 @@ class ScriptPluginLoader implements PluginLoader{
 	/**
 	 * Returns the filename patterns that this loader accepts
 	 *
-	 * @return string
-	 */
+	 * @return array|string
+     */
 	public function getPluginFilters(){
 		return "/\\.php$/i";
 	}

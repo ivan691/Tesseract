@@ -32,9 +32,10 @@ class EntityCombustByBlockEvent extends EntityCombustEvent{
 	 * @param Block  $combuster
 	 * @param Entity $combustee
 	 * @param int    $duration
+	 * @param int    $ProtectLevel
 	 */
-	public function __construct(Block $combuster, Entity $combustee, $duration){
-		parent::__construct($combustee, $duration);
+	public function __construct(Block $combuster, Entity $combustee, $duration, $ProtectLevel = 0){
+		parent::__construct($combustee, $duration, $ProtectLevel);
 		$this->combuster = $combuster;
 	}
 
@@ -43,6 +44,13 @@ class EntityCombustByBlockEvent extends EntityCombustEvent{
 	 */
 	public function getCombuster(){
 		return $this->combuster;
+	}
+
+	/**
+	 * @return EventName|string
+     */
+	public function getName(){
+		return "EntityCombustByBlockEvent";
 	}
 
 }

@@ -34,6 +34,7 @@ use pocketmine\nbt\tag\{
 use pocketmine\Player;
 use pocketmine\utils\MainLogger;
 
+
 class Anvil extends McRegion{
 
 	const REGION_FILE_EXTENSION = "mca";
@@ -101,7 +102,7 @@ class Anvil extends McRegion{
 	public function nbtDeserialize(string $data){
 		$nbt = new NBT(NBT::BIG_ENDIAN);
 		try{
-			$nbt->readCompressed($data);
+			$nbt->readCompressed($data, ZLIB_ENCODING_DEFLATE);
 
 			$chunk = $nbt->getData();
 
@@ -126,7 +127,7 @@ class Anvil extends McRegion{
 			}
 
 			if(isset($chunk->BiomeColors)){
-				$biomeIds = ChunkUtils::convertBiomeColors($chunk->BiomeColors->getValue()); //Convert back to original format
+				$biomeIds = ChunkUtils::convertBiomeColors($chunk->BiomeColors->getValue()); //Convert back to PC format (RIP colours D:)
 			}elseif(isset($chunk->Biomes)){
 				$biomeIds = $chunk->Biomes->getValue();
 			}else{
@@ -154,10 +155,6 @@ class Anvil extends McRegion{
 
 	public static function getProviderName() : string{
 		return "anvil";
-	}
-
-	public static function getPcWorldFormatVersion() : int{
-		return 19133; //anvil
 	}
 
 	public function getWorldHeight() : int{

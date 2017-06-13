@@ -2,11 +2,11 @@
 
 /*
  *
- *  ____            _        _   __  __ _                  __  __ ____
- * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
  * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
- * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
- * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,7 +15,7 @@
  *
  * @author PocketMine Team
  * @link http://www.pocketmine.net/
- *
+ * 
  *
 */
 
@@ -24,11 +24,10 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Vector3;
 use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\tile\Chest as TileChest;
@@ -42,11 +41,15 @@ class Chest extends Transparent{
 		$this->meta = $meta;
 	}
 
-	public function getHardness(){
+	public function canBeActivated() : bool {
+		return true;
+	}
+
+	public function getHardness() {
 		return 2.5;
 	}
 
-	public function getName(){
+	public function getName() : string{
 		return "Chest";
 	}
 
@@ -54,7 +57,7 @@ class Chest extends Transparent{
 		return Tool::TYPE_AXE;
 	}
 
-	protected function recalculateBoundingBox(){
+	protected function recalculateBoundingBox() {
 		return new AxisAlignedBB(
 			$this->x + 0.0625,
 			$this->y,
@@ -83,7 +86,7 @@ class Chest extends Transparent{
 				continue;
 			}
 			$c = $this->getSide($side);
-			if($c->getId() === $this->id and $c->getDamage() === $this->meta){
+			if($c instanceof Chest and $c->getDamage() === $this->meta){
 				$tile = $this->getLevel()->getTile($c);
 				if($tile instanceof TileChest and !$tile->isPaired()){
 					$chest = $tile;
@@ -127,14 +130,14 @@ class Chest extends Transparent{
 		if($t instanceof TileChest){
 			$t->unpair();
 		}
-		$this->getLevel()->setBlock($this, Block::get(Block::AIR), true, true);
+		$this->getLevel()->setBlock($this, new Air(), true, true);
 
 		return true;
 	}
 
 	public function onActivate(Item $item, Player $player = null){
 		if($player instanceof Player){
-			$top = $this->getSide(Vector3::SIDE_UP);
+			$top = $this->getSide(1);
 			if($top->isTransparent() !== true){
 				return true;
 			}
@@ -161,15 +164,18 @@ class Chest extends Transparent{
 				}
 			}
 
+			if($player->isCreative() and $player->getServer()->limitedCreative){
+				return true;
+			}
 			$player->addWindow($chest->getInventory());
 		}
 
 		return true;
 	}
 
-	public function getDrops(Item $item){
+	public function getDrops(Item $item) : array {
 		return [
-			Item::get($this->getId(), 0, 1)
+			[$this->id, 0, 1],
 		];
 	}
 }

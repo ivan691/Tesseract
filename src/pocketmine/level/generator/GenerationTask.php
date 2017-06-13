@@ -27,6 +27,7 @@ use pocketmine\level\SimpleChunkManager;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 
+
 class GenerationTask extends AsyncTask{
 
 	public $state;
@@ -75,7 +76,7 @@ class GenerationTask extends AsyncTask{
 				return;
 			}
 			/** @var Chunk $chunk */
-			$chunk = Chunk::fastDeserialize($this->chunk);
+			$chunk = Chunk::fastDeserialize($this->chunk, $level->getProvider());
 			if($chunk === null){
 				//TODO error
 				return;

@@ -105,11 +105,14 @@ class AsyncPool{
 	}
 
 	private function removeTask(AsyncTask $task, $force = false){
+		$task->setGarbage();
+
 		if(isset($this->taskWorkers[$task->getTaskId()])){
 			if(!$force and ($task->isRunning() or !$task->isGarbage())){
 				return;
 			}
 			$this->workerUsage[$this->taskWorkers[$task->getTaskId()]]--;
+			$this->workers[$this->taskWorkers[$task->getTaskId()]]->collector($task);
 		}
 
 		unset($this->tasks[$task->getTaskId()]);
@@ -136,27 +139,16 @@ class AsyncPool{
 
 		$this->taskWorkers = [];
 		$this->tasks = [];
-
-		$this->collectWorkers();
-	}
-
-	private function collectWorkers(){
-		foreach($this->workers as $worker){
-			$worker->collect();
-		}
 	}
 
 	public function collectTasks(){
 		Timings::$schedulerAsyncTimer->startTiming();
 
 		foreach($this->tasks as $task){
-			if(!$task->isGarbage()){
-				$task->checkProgressUpdates($this->server);
-			}
-			if($task->isGarbage() and !$task->isRunning() and !$task->isCrashed()){
+			if($task->isFinished() and !$task->isRunning() and !$task->isCrashed()){
+
 				if(!$task->hasCancelledRun()){
 					$task->onCompletion($this->server);
-					$this->server->getScheduler()->removeLocalComplex($task);
 				}
 
 				$this->removeTask($task);
@@ -165,8 +157,6 @@ class AsyncPool{
 				$this->removeTask($task, true);
 			}
 		}
-
-		$this->collectWorkers();
 
 		Timings::$schedulerAsyncTimer->stopTiming();
 	}

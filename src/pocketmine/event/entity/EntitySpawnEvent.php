@@ -25,13 +25,14 @@ use pocketmine\entity\Creature;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Human;
 use pocketmine\entity\Item;
-use pocketmine\entity\projectile\Projectile;
+use pocketmine\entity\Projectile;
 use pocketmine\entity\Vehicle;
 
 /**
  * Called when a entity is spawned
  */
 class EntitySpawnEvent extends EntityEvent{
+
 	public static $handlerList = null;
 
 	private $entityType;
@@ -91,6 +92,13 @@ class EntitySpawnEvent extends EntityEvent{
 	 */
 	public function isItem(){
 		return $this->entity instanceof Item;
+	}
+
+	/**
+	 * @return EventName|string
+     */
+	public function getName(){
+		return "EntitySpawnEvent";
 	}
 
 }

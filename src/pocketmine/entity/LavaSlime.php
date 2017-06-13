@@ -2,46 +2,42 @@
 
 /*
  *
- *    _______                                _
- *   |__   __|                              | |
- *      | | ___  ___ ___  ___ _ __ __ _  ___| |_
- *      | |/ _ \/ __/ __|/ _ \  __/ _` |/ __| __|
- *      | |  __/\__ \__ \  __/ | | (_| | (__| |_
- *      |_|\___||___/___/\___|_|  \__,_|\___|\__|
- *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
  * 
  *
- */
+*/
 
 namespace pocketmine\entity;
 
-use pocketmine\item\Item as ItemItem;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
 class LavaSlime extends Living{
 	const NETWORK_ID = 42;
-	
-	public $width = 0.3;
-	public $length = 0.9;
-	public $height = 5;
 
+	const DATA_SLIME_SIZE = 16;
+
+	public $dropExp = [1, 4];
 	
-	public function getName(){
+	public function getName() : string{
 		return "LavaSlime";
 	}
 	
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
-		$pk->entityRuntimeId = $this->getId();
+		$pk->eid = $this->getId();
 		$pk->type = LavaSlime::NETWORK_ID;
 		$pk->x = $this->x;
 		$pk->y = $this->y;
@@ -55,13 +51,5 @@ class LavaSlime extends Living{
 		$player->dataPacket($pk);
 
 		parent::spawnTo($player);
-	}
-	
-	public function getDrops(){
-		$drops = [
-			ItemItem::get(ItemItem::MAGMA_CREAM, 0, mt_rand(0 , 1))
-		];
-
-		return $drops;
 	}
 }

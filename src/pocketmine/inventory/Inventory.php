@@ -55,24 +55,24 @@ interface Inventory{
 	 * If a plugin refuses the update or $index is invalid, it'll return false
 	 * If a source Player is specified, it won't send a Inventory update to it
 	 *
-	 * @param int  $index
-	 * @param Item $item
+	 * @param int    $index
+	 * @param Item   $item
 	 *
 	 * @return bool
 	 */
 	public function setItem($index, Item $item);
 
-	/**
-	 * Stores the given Items in the inventory. This will try to fill
-	 * existing stacks and empty slots as well as it can.
-	 *
-	 * Returns the Items that did not fit.
-	 *
-	 * @param Item[] ...$slots
-	 *
-	 * @return Item[]
-	 */
-	public function addItem(Item ...$slots);
+    /**
+     * Stores the given Items in the inventory. This will try to fill
+     * existing stacks and empty slots as well as it can.
+     *
+     * Returns the Items that did not fit.
+     *
+     * @param array $slots
+     * @return Item[]
+     * @internal param Item ...$item
+     */
+	public function addItem(...$slots);
 
 	/**
 	 * Checks if a given Item can be added to the inventory
@@ -83,15 +83,15 @@ interface Inventory{
 	 */
 	public function canAddItem(Item $item);
 
-	/**
-	 * Removes the given Item from the inventory.
-	 * It will return the Items that couldn't be removed.
-	 *
-	 * @param Item[] ...$slots
-	 *
-	 * @return Item[]
-	 */
-	public function removeItem(Item ...$slots);
+    /**
+     * Removes the given Item from the inventory.
+     * It will return the Items that couldn't be removed.
+     *
+     * @param array $slots
+     * @return Item[]
+     * @internal param Item ...$item
+     */
+	public function removeItem(...$slots);
 
 	/**
 	 * @return Item[]
@@ -161,7 +161,7 @@ interface Inventory{
 	/**
 	 * Will clear a specific slot
 	 *
-	 * @param int $index
+	 * @param int    $index
 	 *
 	 * @return bool
 	 */
@@ -212,8 +212,9 @@ interface Inventory{
 	public function onClose(Player $who);
 
 	/**
-	 * @param int  $index
-	 * @param Item $before
+	 * @param int    $index
+	 * @param Item   $before
+	 * @param bool   $send
 	 */
-	public function onSlotChange($index, $before);
+	public function onSlotChange($index, $before, $send);
 }

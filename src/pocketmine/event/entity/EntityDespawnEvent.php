@@ -25,7 +25,7 @@ use pocketmine\entity\Creature;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Human;
 use pocketmine\entity\Item;
-use pocketmine\entity\projectile\Projectile;
+use pocketmine\entity\Projectile;
 use pocketmine\entity\Vehicle;
 
 /**
@@ -84,6 +84,13 @@ class EntityDespawnEvent extends EntityEvent{
 	 */
 	public function isItem(){
 		return $this->entity instanceof Item;
+	}
+
+	/**
+	 * @return EventName|string
+     */
+	public function getName(){
+		return "EntityDespawnEvent";
 	}
 
 }

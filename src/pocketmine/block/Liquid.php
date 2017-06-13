@@ -2,11 +2,11 @@
 
 /*
  *
- *  ____            _        _   __  __ _                  __  __ ____
- * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
  * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
- * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
- * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,15 +15,18 @@
  *
  * @author PocketMine Team
  * @link http://www.pocketmine.net/
- *
+ * 
  *
 */
 
 namespace pocketmine\block;
 
+
 use pocketmine\entity\Entity;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
+use pocketmine\level\particle\SmokeParticle;
+use pocketmine\level\sound\FizzSound;
 use pocketmine\math\Vector3;
 
 abstract class Liquid extends Transparent{
@@ -176,10 +179,10 @@ abstract class Liquid extends Transparent{
 		$vector->z += $flow->z;
 	}
 
-	public function tickRate(){
-		if($this instanceof FlowingWater){
+	public function tickRate() : int{
+		if($this instanceof Water){
 			return 5;
-		}elseif($this instanceof FlowingLava){
+		}elseif($this instanceof Lava){
 			return 30;
 		}
 
@@ -189,14 +192,14 @@ abstract class Liquid extends Transparent{
 	public function onUpdate($type){
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			$this->checkForHarden();
-			$this->getLevel()->scheduleDelayedBlockUpdate($this, $this->tickRate());
+			$this->getLevel()->scheduleUpdate($this, $this->tickRate());
 		}elseif($type === Level::BLOCK_UPDATE_SCHEDULED){
 			if($this->temporalVector === null){
 				$this->temporalVector = new Vector3(0, 0, 0);
 			}
 
 			$decay = $this->getFlowDecay($this);
-			$multiplier = $this instanceof FlowingLava ? 2 : 1;
+			$multiplier = $this instanceof Lava ? 2 : 1;
 
 			$flag = true;
 
@@ -214,7 +217,7 @@ abstract class Liquid extends Transparent{
 					$k = -1;
 				}
 
-				if(($topFlowDecay = $this->getFlowDecay($this->level->getBlock($this->temporalVector->setComponents($this->x, $this->y + 1, $this->z)))) >= 0){
+				if(($topFlowDecay = $this->getFlowDecay($this->level->getBlock($this->level->getBlock($this->temporalVector->setComponents($this->x, $this->y + 1, $this->z))))) >= 0){
 					if($topFlowDecay >= 8){
 						$k = $topFlowDecay;
 					}else{
@@ -222,16 +225,16 @@ abstract class Liquid extends Transparent{
 					}
 				}
 
-				if($this->adjacentSources >= 2 and $this instanceof FlowingWater){
-					$bottomBlock = $this->level->getBlock($this->temporalVector->setComponents($this->x, $this->y - 1, $this->z));
+				if($this->adjacentSources >= 2 and $this instanceof Water){
+					$bottomBlock = $this->level->getBlock($this->level->getBlock($this->temporalVector->setComponents($this->x, $this->y - 1, $this->z)));
 					if($bottomBlock->isSolid()){
 						$k = 0;
-					}elseif($bottomBlock instanceof FlowingWater and $bottomBlock->getDamage() === 0){
+					}elseif($bottomBlock instanceof Water and $bottomBlock->getDamage() === 0){
 						$k = 0;
 					}
 				}
 
-				if($this instanceof FlowingLava and $decay < 8 and $k < 8 and $k > 1 and mt_rand(0, 4) !== 0){
+				if($this instanceof Lava and $decay < 8 and $k < 8 and $k > 1 and mt_rand(0, 4) !== 0){
 					$k = $decay;
 					$flag = false;
 				}
@@ -239,10 +242,10 @@ abstract class Liquid extends Transparent{
 				if($k !== $decay){
 					$decay = $k;
 					if($decay < 0){
-						$this->getLevel()->setBlock($this, Block::get(Block::AIR), true, true);
+						$this->getLevel()->setBlock($this, new Air(), true);
 					}else{
-						$this->getLevel()->setBlock($this, Block::get($this->id, $decay), true, true);
-						$this->getLevel()->scheduleDelayedBlockUpdate($this, $this->tickRate());
+						$this->getLevel()->setBlock($this, Block::get($this->id, $decay), true);
+						$this->getLevel()->scheduleUpdate($this, $this->tickRate());
 					}
 				}elseif($flag){
 					//$this->getLevel()->scheduleUpdate($this, $this->tickRate());
@@ -254,13 +257,22 @@ abstract class Liquid extends Transparent{
 
 			$bottomBlock = $this->level->getBlock($this->temporalVector->setComponents($this->x, $this->y - 1, $this->z));
 
-			if($this instanceof FlowingLava and $bottomBlock instanceof FlowingWater){
-				$this->getLevel()->setBlock($bottomBlock, Block::get(Block::STONE), true, true);
+			if($bottomBlock->canBeFlowedInto() or $bottomBlock instanceof Liquid){
+				if($this instanceof Lava and $bottomBlock instanceof Water){
+					$this->getLevel()->setBlock($bottomBlock, Block::get(Item::STONE), true);
+					$this->triggerLavaMixEffects($bottomBlock);
+					return;
+				}
 
-			}elseif($bottomBlock->canBeFlowedInto() or ($bottomBlock instanceof Liquid and ($bottomBlock->getDamage() & 0x07) !== 0)){
-				$this->getLevel()->setBlock($bottomBlock, Block::get($this->id, $decay | 0x08), true, false);
-				$this->getLevel()->scheduleDelayedBlockUpdate($bottomBlock, $this->tickRate());
-
+				if($decay >= 8){
+					//$this->getLevel()->setBlock($bottomBlock, Block::get($this->id, $decay), true);
+					//$this->getLevel()->scheduleUpdate($bottomBlock, $this->tickRate());
+					$this->flowIntoBlock($bottomBlock, $decay);
+				}else{
+					//$this->getLevel()->setBlock($bottomBlock, Block::get($this->id, $decay + 8), true);
+					//$this->getLevel()->scheduleUpdate($bottomBlock, $this->tickRate());
+					$this->flowIntoBlock($bottomBlock, $decay | 0x08);
+				}
 			}elseif($decay >= 0 and ($decay === 0 or !$bottomBlock->canBeFlowedInto())){
 				$flags = $this->getOptimalFlowDirections();
 
@@ -299,12 +311,14 @@ abstract class Liquid extends Transparent{
 
 	private function flowIntoBlock(Block $block, $newFlowDecay){
 		if($block->canBeFlowedInto()){
-			if($block->getId() > 0){
+			if($block instanceof Lava){
+				$this->triggerLavaMixEffects($block);
+			}elseif($block->getId() > 0){
 				$this->getLevel()->useBreakOn($block);
 			}
 
-			$this->getLevel()->setBlock($block, Block::get($this->getId(), $newFlowDecay), true, false);
-			$this->getLevel()->scheduleDelayedBlockUpdate($block, $this->tickRate());
+			$this->getLevel()->setBlock($block, Block::get($this->getId(), $newFlowDecay), true);
+			$this->getLevel()->scheduleUpdate($block, $this->tickRate());
 		}
 	}
 
@@ -356,7 +370,7 @@ abstract class Liquid extends Transparent{
 		return $cost;
 	}
 
-	public function getHardness(){
+	public function getHardness() {
 		return 100;
 	}
 
@@ -424,18 +438,19 @@ abstract class Liquid extends Transparent{
 	}
 
 	private function checkForHarden(){
-		if($this instanceof FlowingLava){
+		if($this instanceof Lava){
 			$colliding = false;
 			for($side = 0; $side <= 5 and !$colliding; ++$side){
-				$colliding = $this->getSide($side) instanceof FlowingWater;
+				$colliding = $this->getSide($side) instanceof Water;
 			}
 
 			if($colliding){
 				if($this->getDamage() === 0){
-					$this->getLevel()->setBlock($this, Block::get(Item::OBSIDIAN), true, true);
+					$this->getLevel()->setBlock($this, Block::get(Item::OBSIDIAN), true);
 				}elseif($this->getDamage() <= 4){
-					$this->getLevel()->setBlock($this, Block::get(Item::COBBLESTONE), true, true);
+					$this->getLevel()->setBlock($this, Block::get(Item::COBBLESTONE), true);
 				}
+				$this->triggerLavaMixEffects($this);
 			}
 		}
 	}
@@ -444,7 +459,20 @@ abstract class Liquid extends Transparent{
 		return null;
 	}
 
-	public function getDrops(Item $item){
+	public function getDrops(Item $item) : array {
 		return [];
+	}
+
+	/**
+	 * Creates fizzing sound and smoke. Used when lava flows over block or mixes with water.
+	 *
+	 * @param Vector3 $pos
+	 */
+	protected function triggerLavaMixEffects(Vector3 $pos){
+		$this->getLevel()->addSound(new FizzSound($pos->add(0.5, 0.5, 0.5), 2.5 + mt_rand(0, 1000) / 1000 * 0.8));
+
+		for($i = 0; $i < 8; ++$i){
+			$this->getLevel()->addParticle(new SmokeParticle($pos->add(mt_rand(0, 80) / 100, 0.5, mt_rand(0, 80) / 100)));
+		}
 	}
 }

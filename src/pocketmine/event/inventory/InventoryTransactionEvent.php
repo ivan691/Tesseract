@@ -23,30 +23,47 @@ namespace pocketmine\event\inventory;
 
 use pocketmine\event\Cancellable;
 use pocketmine\event\Event;
-use pocketmine\inventory\TransactionGroup;
+use pocketmine\inventory\TransactionQueue;
 
 /**
- * Called when there is a transaction between two Inventory objects.
- * The source of this can be a Player, entities, mobs, or even hoppers in the future!
+ * Called when an inventory transaction queue starts execution. 
  */
+
 class InventoryTransactionEvent extends Event implements Cancellable{
+
 	public static $handlerList = null;
+	
+	/** @var TransactionQueue */
+	private $transactionQueue;
 
-	/** @var TransactionGroup */
-	private $ts;
-
-	/**
-	 * @param TransactionGroup $ts
-	 */
-	public function __construct(TransactionGroup $ts){
-		$this->ts = $ts;
+    /**
+     * @param TransactionQueue $transactionQueue
+     * @internal param TransactionQueue $ts
+     */
+	public function __construct(TransactionQueue $transactionQueue){
+		$this->transactionQueue = $transactionQueue;
 	}
 
 	/**
-	 * @return TransactionGroup
+	 * @deprecated
+	 * @return TransactionQueue
 	 */
 	public function getTransaction(){
-		return $this->ts;
+		return $this->transactionQueue;
+	}
+
+	/**
+	 * @return TransactionQueue
+	 */
+	public function getQueue(){
+		return $this->transactionQueue;
+	}
+
+	/**
+	 * @return EventName|string
+     */
+	public function getName(){
+		return "InventoryTransactionEvent";
 	}
 
 }

@@ -21,8 +21,9 @@
 
 namespace pocketmine\event;
 
+
 use pocketmine\entity\Entity;
-use pocketmine\network\mcpe\protocol\DataPacket;
+use pocketmine\network\protocol\DataPacket;
 use pocketmine\Player;
 use pocketmine\plugin\PluginManager;
 use pocketmine\scheduler\PluginTask;
@@ -104,7 +105,7 @@ abstract class Timings{
 	/** @var TimingsHandler */
 	public static $playerCommandTimer;
 
-	/** @var TimingsHandler */
+    /** @var TimingsHandler */
 	public static $craftingDataCacheRebuildTimer;
 
 	/** @var TimingsHandler[] */
@@ -161,7 +162,7 @@ abstract class Timings{
 		self::$schedulerAsyncTimer = new TimingsHandler("** Scheduler - Async Tasks");
 
 		self::$playerCommandTimer = new TimingsHandler("** playerCommand");
-		self::$craftingDataCacheRebuildTimer = new TimingsHandler("** craftingDataCacheRebuild");
+        self::$craftingDataCacheRebuildTimer = new TimingsHandler("** craftingDataCacheRebuild");
 
 	}
 

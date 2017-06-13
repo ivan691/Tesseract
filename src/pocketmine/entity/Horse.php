@@ -23,25 +23,39 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\item\Item as ItemItem;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
 use pocketmine\Player;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\network\protocol\MobArmorEquipmentPacket;
 
-class Horse extends Animal{
+class Horse extends Living{
+
 	const NETWORK_ID = 23;
 
-	public $width = 0.3;
-	public $length = 0.9;
-	public $height = 2.8;
-	
-	public function getName(){
+	public function getName() : string{
 		return "Horse";
+	}
+	
+	public function setChestPlate($id){
+		/*	
+		416, 417, 418, 419 only
+		*/
+		$pk = new MobArmorEquipmentPacket();
+		$pk->eid = $this->getId();
+		$pk->slots = [
+		ItemItem::get(0,0),
+		ItemItem::get($id,0),
+		ItemItem::get(0,0),
+		ItemItem::get(0,0)
+		];
+		foreach($this->level->getPlayers() as $player){
+			$player->dataPacket($pk);
+		}
 	}
 	
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
-		$pk->entityRuntimeId = $this->getId();
-		$pk->type = Horse::NETWORK_ID;
+		$pk->eid = $this->getId();
+		$pk->type = self::NETWORK_ID;
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
@@ -55,12 +69,5 @@ class Horse extends Animal{
 
 		parent::spawnTo($player);
 	}
-	
-	public function getDrops(){
-		$drops = [
-			ItemItem::get(ItemItem::LEATHER, 0, mt_rand(1 , 2))
-		];
 
-		return $drops;
-	}
 }
