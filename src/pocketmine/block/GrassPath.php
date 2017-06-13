@@ -22,14 +22,14 @@
 namespace pocketmine\block;
 
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 use pocketmine\level\Level;
 use pocketmine\math\AxisAlignedBB;
 
 
-class GrassPath extends Transparent{
+class GrassPath extends Transparent {
 
 	protected $id = self::GRASS_PATH;
 
@@ -62,10 +62,8 @@ class GrassPath extends Transparent{
 			if($block->getId() != self::AIR){
 				$this->getLevel()->setBlock($this, new Dirt(), true);
 			}
-
 			return Level::BLOCK_UPDATE_NORMAL;
 		}
-
 		return false;
 	}
 

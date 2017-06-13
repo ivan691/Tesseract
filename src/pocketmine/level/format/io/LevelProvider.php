@@ -27,10 +27,10 @@ use pocketmine\level\format\Chunk;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 
-interface LevelProvider{
+interface LevelProvider {
 
 	/**
-	 * @param Level  $level
+	 * @param Level $level
 	 * @param string $path
 	 */
 	public function __construct(Level $level, string $path);
@@ -67,11 +67,11 @@ interface LevelProvider{
 	/**
 	 * Generate the needed files in the path given
 	 *
-	 * @param string     $path
-	 * @param string     $name
+	 * @param string $path
+	 * @param string $name
 	 * @param int|string $seed
-	 * @param string     $generator
-	 * @param array[]    $options
+	 * @param string $generator
+	 * @param array[] $options
 	 */
 	public static function generate(string $path, string $name, $seed, string $generator, array $options = []);
 
@@ -91,8 +91,8 @@ interface LevelProvider{
 	 * Gets the Chunk object
 	 * This method must be implemented by all the level formats.
 	 *
-	 * @param int  $chunkX
-	 * @param int  $chunkZ
+	 * @param int $chunkX
+	 * @param int $chunkZ
 	 * @param bool $create
 	 *
 	 * @return Chunk|null
@@ -100,8 +100,8 @@ interface LevelProvider{
 	public function getChunk(int $chunkX, int $chunkZ, bool $create = false);
 
 	/**
-	 * @param int   $chunkX
-	 * @param int   $chunkZ
+	 * @param int $chunkX
+	 * @param int $chunkZ
 	 * @param Chunk $chunk
 	 */
 	public function setChunk(int $chunkX, int $chunkZ, Chunk $chunk);
@@ -117,8 +117,8 @@ interface LevelProvider{
 	public function saveChunks();
 
 	/**
-	 * @param int  $chunkX
-	 * @param int  $chunkZ
+	 * @param int $chunkX
+	 * @param int $chunkZ
 	 * @param bool $create
 	 *
 	 * @return bool
@@ -126,8 +126,8 @@ interface LevelProvider{
 	public function loadChunk(int $chunkX, int $chunkZ, bool $create = false) : bool;
 
 	/**
-	 * @param int  $chunkX
-	 * @param int  $chunkZ
+	 * @param int $chunkX
+	 * @param int $chunkZ
 	 * @param bool $safe
 	 *
 	 * @return bool

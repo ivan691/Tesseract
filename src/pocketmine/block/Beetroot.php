@@ -23,7 +23,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Item;
 
-class Beetroot extends Crops{
+class Beetroot extends Crops {
 
 	protected $id = self::BEETROOT_BLOCK;
 

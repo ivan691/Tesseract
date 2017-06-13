@@ -24,14 +24,14 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\level\Level;
+use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
-use pocketmine\math\Vector3;
 use pocketmine\tile\Tile;
 
-class SignPost extends Transparent{
+class SignPost extends Transparent {
 
 	protected $id = self::SIGN_POST;
 
@@ -90,7 +90,6 @@ class SignPost extends Transparent{
 			Tile::createTile(Tile::SIGN, $this->getLevel(), $nbt);
 
 			return true;
-
 		}
 
 		return false;
@@ -104,7 +103,6 @@ class SignPost extends Transparent{
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
-
 		return false;
 	}
 

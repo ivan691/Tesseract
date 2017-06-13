@@ -29,12 +29,11 @@ use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\IntTag;
-
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 
-class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
+class Chest extends Spawnable implements InventoryHolder, Container, Nameable {
 
 	/** @var ChestInventory */
 	protected $inventory;
@@ -115,7 +114,7 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 	/**
 	 * This method should not be used by plugins, use the Inventory
 	 *
-	 * @param int  $index
+	 * @param int $index
 	 * @param Item $item
 	 *
 	 * @return bool
@@ -148,7 +147,6 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 		if($this->isPaired() and $this->doubleInventory === null){
 			$this->checkPairing();
 		}
-
 		return $this->doubleInventory instanceof DoubleChestInventory ? $this->doubleInventory : $this->inventory;
 	}
 
@@ -204,7 +202,6 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
-
 			return;
 		}
 

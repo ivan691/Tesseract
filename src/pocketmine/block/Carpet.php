@@ -26,7 +26,7 @@ use pocketmine\level\Level;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\Player;
 
-class Carpet extends Flowable{
+class Carpet extends Flowable {
 
 	protected $id = self::CARPET;
 
@@ -61,7 +61,6 @@ class Carpet extends Flowable{
 			14 => "Red Carpet",
 			15 => "Black Carpet",
 		];
-
 		return $names[$this->meta & 0x0f];
 	}
 

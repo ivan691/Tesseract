@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\math\Vector3;
 
-class Obsidian extends Solid{
+class Obsidian extends Solid {
 
 	protected $id = self::OBSIDIAN;
 
@@ -47,7 +47,7 @@ class Obsidian extends Solid{
 	}
 
 	public function getHardness(){
-		return 50;
+		return 35;
 	}
 
 	public function getDrops(Item $item) : array{

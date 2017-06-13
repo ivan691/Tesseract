@@ -23,13 +23,12 @@ namespace pocketmine\block;
 
 
 use pocketmine\item\Item;
-
 use pocketmine\level\Level;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 
-class WaterLily extends Flowable{
+class WaterLily extends Flowable {
 
 	protected $id = self::WATER_LILY;
 
@@ -74,7 +73,6 @@ class WaterLily extends Flowable{
 			$up = $target->getSide(Vector3::SIDE_UP);
 			if($up->getId() === Block::AIR){
 				$this->getLevel()->setBlock($up, $this, true, true);
-
 				return true;
 			}
 		}
@@ -86,7 +84,6 @@ class WaterLily extends Flowable{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if(!($this->getSide(0) instanceof Water)){
 				$this->getLevel()->useBreakOn($this);
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}

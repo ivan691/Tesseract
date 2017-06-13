@@ -24,7 +24,7 @@ namespace pocketmine\level\generator\biome;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\utils\Random;
 
-class BiomeSelector{
+class BiomeSelector {
 
 	/** @var Biome */
 	private $fallback;
@@ -38,7 +38,6 @@ class BiomeSelector{
 	private $biomes = [];
 
 	private $map = [];
-
 
 	public function __construct(Random $random, Biome $fallback){
 		$this->fallback = $fallback;
@@ -117,7 +116,6 @@ class BiomeSelector{
 		$rainfall = (int) ($this->getRainfall($x, $z) * 63);
 
 		$biomeId = $this->map[$temperature + ($rainfall << 6)];
-
 		return isset($this->biomes[$biomeId]) ? $this->biomes[$biomeId] : $this->fallback;
 	}
 }

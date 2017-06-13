@@ -25,8 +25,7 @@ use pocketmine\event\Cancellable;
 use pocketmine\level\Location;
 use pocketmine\Player;
 
-class PlayerMoveEvent extends PlayerEvent implements Cancellable{
-
+class PlayerMoveEvent extends PlayerEvent implements Cancellable {
 	public static $handlerList = null;
 
 	private $from;
@@ -53,12 +52,4 @@ class PlayerMoveEvent extends PlayerEvent implements Cancellable{
 	public function setTo(Location $to){
 		$this->to = $to;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "PlayerMoveEvent";
-	}
-
 }

@@ -27,7 +27,7 @@ use pocketmine\block\Block;
 use pocketmine\level\format\Chunk;
 use pocketmine\math\Vector3;
 
-class SimpleChunkManager implements ChunkManager{
+class SimpleChunkManager implements ChunkManager {
 
 	/** @var Chunk[] */
 	protected $chunks = [];
@@ -57,7 +57,6 @@ class SimpleChunkManager implements ChunkManager{
 		if($chunk = $this->getChunk($x >> 4, $z >> 4)){
 			return $chunk->getBlockId($x & 0xf, $y & Level::Y_MASK, $z & 0xf);
 		}
-
 		return 0;
 	}
 
@@ -88,7 +87,6 @@ class SimpleChunkManager implements ChunkManager{
 		if($chunk = $this->getChunk($x >> 4, $z >> 4)){
 			return $chunk->getBlockData($x & 0xf, $y & Level::Y_MASK, $z & 0xf);
 		}
-
 		return 0;
 	}
 
@@ -119,7 +117,6 @@ class SimpleChunkManager implements ChunkManager{
 		if($chunk = $this->getChunk($x >> 4, $z >> 4)){
 			return $chunk->getBlockLight($x & 0x0f, $y & 0x7f, $z & 0x0f);
 		}
-
 		return 0;
 	}
 
@@ -242,14 +239,13 @@ class SimpleChunkManager implements ChunkManager{
 	}
 
 	/**
-	 * @param int   $chunkX
-	 * @param int   $chunkZ
+	 * @param int $chunkX
+	 * @param int $chunkZ
 	 * @param Chunk $chunk
 	 */
 	public function setChunk(int $chunkX, int $chunkZ, Chunk $chunk = null){
 		if($chunk === null){
 			unset($this->chunks[Level::chunkHash($chunkX, $chunkZ)]);
-
 			return;
 		}
 		$this->chunks[Level::chunkHash($chunkX, $chunkZ)] = $chunk;

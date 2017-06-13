@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class IronBars extends Thin{
+class IronBars extends Thin {
 
 	protected $id = self::IRON_BARS;
 

@@ -22,7 +22,7 @@
 namespace pocketmine\item;
 
 
-class Coal extends Item{
+class Coal extends Item {
 	const NORMAL = 0;
 	const CHARCOAL = 1;
 

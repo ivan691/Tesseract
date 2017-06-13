@@ -25,10 +25,10 @@ use pocketmine\nbt\NBT;
 
 #include <rules/NBT.h>
 
-class CompoundTag extends NamedTag implements \ArrayAccess{
+class CompoundTag extends NamedTag implements \ArrayAccess {
 
 	/**
-	 * @param string     $name
+	 * @param string $name
 	 * @param NamedTag[] $value
 	 */
 	public function __construct($name = "", $value = []){
@@ -108,7 +108,6 @@ class CompoundTag extends NamedTag implements \ArrayAccess{
 				$str .= get_class($tag) . ":" . $tag->__toString() . "\n";
 			}
 		}
-
 		return $str . "}";
 	}
 }

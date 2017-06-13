@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class ExplodePacket extends DataPacket{
+class ExplodePacket extends DataPacket {
 
 	const NETWORK_ID = Info::EXPLODE_PACKET;
 
@@ -36,7 +36,6 @@ class ExplodePacket extends DataPacket{
 
 	public function clean(){
 		$this->records = [];
-
 		return parent::clean();
 	}
 
@@ -51,16 +50,8 @@ class ExplodePacket extends DataPacket{
 		$this->putUnsignedVarInt(count($this->records));
 		if(count($this->records) > 0){
 			foreach($this->records as $record){
-				$this->putBlockCoords($record->x, $record->y, $record->z);
+				$this->putBlockPosition($record->x, $record->y, $record->z);
 			}
 		}
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "ExplodePacket";
-	}
-
 }

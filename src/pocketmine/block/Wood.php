@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\Player;
 
-class Wood extends Solid{
+class Wood extends Solid {
 	const OAK = 0;
 	const SPRUCE = 1;
 	const BIRCH = 2;
@@ -50,7 +50,6 @@ class Wood extends Solid{
 			self::BIRCH => "Birch Wood",
 			self::JUNGLE => "Jungle Wood",
 		];
-
 		return $names[$this->meta & 0x03];
 	}
 

@@ -27,8 +27,7 @@ use pocketmine\event\Cancellable;
 /**
  * Called when a entity decides to explode
  */
-class ExplosionPrimeEvent extends EntityEvent implements Cancellable{
-
+class ExplosionPrimeEvent extends EntityEvent implements Cancellable {
 	public static $handlerList = null;
 
 	protected $force;
@@ -37,8 +36,8 @@ class ExplosionPrimeEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @param Entity $entity
-	 * @param float  $force
-	 * @param bool   $dropItem
+	 * @param float $force
+	 * @param bool $dropItem
 	 */
 	public function __construct(Entity $entity, $force, bool $dropItem){
 		$this->entity = $entity;
@@ -78,13 +77,6 @@ class ExplosionPrimeEvent extends EntityEvent implements Cancellable{
 	 */
 	public function setBlockBreaking($affectsBlocks){
 		$this->blockBreaking = (bool) $affectsBlocks;
-	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "ExplosionPrimeEvent";
 	}
 
 }

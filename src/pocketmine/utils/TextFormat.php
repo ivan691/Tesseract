@@ -24,7 +24,7 @@ namespace pocketmine\utils;
 /**
  * Class used to handle Minecraft chat format, and convert it to other formats like ANSI or HTML
  */
-abstract class TextFormat{
+abstract class TextFormat {
 	const ESCAPE = "\xc2\xa7"; //§
 
 	const BLACK = TextFormat::ESCAPE . "0";
@@ -66,7 +66,7 @@ abstract class TextFormat{
 	 * Cleans the string from Minecraft codes and ANSI Escape Codes
 	 *
 	 * @param string $string
-	 * @param bool   $removeFormat
+	 * @param bool $removeFormat
 	 *
 	 * @return mixed
 	 */
@@ -74,7 +74,6 @@ abstract class TextFormat{
 		if($removeFormat){
 			return str_replace(TextFormat::ESCAPE, "", preg_replace(["/" . TextFormat::ESCAPE . "[0123456789abcdefklmnor]/", "/\x1b[\\(\\][[0-9;\\[\\(]+[Bm]/"], "", $string));
 		}
-
 		return str_replace("\x1b", "", preg_replace("/\x1b[\\(\\][[0-9;\\[\\(]+[Bm]/", "", $string));
 	}
 

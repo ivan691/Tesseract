@@ -37,7 +37,7 @@ use pocketmine\tile\Spawnable;
 use pocketmine\tile\Tile;
 use pocketmine\utils\BinaryStream;
 
-class Chunk{
+class Chunk {
 
 	const MAX_SUBCHUNKS = 16;
 
@@ -82,15 +82,13 @@ class Chunk{
 	protected $NBTentities = [];
 
 	/**
-	 * @param int           $chunkX
-	 * @param int           $chunkZ
-	 * @param SubChunk[]    $subChunks
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param SubChunk[] $subChunks
 	 * @param CompoundTag[] $entities
 	 * @param CompoundTag[] $tiles
-	 * @param string        $biomeIds
-	 * @param int[]         $heightMap
-	 *
-	 * @internal param LevelProvider $provider
+	 * @param string $biomeIds
+	 * @param int[] $heightMap
 	 */
 	public function __construct(int $chunkX, int $chunkZ, array $subChunks = [], array $entities = [], array $tiles = [], string $biomeIds = "", array $heightMap = []){
 		$this->x = $chunkX;
@@ -186,9 +184,9 @@ class Chunk{
 	/**
 	 * Sets block ID and meta in one call at the specified chunk block coordinates
 	 *
-	 * @param int      $x 0-15
-	 * @param int      $y
-	 * @param int      $z 0-15
+	 * @param int $x 0-15
+	 * @param int $y
+	 * @param int $z 0-15
 	 * @param int|null $blockId 0-255 if null, does not change
 	 * @param int|null $meta 0-15 if null, does not change
 	 *
@@ -197,10 +195,8 @@ class Chunk{
 	public function setBlock(int $x, int $y, int $z, $blockId = null, $meta = null) : bool{
 		if($this->getSubChunk($y >> 4, true)->setBlock($x, $y & 0x0f, $z, $blockId !== null ? ($blockId & 0xff) : null, $meta !== null ? ($meta & 0x0f) : null)){
 			$this->hasChanged = true;
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -326,7 +322,7 @@ class Chunk{
 	 * @return int 0-15
 	 */
 	public function getBlockLight(int $x, int $y, int $z) : int{
-		return $this->getSubChunk($y >> 4, true)->getBlockLight($x, $y & 0x0f, $z);
+		return $this->getSubChunk($y >> 4)->getBlockLight($x, $y & 0x0f, $z);
 	}
 
 	/**
@@ -338,7 +334,7 @@ class Chunk{
 	 * @param int $level 0-15
 	 */
 	public function setBlockLight(int $x, int $y, int $z, int $level){
-		if($this->getSubChunk($y >> 4, true)->setBlockLight($x, $y & 0x0f, $z, $level)){
+		if($this->getSubChunk($y >> 4)->setBlockLight($x, $y & 0x0f, $z, $level)){
 			$this->hasChanged = true;
 		}
 	}
@@ -346,8 +342,8 @@ class Chunk{
 	/**
 	 * Returns the Y coordinate of the highest non-air block at the specified X/Z chunk block coordinates
 	 *
-	 * @param int  $x 0-15
-	 * @param int  $z 0-15
+	 * @param int $x 0-15
+	 * @param int $z 0-15
 	 * @param bool $useHeightMap whether to use pre-calculated heightmap values or not
 	 *
 	 * @return int
@@ -376,7 +372,6 @@ class Chunk{
 		}
 
 		$this->setHeightMap($x, $z, $height);
-
 		return $height;
 	}
 
@@ -394,7 +389,6 @@ class Chunk{
 
 	/**
 	 * Returns the heightmap value at the specified X/Z chunk block coordinates
-	 *
 	 * @param int $x 0-15
 	 * @param int $z 0-15
 	 * @param int $value
@@ -426,6 +420,8 @@ class Chunk{
 
 				$y = ($this->getHighestSubChunkIndex() + 1) << 4;
 
+				//TODO: replace a section of the array with a string in one call to improve performance
+
 				for(; $y > $heightMap; --$y){
 					$this->setBlockSkyLight($x, $y, $z, 15);
 				}
@@ -433,7 +429,6 @@ class Chunk{
 				for(; $y > 0 and $this->getBlockId($x, $y, $z) === Block::AIR; --$y){
 					$this->setBlockSkyLight($x, $y, $z, 15);
 				}
-
 				$this->setHeightMap($x, $z, $y);
 
 				for(; $y > 0; --$y){
@@ -469,7 +464,6 @@ class Chunk{
 
 	/**
 	 * Returns a column of block IDs from bottom to top at the specified X/Z chunk block coordinates.
-	 *
 	 * @param int $x 0-15
 	 * @param int $z 0-15
 	 *
@@ -480,13 +474,11 @@ class Chunk{
 		foreach($this->subChunks as $subChunk){
 			$result .= $subChunk->getBlockIdColumn($x, $z);
 		}
-
 		return $result;
 	}
 
 	/**
 	 * Returns a column of block meta values from bottom to top at the specified X/Z chunk block coordinates.
-	 *
 	 * @param int $x 0-15
 	 * @param int $z 0-15
 	 *
@@ -497,13 +489,11 @@ class Chunk{
 		foreach($this->subChunks as $subChunk){
 			$result .= $subChunk->getBlockDataColumn($x, $z);
 		}
-
 		return $result;
 	}
 
 	/**
 	 * Returns a column of sky light values from bottom to top at the specified X/Z chunk block coordinates.
-	 *
 	 * @param int $x 0-15
 	 * @param int $z 0-15
 	 *
@@ -514,13 +504,11 @@ class Chunk{
 		foreach($this->subChunks as $subChunk){
 			$result .= $subChunk->getSkyLightColumn($x, $z);
 		}
-
 		return $result;
 	}
 
 	/**
 	 * Returns a column of block light values from bottom to top at the specified X/Z chunk block coordinates.
-	 *
 	 * @param int $x 0-15
 	 * @param int $z 0-15
 	 *
@@ -531,7 +519,6 @@ class Chunk{
 		foreach($this->subChunks as $subChunk){
 			$result .= $subChunk->getBlockLightColumn($x, $z);
 		}
-
 		return $result;
 	}
 
@@ -649,19 +636,17 @@ class Chunk{
 	 */
 	public function getTile(int $x, int $y, int $z){
 		$index = ($x << 12) | ($z << 8) | $y;
-
 		return $this->tileList[$index] ?? null;
 	}
 
 	/**
 	 * Unloads the chunk, closing entities and tiles.
 	 *
-	 * @param bool $save
 	 * @param bool $safe Whether to check if there are still players using this chunk
 	 *
 	 * @return bool
 	 */
-	public function unload(bool $save = true, bool $safe = true) : bool{
+	public function unload(bool $safe = true) : bool{
 		if($safe){
 			foreach($this->getEntities() as $entity){
 				if($entity instanceof Player){
@@ -676,6 +661,7 @@ class Chunk{
 			}
 			$entity->close();
 		}
+
 		foreach($this->getTiles() as $tile){
 			$tile->close();
 		}
@@ -705,9 +691,7 @@ class Chunk{
 							continue; //Fixes entities allocated in wrong chunks.
 						}
 
-						if(($entity = Entity::createEntity($nbt["id"], $level, $nbt)) instanceof Entity){
-							$entity->spawnToAll();
-						}else{
+						if(!(($entity = Entity::createEntity($nbt["id"], $level, $nbt)) instanceof Entity)){
 							$changed = true;
 							continue;
 						}
@@ -785,7 +769,7 @@ class Chunk{
 	/**
 	 * Returns the subchunk at the specified subchunk Y coordinate, or an empty, unmodifiable stub if it does not exist or the coordinate is out of range.
 	 *
-	 * @param int  $y
+	 * @param int $y
 	 * @param bool $generateNew Whether to create a new, modifiable subchunk if there is not one in place
 	 *
 	 * @return SubChunk|EmptySubChunk
@@ -797,16 +781,14 @@ class Chunk{
 			$this->subChunks[$y] = new SubChunk();
 		}
 		assert($this->subChunks[$y] !== null, "Somehow something broke, no such subchunk at index $y");
-
 		return $this->subChunks[$y];
 	}
 
 	/**
 	 * Sets a subchunk in the chunk index
-	 *
-	 * @param int           $y
+	 * @param int $y
 	 * @param SubChunk|null $subChunk
-	 * @param bool          $allowEmpty Whether to check if the chunk is empty, and if so replace it with an empty stub
+	 * @param bool $allowEmpty Whether to check if the chunk is empty, and if so replace it with an empty stub
 	 *
 	 * @return bool
 	 */
@@ -820,7 +802,6 @@ class Chunk{
 			$this->subChunks[$y] = $subChunk;
 		}
 		$this->hasChanged = true;
-
 		return true;
 	}
 
@@ -938,9 +919,8 @@ class Chunk{
 		$stream->putByte($count);
 		$stream->put($subChunks);
 		$stream->put(pack("C*", ...$this->heightMap) .
-		             $this->biomeIds .
-		             chr(($this->lightPopulated ? 1 << 2 : 0) | ($this->terrainPopulated ? 1 << 1 : 0) | ($this->terrainGenerated ? 1 : 0)));
-
+			$this->biomeIds .
+			chr(($this->lightPopulated ? 1 << 2 : 0) | ($this->terrainPopulated ? 1 << 1 : 0) | ($this->terrainGenerated ? 1 : 0)));
 		return $stream->getBuffer();
 	}
 
@@ -970,7 +950,6 @@ class Chunk{
 		$chunk->lightPopulated = (bool) ($flags & 4);
 		$chunk->terrainPopulated = (bool) ($flags & 2);
 		$chunk->terrainGenerated = (bool) ($flags & 1);
-
 		return $chunk;
 	}
 
@@ -992,4 +971,5 @@ class Chunk{
 	public static function chunkBlockHash(int $x, int $y, int $z) : int{
 		return ($x << 12) | ($z << 8) | $y;
 	}
+
 }

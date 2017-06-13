@@ -22,12 +22,12 @@
 
 namespace pocketmine\item;
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\utils\Color;
-use pocketmine\item\enchantment\Enchantment;
 
-abstract class Armor extends Item{
+abstract class Armor extends Item {
 	const TIER_LEATHER = 1;
 	const TIER_GOLD = 2;
 	const TIER_CHAIN = 3;
@@ -50,7 +50,7 @@ abstract class Armor extends Item{
 	/**
 	 *
 	 * @param Item $object
-	 * @param int  $cost
+	 * @param int $cost
 	 *
 	 * @return bool
 	 */
@@ -72,13 +72,11 @@ abstract class Armor extends Item{
 		if($this->getDamage() >= $this->getMaxDurability()){
 			$this->setCount(0);
 		}
-
 		return true;
 	}
 
 	public function isUnbreakable(){
 		$tag = $this->getNamedTagEntry("Unbreakable");
-
 		return $tag !== null and $tag->getValue() > 0;
 	}
 
@@ -98,7 +96,6 @@ abstract class Armor extends Item{
 		if(isset($tag->customColor)){
 			return $tag["customColor"];
 		}
-
 		return null;
 	}
 

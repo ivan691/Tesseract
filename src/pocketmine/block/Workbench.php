@@ -26,7 +26,7 @@ use pocketmine\item\Tool;
 use pocketmine\Player;
 
 //TODO: check orientation
-class Workbench extends Solid{
+class Workbench extends Solid {
 
 	protected $id = self::WORKBENCH;
 

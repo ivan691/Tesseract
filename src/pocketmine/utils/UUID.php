@@ -21,7 +21,7 @@
 
 namespace pocketmine\utils;
 
-class UUID{
+class UUID {
 
 	private $parts = [0, 0, 0, 0];
 	private $version = null;
@@ -47,8 +47,7 @@ class UUID{
 	 * Creates an UUID from an hexadecimal representation
 	 *
 	 * @param string $uuid
-	 * @param int    $version
-	 *
+	 * @param int $version
 	 * @return UUID
 	 */
 	public static function fromString($uuid, $version = null){
@@ -59,8 +58,7 @@ class UUID{
 	 * Creates an UUID from a binary representation
 	 *
 	 * @param string $uuid
-	 * @param int    $version
-	 *
+	 * @param int $version
 	 * @return UUID
 	 */
 	public static function fromBinary($uuid, $version = null){
@@ -75,7 +73,6 @@ class UUID{
 	 * Creates an UUIDv3 from binary data or list of binary data
 	 *
 	 * @param array|string ...$data
-	 *
 	 * @return UUID
 	 */
 	public static function fromData(...$data){
@@ -99,11 +96,21 @@ class UUID{
 		if($this->version !== null){
 			return substr($hex, 0, 8) . "-" . substr($hex, 8, 4) . "-" . hexdec($this->version) . substr($hex, 13, 3) . "-8" . substr($hex, 17, 3) . "-" . substr($hex, 20, 12);
 		}
-
 		return substr($hex, 0, 8) . "-" . substr($hex, 8, 4) . "-" . substr($hex, 12, 4) . "-" . substr($hex, 16, 4) . "-" . substr($hex, 20, 12);
 	}
 
 	public function __toString(){
 		return $this->toString();
+	}
+
+	public function getPart(int $partNumber){
+		if($partNumber < 0 or $partNumber > 3){
+			throw new \InvalidArgumentException("Invalid UUID part index $partNumber");
+		}
+		return $this->parts[$partNumber];
+	}
+
+	public function getParts() : array{
+		return $this->parts;
 	}
 }

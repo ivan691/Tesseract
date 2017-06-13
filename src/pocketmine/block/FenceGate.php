@@ -23,11 +23,11 @@ namespace pocketmine\block;
 
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
+use pocketmine\level\sound\DoorSound;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\Player;
-use pocketmine\level\sound\DoorSound;
 
-class FenceGate extends Transparent{
+class FenceGate extends Transparent {
 
 	protected $id = self::FENCE_GATE;
 
@@ -87,6 +87,10 @@ class FenceGate extends Transparent{
 		return true;
 	}
 
+	public function isOpened(){
+		return (($this->getDamage() & 0x04) > 0);
+	}
+
 	public function getDrops(Item $item) : array{
 		return [
 			[$this->id, 0, 1],
@@ -102,7 +106,6 @@ class FenceGate extends Transparent{
 
 		$this->getLevel()->setBlock($this, $this, true);
 		$this->level->addSound(new DoorSound($this));
-
 		return true;
 	}
 }

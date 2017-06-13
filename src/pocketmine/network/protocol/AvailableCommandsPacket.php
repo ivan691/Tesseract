@@ -23,7 +23,7 @@ namespace pocketmine\network\protocol;
 
 #include <rules/DataPacket.h>
 
-class AvailableCommandsPacket extends DataPacket{
+class AvailableCommandsPacket extends DataPacket {
 
 	const NETWORK_ID = Info::AVAILABLE_COMMANDS_PACKET;
 
@@ -39,12 +39,4 @@ class AvailableCommandsPacket extends DataPacket{
 		$this->putString($this->commands);
 		$this->putString($this->unknown);
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "AvailableCommandsPacket";
-	}
-
 }

@@ -23,7 +23,7 @@ namespace pocketmine\item;
 
 use pocketmine\block\Block;
 
-class Dye extends Item{
+class Dye extends Item {
 	const BLACK = 0;
 	const RED = 1;
 	const GREEN = 2;

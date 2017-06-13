@@ -21,10 +21,10 @@
 
 namespace pocketmine\block;
 
-use pocketmine\item\Item;
 use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item;
 
-class Glass extends Transparent{
+class Glass extends Transparent {
 
 	protected $id = self::GLASS;
 

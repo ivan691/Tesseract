@@ -23,7 +23,7 @@ namespace pocketmine\event\player;
 use pocketmine\event\Cancellable;
 use pocketmine\Player;
 
-class PlayerToggleGlideEvent extends PlayerEvent implements Cancellable{
+class PlayerToggleGlideEvent extends PlayerEvent implements Cancellable {
 
 	public static $handlerList = null;
 	/** @var bool */

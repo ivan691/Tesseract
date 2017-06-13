@@ -23,7 +23,7 @@ namespace pocketmine\entity;
 
 use pocketmine\Server;
 
-class Attribute{
+class Attribute {
 
 	const ABSORPTION = 0;
 	const SATURATION = 1;
@@ -53,8 +53,8 @@ class Attribute{
 
 	public static function init(){
 		self::addAttribute(self::ABSORPTION, "minecraft:absorption", 0.00, 340282346638528859811704183484516925440.00, 0.00);
-		self::addAttribute(self::SATURATION, "minecraft:player.saturation", 0.00, 20.00, 20.00);
-		self::addAttribute(self::EXHAUSTION, "minecraft:player.exhaustion", 0.00, 5.00, 0.0);
+		self::addAttribute(self::SATURATION, "minecraft:player.saturation", 0.00, 20.00, 5.00);
+		self::addAttribute(self::EXHAUSTION, "minecraft:player.exhaustion", 0.00, 5.00, 0.41);
 		self::addAttribute(self::KNOCKBACK_RESISTANCE, "minecraft:knockback_resistance", 0.00, 1.00, 0.00);
 		self::addAttribute(self::HEALTH, "minecraft:health", 0.00, 20.00, 20.00);
 		self::addAttribute(self::MOVEMENT_SPEED, "minecraft:movement", 0.00, 340282346638528859811704183484516925440.00, 0.10);
@@ -64,16 +64,15 @@ class Attribute{
 		self::addAttribute(self::EXPERIENCE_LEVEL, "minecraft:player.level", 0.00, 24791.00, 0.00);
 		self::addAttribute(self::EXPERIENCE, "minecraft:player.experience", 0.00, 1.00, 0.00);
 		//TODO: minecraft:luck (for fishing?)
-		//TODO: minecraft:falldamage
 	}
 
 	/**
-	 * @param int    $id
+	 * @param int $id
 	 * @param string $name
-	 * @param float  $minValue
-	 * @param float  $maxValue
-	 * @param float  $defaultValue
-	 * @param bool   $shouldSend
+	 * @param float $minValue
+	 * @param float $maxValue
+	 * @param float $defaultValue
+	 * @param bool $shouldSend
 	 *
 	 * @return Attribute
 	 */
@@ -109,7 +108,7 @@ class Attribute{
 		return null;
 	}
 
-	private function __construct($id, $name, $minValue, $maxValue, $defaultValue, $shouldSend = true){
+	public function __construct($id, $name, $minValue, $maxValue, $defaultValue, $shouldSend = true){
 		$this->id = (int) $id;
 		$this->name = (string) $name;
 		$this->minValue = (float) $minValue;
@@ -133,7 +132,6 @@ class Attribute{
 			$this->desynchronized = true;
 			$this->minValue = $minValue;
 		}
-
 		return $this;
 	}
 
@@ -150,7 +148,6 @@ class Attribute{
 			$this->desynchronized = true;
 			$this->maxValue = $maxValue;
 		}
-
 		return $this;
 	}
 
@@ -167,12 +164,7 @@ class Attribute{
 			$this->desynchronized = true;
 			$this->defaultValue = $defaultValue;
 		}
-
 		return $this;
-	}
-
-	public function resetToDefault(){
-		return $this->setValue($this->getDefaultValue());
 	}
 
 	public function getValue(){
@@ -195,7 +187,6 @@ class Attribute{
 		if($shouldSend){
 			$this->desynchronized = true;
 		}
-
 		return $this;
 	}
 

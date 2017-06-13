@@ -25,11 +25,12 @@ use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
 use pocketmine\event\Cancellable;
 use pocketmine\inventory\PlayerInventory;
-use pocketmine\Player;
-use pocketmine\item\Item;
 use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item;
+use pocketmine\Player;
 
-class EntityDamageEvent extends EntityEvent implements Cancellable{
+
+class EntityDamageEvent extends EntityEvent implements Cancellable {
 	public static $handlerList = null;
 
 	const MODIFIER_BASE = 0;
@@ -73,8 +74,8 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 
 
 	/**
-	 * @param Entity    $entity
-	 * @param int       $cause
+	 * @param Entity $entity
+	 * @param int $cause
 	 * @param int|int[] $damage
 	 *
 	 * @throws \Exception
@@ -202,7 +203,6 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 		if(isset($this->originals[$type])){
 			return $this->originals[$type];
 		}
-
 		return 0;
 	}
 
@@ -221,7 +221,7 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @param float $damage
-	 * @param int   $type
+	 * @param int $type
 	 *
 	 * @throws \UnexpectedValueException
 	 */
@@ -238,13 +238,12 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 		if(isset($this->rateModifiers[$type])){
 			return $this->rateModifiers[$type];
 		}
-
 		return 1;
 	}
 
 	/**
 	 * @param float $damage
-	 * @param int   $type
+	 * @param int $type
 	 *
 	 * Notice:If you want to add/reduce the damage without reducing by Armor or effect. set a new Damage using setDamage
 	 * Notice:If you want to add/reduce the damage within reducing by Armor of effect. Plz change the MODIFIER_BASE
@@ -276,12 +275,11 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 				$damage += $d;
 			}
 		}
-
 		return $damage;
 	}
 
 	/**
-	 * @return array|Item
+	 * @return Item $usedArmors
 	 * notice: $usedArmors $index->$cost
 	 * $index: the $index of ArmorInventory
 	 * $cost:  the num of durability cost
@@ -310,10 +308,8 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 					}
 				}
 			}
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -339,16 +335,7 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 			return false;
 		}else{
 			$this->usedArmors[$this->thornsArmor] = 3;
-
 			return true;
 		}
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "EntityDamageEvent";
-	}
-
 }

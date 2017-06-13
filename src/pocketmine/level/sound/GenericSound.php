@@ -24,7 +24,7 @@ namespace pocketmine\level\sound;
 use pocketmine\math\Vector3;
 use pocketmine\network\protocol\LevelEventPacket;
 
-class GenericSound extends Sound{
+class GenericSound extends Sound {
 
 	public function __construct(Vector3 $pos, $id, $pitch = 0){
 		parent::__construct($pos->x, $pos->y, $pos->z);

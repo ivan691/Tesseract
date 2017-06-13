@@ -24,7 +24,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Tool;
 
-class NetherBrickStairs extends Stair{
+class NetherBrickStairs extends Stair {
 
 	protected $id = self::NETHER_BRICKS_STAIRS;
 

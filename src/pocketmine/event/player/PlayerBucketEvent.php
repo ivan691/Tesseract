@@ -26,7 +26,7 @@ use pocketmine\event\Cancellable;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-abstract class PlayerBucketEvent extends PlayerEvent implements Cancellable{
+abstract class PlayerBucketEvent extends PlayerEvent implements Cancellable {
 
 	/** @var Block */
 	private $blockClicked;
@@ -39,10 +39,10 @@ abstract class PlayerBucketEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @param Player $who
-	 * @param Block  $blockClicked
-	 * @param int    $blockFace
-	 * @param Item   $bucket
-	 * @param Item   $itemInHand
+	 * @param Block $blockClicked
+	 * @param int $blockFace
+	 * @param Item $bucket
+	 * @param Item $itemInHand
 	 */
 	public function __construct(Player $who, Block $blockClicked, $blockFace, Item $bucket, Item $itemInHand){
 		$this->player = $who;
@@ -90,12 +90,4 @@ abstract class PlayerBucketEvent extends PlayerEvent implements Cancellable{
 	public function getBlockFace(){
 		return $this->blockFace;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "PlayerBucketEvent";
-	}
-
 }

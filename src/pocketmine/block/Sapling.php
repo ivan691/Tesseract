@@ -22,12 +22,12 @@
 namespace pocketmine\block;
 
 use pocketmine\item\Item;
-use pocketmine\level\generator\normal\object\Tree;
+use pocketmine\level\generator\object\Tree;
 use pocketmine\level\Level;
 use pocketmine\Player;
 use pocketmine\utils\Random;
 
-class Sapling extends Flowable{
+class Sapling extends Flowable {
 	const OAK = 0;
 	const SPRUCE = 1;
 	const BIRCH = 2;
@@ -56,7 +56,6 @@ class Sapling extends Flowable{
 			6 => "",
 			7 => "",
 		];
-
 		return $names[$this->meta & 0x07];
 	}
 

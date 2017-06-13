@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class Netherrack extends Solid{
+class Netherrack extends Solid {
 
 	protected $id = self::NETHERRACK;
 

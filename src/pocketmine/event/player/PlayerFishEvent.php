@@ -29,7 +29,7 @@ use pocketmine\Player;
 /**
  * Called when a player uses the fishing rod
  */
-class PlayerFishEvent extends PlayerEvent implements Cancellable{
+class PlayerFishEvent extends PlayerEvent implements Cancellable {
 
 	public static $handlerList = null;
 
@@ -41,7 +41,7 @@ class PlayerFishEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @param Player $player
-	 * @param Item   $item
+	 * @param Item $item
 	 * @param        $fishingHook
 	 */
 	public function __construct(Player $player, Item $item, $fishingHook = null){
@@ -60,12 +60,4 @@ class PlayerFishEvent extends PlayerEvent implements Cancellable{
 	public function getHook(){
 		return $this->hook;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "PlayerFishEvent";
-	}
-
 }

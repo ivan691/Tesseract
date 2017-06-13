@@ -21,10 +21,10 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\Player;
 use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\Player;
 
-class Husk extends Zombie{
+class Husk extends Zombie {
 	const NETWORK_ID = 47;
 
 	public function getName() : string{

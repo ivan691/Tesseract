@@ -29,7 +29,7 @@ use pocketmine\utils\Config;
 use pocketmine\utils\MainLogger;
 use pocketmine\utils\UUID;
 
-class CraftingManager{
+class CraftingManager {
 	/** @var Recipe[] */
 	public $recipes = [];
 
@@ -58,30 +58,26 @@ class CraftingManager{
 			switch($recipe["type"]){
 				case 0:
 					// TODO: handle multiple result items
-					if(count($recipe["output"]) === 1){
-						$first = $recipe["output"][0];
-						$result = new ShapelessRecipe(Item::get($first["id"], $first["damage"], $first["count"], $first["nbt"]));
+					$first = $recipe["output"][0];
+					$result = new ShapelessRecipe(Item::get($first["id"], $first["damage"], $first["count"], $first["nbt"]));
 
-						foreach($recipe["input"] as $ingredient){
-							$result->addIngredient(Item::get($ingredient["id"], $ingredient["damage"], $ingredient["count"], $first["nbt"]));
-						}
-						$this->registerRecipe($result);
+					foreach($recipe["input"] as $ingredient){
+						$result->addIngredient(Item::get($ingredient["id"], $ingredient["damage"], $ingredient["count"], $first["nbt"]));
 					}
+					$this->registerRecipe($result);
 					break;
 				case 1:
 					// TODO: handle multiple result items
-					if(count($recipe["output"]) === 1){
-						$first = $recipe["output"][0];
-						$result = new ShapedRecipe(Item::get($first["id"], $first["damage"], $first["count"], $first["nbt"]), $recipe["height"], $recipe["width"]);
+					$first = $recipe["output"][0];
+					$result = new ShapedRecipe(Item::get($first["id"], $first["damage"], $first["count"], $first["nbt"]), $recipe["height"], $recipe["width"]);
 
-						$shape = array_chunk($recipe["input"], $recipe["width"]);
-						foreach($shape as $y => $row){
-							foreach($row as $x => $ingredient){
-								$result->addIngredient($x, $y, Item::get($ingredient["id"], ($ingredient["damage"] < 0 ? -1 : $ingredient["damage"]), $ingredient["count"], $ingredient["nbt"]));
-							}
+					$shape = array_chunk($recipe["input"], $recipe["width"]);
+					foreach($shape as $y => $row){
+						foreach($row as $x => $ingredient){
+							$result->addIngredient($x, $y, Item::get($ingredient["id"], ($ingredient["damage"] < 0 ? -1 : $ingredient["damage"]), $ingredient["count"], $ingredient["nbt"]));
 						}
-						$this->registerRecipe($result);
 					}
+					$this->registerRecipe($result);
 					break;
 				case 2:
 				case 3:
@@ -296,12 +292,10 @@ class CraftingManager{
 
 	/**
 	 * @param UUID $id
-	 *
 	 * @return Recipe
 	 */
 	public function getRecipe(UUID $id){
 		$index = $id->toBinary();
-
 		return $this->recipes[$index] ?? null;
 	}
 
@@ -334,7 +328,6 @@ class CraftingManager{
 		}elseif(isset($this->furnaceRecipes[$input->getId() . ":?"])){
 			return $this->furnaceRecipes[$input->getId() . ":?"];
 		}
-
 		return null;
 	}
 
@@ -350,7 +343,6 @@ class CraftingManager{
 		if(isset($this->brewingRecipes[$subscript])){
 			return $this->brewingRecipes[$subscript];
 		}
-
 		return null;
 	}
 
@@ -411,7 +403,6 @@ class CraftingManager{
 
 	/**
 	 * @param ShapelessRecipe $recipe
-	 *
 	 * @return bool
 	 */
 	public function matchRecipe(ShapelessRecipe $recipe){
@@ -459,7 +450,6 @@ class CraftingManager{
 				break;
 			}
 		}
-
 		return $hasRecipe !== null;
 	}
 

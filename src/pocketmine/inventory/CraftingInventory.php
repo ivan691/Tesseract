@@ -27,15 +27,15 @@ namespace pocketmine\inventory;
  *
  * TODO: add small matrix inventory
  */
-class CraftingInventory extends BaseInventory{
+class CraftingInventory extends BaseInventory {
 
 	/** @var Inventory */
 	private $resultInventory;
 
 	/**
 	 * @param InventoryHolder $holder
-	 * @param Inventory       $resultInventory
-	 * @param InventoryType   $inventoryType
+	 * @param Inventory $resultInventory
+	 * @param InventoryType $inventoryType
 	 *
 	 * @throws \Throwable
 	 */

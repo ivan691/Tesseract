@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class DoubleWoodSlab extends Solid{
+class DoubleWoodSlab extends Solid {
 
 	protected $id = self::DOUBLE_WOOD_SLAB;
 
@@ -51,7 +51,6 @@ class DoubleWoodSlab extends Solid{
 			6 => "",
 			7 => ""
 		];
-
 		return "Double " . $names[$this->meta & 0x07] . " Wooden Slab";
 	}
 

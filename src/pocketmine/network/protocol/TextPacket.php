@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class TextPacket extends DataPacket{
+class TextPacket extends DataPacket {
 
 	const NETWORK_ID = Info::TEXT_PACKET;
 
@@ -87,12 +87,4 @@ class TextPacket extends DataPacket{
 				}
 		}
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "TextPacket";
-	}
-
 }

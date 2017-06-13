@@ -23,15 +23,15 @@ namespace pocketmine\level;
 
 use pocketmine\math\Vector3;
 
-class Location extends Position{
+class Location extends Position {
 
 	public $yaw;
 	public $pitch;
 
 	/**
-	 * @param int   $x
-	 * @param int   $y
-	 * @param int   $z
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
 	 * @param float $yaw
 	 * @param float $pitch
 	 * @param Level $level
@@ -46,10 +46,10 @@ class Location extends Position{
 	}
 
 	/**
-	 * @param Vector3    $pos
+	 * @param Vector3 $pos
 	 * @param Level|null $level default null
-	 * @param float      $yaw default 0.0
-	 * @param float      $pitch default 0.0
+	 * @param float $yaw default 0.0
+	 * @param float $pitch default 0.0
 	 *
 	 * @return Location
 	 */
@@ -79,7 +79,6 @@ class Location extends Position{
 			$this->pitch = $pos->pitch;
 		}
 		parent::fromObjectAdd($pos, $x, $y, $z);
-
 		return $this;
 	}
 

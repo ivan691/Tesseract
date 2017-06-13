@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class SetTimePacket extends DataPacket{
+class SetTimePacket extends DataPacket {
 
 	const NETWORK_ID = Info::SET_TIME_PACKET;
 
@@ -40,12 +40,4 @@ class SetTimePacket extends DataPacket{
 		$this->putVarInt($this->time);
 		$this->putBool($this->started);
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "SetTimePacket";
-	}
-
 }

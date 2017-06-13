@@ -2,31 +2,29 @@
 
 /*
  *
- *    _______                                _
- *   |__   __|                              | |
- *      | | ___  ___ ___  ___ _ __ __ _  ___| |_
- *      | |/ _ \/ __/ __|/ _ \  __/ _` |/ __| __|
- *      | |  __/\__ \__ \  __/ | | (_| | (__| |_
- *      |_|\___||___/___/\___|_|  \__,_|\___|\__|
- *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
- * 
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
  *
- */
+ *
+*/
 
 namespace pocketmine\block;
 
 use pocketmine\Player;
 use pocketmine\item\Item;
 
-class EndRod extends Flowable{
+class EndRod extends Flowable {
 
 	protected $id = self::END_ROD;
 
@@ -61,7 +59,6 @@ class EndRod extends Flowable{
 		];
 		$this->meta = ($target->getId() === self::END_ROD && $faces[$face] == $target->getDamage()) ? Vector3::getOppositeSide($faces[$face]) : $faces[$face];
 		$this->getLevel()->setBlock($block, $this, true, true);
-
 		return true;
 	}
 

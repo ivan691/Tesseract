@@ -32,7 +32,7 @@ namespace pocketmine\scheduler;
  * and will be removed at some stage in the future.
  */
 
-class CallbackTask extends Task{
+class CallbackTask extends Task {
 
 	/** @var callable */
 	protected $callable;
@@ -42,7 +42,7 @@ class CallbackTask extends Task{
 
 	/**
 	 * @param callable $callable
-	 * @param array    $args
+	 * @param array $args
 	 */
 	public function __construct(callable $callable, array $args = []){
 		$this->callable = $callable;

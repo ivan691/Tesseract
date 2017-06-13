@@ -26,7 +26,6 @@ use pocketmine\event\entity\EntityCombustByEntityEvent;
 use pocketmine\event\entity\EntityDamageByChildEntityEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
-
 use pocketmine\event\entity\ProjectileHitEvent;
 use pocketmine\item\Potion;
 use pocketmine\level\Level;
@@ -35,7 +34,7 @@ use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ShortTag;
 
-abstract class Projectile extends Entity{
+abstract class Projectile extends Entity {
 
 	const DATA_SHOOTER_ID = 17;
 
@@ -172,7 +171,6 @@ abstract class Projectile extends Entity{
 					}
 
 					$this->kill();
-
 					return true;
 				}
 			}

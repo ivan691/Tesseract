@@ -24,8 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class BatchPacket extends DataPacket{
-
+class BatchPacket extends DataPacket {
 	const NETWORK_ID = 0xfe;
 
 	public $payload;
@@ -37,13 +36,6 @@ class BatchPacket extends DataPacket{
 	public function encode(){
 		$this->reset();
 		$this->put($this->payload);
-	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "BatchPacket";
 	}
 
 }

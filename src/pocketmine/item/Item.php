@@ -48,7 +48,7 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\utils\Config;
 
-class Item implements ItemIds, \JsonSerializable{
+class Item implements ItemIds, \JsonSerializable {
 
 	/** @var NBT */
 	private static $cachedParser = null;
@@ -59,7 +59,6 @@ class Item implements ItemIds, \JsonSerializable{
 		}
 
 		self::$cachedParser->read($tag);
-
 		return self::$cachedParser->getData();
 	}
 
@@ -69,7 +68,6 @@ class Item implements ItemIds, \JsonSerializable{
 		}
 
 		self::$cachedParser->setData($tag);
-
 		return self::$cachedParser->write();
 	}
 
@@ -214,6 +212,8 @@ class Item implements ItemIds, \JsonSerializable{
 			self::$list[self::BONE] = Bone::class;
 			self::$list[self::SUGAR] = Sugar::class;
 			self::$list[self::COOKIE] = Cookie::class;
+			self::$list[self::FILLED_MAP] = FilledMap::class;
+			self::$list[self::EMPTY_MAP] = EmptyMap::class;
 			self::$list[self::MELON] = Melon::class;
 			self::$list[self::RAW_BEEF] = RawBeef::class;
 			self::$list[self::STEAK] = Steak::class;
@@ -314,7 +314,6 @@ class Item implements ItemIds, \JsonSerializable{
 
 	/**
 	 * @param $index
-	 *
 	 * @return Item
 	 */
 	public static function getCreativeItem(int $index){
@@ -348,8 +347,7 @@ class Item implements ItemIds, \JsonSerializable{
 
 	/**
 	 * @param string $str
-	 * @param bool   $multiple
-	 *
+	 * @param bool $multiple
 	 * @return Item[]|Item
 	 */
 	public static function fromString(string $str, bool $multiple = false){
@@ -488,7 +486,6 @@ class Item implements ItemIds, \JsonSerializable{
 
 	/**
 	 * @param $id
-	 *
 	 * @return Enchantment|null
 	 */
 	public function getEnchantment(int $id){
@@ -500,7 +497,6 @@ class Item implements ItemIds, \JsonSerializable{
 			if($entry["id"] === $id){
 				$e = Enchantment::getEnchantment($entry["id"]);
 				$e->setLevel($entry["lvl"]);
-
 				return $e;
 			}
 		}
@@ -509,10 +505,9 @@ class Item implements ItemIds, \JsonSerializable{
 	}
 
 	/**
-	 * @param int  $id
-	 * @param int  $level
+	 * @param int $id
+	 * @param int $level
 	 * @param bool $compareLevel
-	 *
 	 * @return bool
 	 */
 	public function hasEnchantment(int $id, int $level = 1, bool $compareLevel = false) : bool{
@@ -529,13 +524,11 @@ class Item implements ItemIds, \JsonSerializable{
 				}
 			}
 		}
-
 		return false;
 	}
 
 	/**
 	 * @param $id
-	 *
 	 * @return Int level|0(for null)
 	 */
 	public function getEnchantmentLevel(int $id){
@@ -548,7 +541,6 @@ class Item implements ItemIds, \JsonSerializable{
 				$e = Enchantment::getEnchantment($entry["id"]);
 				$e->setLevel($entry["lvl"]);
 				$E_level = $e->getLevel() > Enchantment::getEnchantMaxLevel($id) ? Enchantment::getEnchantMaxLevel($id) : $e->getLevel();
-
 				return $E_level;
 			}
 		}
@@ -770,10 +762,8 @@ class Item implements ItemIds, \JsonSerializable{
 			foreach($tag->Lore->getValue() as $line){
 				$lines[] = $line->getValue();
 			}
-
 			return $lines;
 		}
-
 		return [];
 	}
 
@@ -806,7 +796,6 @@ class Item implements ItemIds, \JsonSerializable{
 		}elseif($this->cachedNBT !== null){
 			return $this->cachedNBT;
 		}
-
 		return $this->cachedNBT = self::parseCompoundTag($this->tags);
 	}
 
@@ -990,7 +979,6 @@ class Item implements ItemIds, \JsonSerializable{
 			$rec += 2.5 * $this->getEnchantmentLevel(Enchantment::TYPE_WEAPON_ARTHROPODS);
 
 		}
-
 		return $rec;
 	}
 
@@ -1002,8 +990,8 @@ class Item implements ItemIds, \JsonSerializable{
 		return false;
 	}
 
-	public final function equals(Item $item, bool $checkDamage = true, bool $checkCompound = true) : bool{
-		if($this->id === $item->getId() and ($checkDamage === false or $this->getDamage() === $item->getDamage())){
+	public final function equals(Item $item, bool $checkDamage = true, bool $checkCompound = true, $checkCount = false) : bool{
+		if($this->id === $item->getId() and ($checkDamage === false or $this->getDamage() === $item->getDamage()) and ($checkCount === false or $this->getCount() === $item->getCount())){
 			if($checkCompound){
 				if($item->getCompoundTag() === $this->getCompoundTag()){
 					return true;
@@ -1015,7 +1003,6 @@ class Item implements ItemIds, \JsonSerializable{
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -1035,7 +1022,7 @@ class Item implements ItemIds, \JsonSerializable{
 	/**
 	 * Serializes the item to an NBT CompoundTag
 	 *
-	 * @param int    $slot optional, the inventory slot of the item
+	 * @param int $slot optional, the inventory slot of the item
 	 * @param string $tagName the name to assign to the CompoundTag object
 	 *
 	 * @return CompoundTag

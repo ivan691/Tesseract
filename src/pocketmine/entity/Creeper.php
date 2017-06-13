@@ -27,7 +27,7 @@ use pocketmine\nbt\tag\ByteTag;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class Creeper extends Monster{
+class Creeper extends Monster {
 	const NETWORK_ID = 33;
 
 	const DATA_SWELL = 19;

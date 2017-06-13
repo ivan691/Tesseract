@@ -26,7 +26,7 @@ use pocketmine\nbt\tag\ListTag as TagEnum;
 
 #include <rules/NBT.h>
 
-class ListTag extends NamedTag implements \ArrayAccess, \Countable{
+class ListTag extends NamedTag implements \ArrayAccess, \Countable {
 
 	private $tagType;
 
@@ -207,6 +207,8 @@ class ListTag extends NamedTag implements \ArrayAccess, \Countable{
 		foreach($tags as $tag){
 			$tag->write($nbt, $network);
 		}
+
+		return true;
 	}
 
 	public function __toString(){
@@ -216,7 +218,6 @@ class ListTag extends NamedTag implements \ArrayAccess, \Countable{
 				$str .= get_class($tag) . ":" . $tag->__toString() . "\n";
 			}
 		}
-
 		return $str . "}";
 	}
 }

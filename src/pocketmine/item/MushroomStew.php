@@ -21,7 +21,7 @@
 
 namespace pocketmine\item;
 
-class MushroomStew extends Food{
+class MushroomStew extends Food {
 	public function __construct($meta = 0, $count = 1){
 		parent::__construct(self::MUSHROOM_STEW, 0, $count, "Mushroom Stew");
 	}

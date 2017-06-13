@@ -26,8 +26,7 @@ use pocketmine\inventory\Recipe;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class CraftItemEvent extends Event implements Cancellable{
-
+class CraftItemEvent extends Event implements Cancellable {
 	public static $handlerList = null;
 	/** @var Item[] */
 	private $input = [];
@@ -38,8 +37,8 @@ class CraftItemEvent extends Event implements Cancellable{
 
 	/**
 	 * @param \pocketmine\Player $player
-	 * @param Item[]             $input
-	 * @param Recipe             $recipe
+	 * @param Item[] $input
+	 * @param Recipe $recipe
 	 */
 	public function __construct(Player $player, array $input, Recipe $recipe){
 		$this->player = $player;
@@ -55,7 +54,6 @@ class CraftItemEvent extends Event implements Cancellable{
 		foreach($this->input as $i => $item){
 			$items[$i] = clone $item;
 		}
-
 		return $items;
 	}
 
@@ -72,12 +70,4 @@ class CraftItemEvent extends Event implements Cancellable{
 	public function getPlayer(){
 		return $this->player;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "CraftItemEvent";
-	}
-
 }

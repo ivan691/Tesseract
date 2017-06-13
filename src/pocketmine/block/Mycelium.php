@@ -22,15 +22,15 @@
 namespace pocketmine\block;
 
 use pocketmine\event\block\BlockSpreadEvent;
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\Server;
 
 
-class Mycelium extends Solid{
+class Mycelium extends Solid {
 
 	protected $id = self::MYCELIUM;
 

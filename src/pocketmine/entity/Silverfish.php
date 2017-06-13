@@ -24,7 +24,7 @@ namespace pocketmine\entity;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class Silverfish extends Monster{
+class Silverfish extends Monster {
 	const NETWORK_ID = 39;
 
 	public $dropExp = [5, 5];

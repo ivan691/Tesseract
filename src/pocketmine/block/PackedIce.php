@@ -21,11 +21,11 @@
 
 namespace pocketmine\block;
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 
-class PackedIce extends Solid{
+class PackedIce extends Solid {
 
 	protected $id = self::PACKED_ICE;
 

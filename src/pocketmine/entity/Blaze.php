@@ -21,13 +21,13 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item as ItemItem;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\Player;
 
-class Blaze extends Monster{
+class Blaze extends Monster {
 	const NETWORK_ID = 43;
 
 	public $width = 0.3;
@@ -63,10 +63,8 @@ class Blaze extends Monster{
 		if($cause instanceof EntityDamageByEntityEvent and $cause->getDamager() instanceof Player){
 			$lootingL = $cause->getDamager()->getItemInHand()->getEnchantmentLevel(Enchantment::TYPE_WEAPON_LOOTING);
 			$drops = array(ItemItem::get(ItemItem::BLAZE_ROD, 0, mt_rand(0, 1 + $lootingL)));
-
 			return $drops;
 		}
-
 		return [];
 	}
 }

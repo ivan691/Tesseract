@@ -33,7 +33,7 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\StringTag;
 
-abstract class Tile extends Position{
+abstract class Tile extends Position {
 
 	const BREWING_STAND = "BrewingStand";
 	const CHEST = "Chest";
@@ -94,17 +94,16 @@ abstract class Tile extends Position{
 	}
 
 	/**
-	 * @param string      $type
-	 * @param Level       $level
+	 * @param string $type
+	 * @param Level $level
 	 * @param CompoundTag $nbt
-	 * @param array       $args
+	 * @param array $args
 	 *
 	 * @return Tile
 	 */
 	public static function createTile($type, Level $level, CompoundTag $nbt, ...$args){
 		if(isset(self::$knownTiles[$type])){
 			$class = self::$knownTiles[$type];
-
 			return new $class($level, $nbt, ...$args);
 		}
 
@@ -121,7 +120,6 @@ abstract class Tile extends Position{
 		if(is_a($className, Tile::class, true) and !$class->isAbstract()){
 			self::$knownTiles[$class->getShortName()] = $className;
 			self::$shortNames[$className] = $class->getShortName();
-
 			return true;
 		}
 

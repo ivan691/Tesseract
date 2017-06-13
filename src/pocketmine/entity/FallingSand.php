@@ -28,7 +28,6 @@ use pocketmine\block\SnowLayer;
 use pocketmine\event\entity\EntityBlockChangeEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
-
 use pocketmine\item\Item as ItemItem;
 use pocketmine\level\sound\AnvilFallSound;
 use pocketmine\math\Vector3;
@@ -37,7 +36,7 @@ use pocketmine\nbt\tag\IntTag;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class FallingSand extends Entity{
+class FallingSand extends Entity {
 	const NETWORK_ID = 66;
 
 	const DATA_BLOCK_INFO = 20;
@@ -68,7 +67,6 @@ class FallingSand extends Entity{
 
 		if($this->blockId === 0){
 			$this->close();
-
 			return;
 		}
 

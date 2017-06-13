@@ -26,9 +26,13 @@ use pocketmine\Server;
 /**
  * Class used to run async tasks in other threads.
  *
- * WARNING: Do not call PocketMine-MP API methods, or save objects from/on other Threads!!
+ * An AsyncTask does not have its own thread. It is queued into an AsyncPool and executed if there is an async worker
+ * with no AsyncTask running. Therefore, an AsyncTask SHOULD NOT execute for more than a few seconds. For tasks that
+ * run for a long time or infinitely, start another {@link \pocketmine\Thread} instead.
+ *
+ * WARNING: Do not call PocketMine-MP API methods, or save objects (and arrays containing objects) from/on other Threads!!
  */
-abstract class AsyncTask extends \Threaded implements \Collectable{
+abstract class AsyncTask extends \Threaded implements \Collectable {
 
 	/** @var AsyncWorker $worker */
 	public $worker = null;
@@ -102,7 +106,7 @@ abstract class AsyncTask extends \Threaded implements \Collectable{
 
 	/**
 	 * @param mixed $result
-	 * @param bool  $serialize
+	 * @param bool $serialize
 	 */
 	public function setResult($result, $serialize = true){
 		$this->result = $serialize ? serialize($result) : $result;
@@ -122,12 +126,10 @@ abstract class AsyncTask extends \Threaded implements \Collectable{
 	 * You have to initialize this in some way from the task on run
 	 *
 	 * @param string $identifier
-	 *
 	 * @return mixed
 	 */
 	public function getFromThreadStore($identifier){
 		global $store;
-
 		return $this->isGarbage() ? null : $store[$identifier];
 	}
 
@@ -136,7 +138,7 @@ abstract class AsyncTask extends \Threaded implements \Collectable{
 	 * This might get deleted at any moment.
 	 *
 	 * @param string $identifier
-	 * @param mixed  $value
+	 * @param mixed $value
 	 */
 	public function saveToThreadStore($identifier, $value){
 		global $store;

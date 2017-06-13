@@ -24,14 +24,14 @@ namespace pocketmine\level;
 use pocketmine\math\Vector3;
 use pocketmine\Server;
 
-class WeakPosition extends Position{
+class WeakPosition extends Position {
 
 	protected $levelId = -1;
 
 	/**
-	 * @param int   $x
-	 * @param int   $y
-	 * @param int   $z
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
 	 * @param Level $level
 	 */
 	public function __construct($x = 0, $y = 0, $z = 0, Level $level = null){
@@ -65,7 +65,6 @@ class WeakPosition extends Position{
 		}
 
 		$this->levelId = ($level !== null ? $level->getId() : -1);
-
 		return $this;
 	}
 

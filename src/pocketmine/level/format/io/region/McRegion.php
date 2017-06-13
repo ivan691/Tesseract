@@ -37,7 +37,7 @@ use pocketmine\nbt\tag\{
 use pocketmine\Player;
 use pocketmine\utils\MainLogger;
 
-class McRegion extends BaseLevelProvider{
+class McRegion extends BaseLevelProvider {
 
 	const REGION_FILE_EXTENSION = "mcr";
 
@@ -199,11 +199,9 @@ class McRegion extends BaseLevelProvider{
 			$result->setLightPopulated(isset($chunk->LightPopulated) ? ((bool) $chunk->LightPopulated->getValue()) : false);
 			$result->setPopulated(isset($chunk->TerrainPopulated) ? ((bool) $chunk->TerrainPopulated->getValue()) : false);
 			$result->setGenerated(true);
-
 			return $result;
 		}catch(\Throwable $e){
 			MainLogger::getLogger()->logException($e);
-
 			return null;
 		}
 	}
@@ -253,9 +251,9 @@ class McRegion extends BaseLevelProvider{
 			"initialized" => new ByteTag("initialized", 1),
 			"GameType" => new IntTag("GameType", 0),
 			"generatorVersion" => new IntTag("generatorVersion", 1), //2 in MCPE
-			"SpawnX" => new IntTag("SpawnX", 256),
+			"SpawnX" => new IntTag("SpawnX", 128),
 			"SpawnY" => new IntTag("SpawnY", 70),
-			"SpawnZ" => new IntTag("SpawnZ", 256),
+			"SpawnZ" => new IntTag("SpawnZ", 128),
 			"version" => new IntTag("version", 19133),
 			"DayTime" => new IntTag("DayTime", 0),
 			"LastPlayed" => new LongTag("LastPlayed", microtime(true) * 1000),
@@ -348,7 +346,6 @@ class McRegion extends BaseLevelProvider{
 
 		if($chunk !== null){
 			$this->chunks[$index] = $chunk;
-
 			return true;
 		}else{
 			return false;
@@ -359,7 +356,6 @@ class McRegion extends BaseLevelProvider{
 		$chunk = $this->chunks[$index = Level::chunkHash($chunkX, $chunkZ)] ?? null;
 		if($chunk instanceof Chunk and $chunk->unload($safe)){
 			unset($this->chunks[$index]);
-
 			return true;
 		}
 
@@ -368,7 +364,7 @@ class McRegion extends BaseLevelProvider{
 
 	public function unloadChunks(){
 		foreach($this->chunks as $chunk){
-			$this->unloadChunk($chunk->getX(), $chunk->getZ());
+			$this->unloadChunk($chunk->getX(), $chunk->getZ(), false);
 		}
 		$this->chunks = [];
 	}

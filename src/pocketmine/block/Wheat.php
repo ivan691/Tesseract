@@ -21,10 +21,10 @@
 
 namespace pocketmine\block;
 
-use pocketmine\item\Item;
 use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item;
 
-class Wheat extends Crops{
+class Wheat extends Crops {
 
 	protected $id = self::WHEAT_BLOCK;
 

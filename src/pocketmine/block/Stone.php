@@ -21,11 +21,11 @@
 
 namespace pocketmine\block;
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 
-class Stone extends Solid{
+class Stone extends Solid {
 	const NORMAL = 0;
 	const GRANITE = 1;
 	const POLISHED_GRANITE = 2;
@@ -60,7 +60,6 @@ class Stone extends Solid{
 			self::POLISHED_ANDESITE => "Polished Andesite",
 			7 => "Unknown Stone",
 		];
-
 		return $names[$this->meta & 0x07];
 	}
 
@@ -71,7 +70,6 @@ class Stone extends Solid{
 					[Item::STONE, 0, 1],
 				];
 			}
-
 			return [
 				[$this->getDamage() === 0 ? Item::COBBLESTONE : Item::STONE, $this->getDamage(), 1],
 			];

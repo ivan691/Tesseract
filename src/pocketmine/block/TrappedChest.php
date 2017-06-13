@@ -26,14 +26,14 @@ use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\tile\Chest as TileChest;
 use pocketmine\tile\Tile;
 
-class TrappedChest extends Solid{
+class TrappedChest extends RedstoneSource {
 	protected $id = self::TRAPPED_CHEST;
 
 	public function __construct($meta = 0){
@@ -44,7 +44,6 @@ class TrappedChest extends Solid{
 		if($this->boundingBox === null){
 			$this->boundingBox = $this->recalculateBoundingBox();
 		}
-
 		return $this->boundingBox;
 	}
 

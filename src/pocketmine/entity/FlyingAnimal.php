@@ -24,7 +24,7 @@ namespace pocketmine\entity;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\math\Vector3;
 
-abstract class FlyingAnimal extends Creature implements Ageable{
+abstract class FlyingAnimal extends Creature implements Ageable {
 
 	protected $gravity = 0;
 	protected $drag = 0.02;
@@ -130,7 +130,6 @@ abstract class FlyingAnimal extends Creature implements Ageable{
 		}
 		if($source->getCause() == EntityDamageEvent::CAUSE_FALL){
 			$source->setCancelled();
-
 			return;
 		}
 		parent::attack($damage, $source);

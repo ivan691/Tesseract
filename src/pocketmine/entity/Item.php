@@ -31,7 +31,7 @@ use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\protocol\AddItemEntityPacket;
 use pocketmine\Player;
 
-class Item extends Entity{
+class Item extends Entity {
 	const NETWORK_ID = 64;
 
 	protected $owner = null;
@@ -67,7 +67,6 @@ class Item extends Entity{
 		}
 		if(!isset($this->namedtag->Item)){
 			$this->close();
-
 			return;
 		}
 

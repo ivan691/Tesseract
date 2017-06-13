@@ -27,7 +27,7 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class Villager extends Creature implements NPC, Ageable{
+class Villager extends Creature implements NPC, Ageable {
 	const PROFESSION_FARMER = 0;
 	const PROFESSION_LIBRARIAN = 1;
 	const PROFESSION_PRIEST = 2;
@@ -93,7 +93,6 @@ class Villager extends Creature implements NPC, Ageable{
 
 	public function getProfession() : int{
 		$pro = (int) $this->namedtag["Profession"];
-
 		return min(4, max(0, $pro));
 	}
 

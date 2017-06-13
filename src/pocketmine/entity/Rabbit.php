@@ -21,17 +21,17 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item as ItemItem;
 use pocketmine\level\Level;
 use pocketmine\nbt\tag\ByteTag;
-use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class Rabbit extends Animal{
+class Rabbit extends Animal {
 	const NETWORK_ID = 18;
 
 	const DATA_RABBIT_TYPE = 18;
@@ -67,7 +67,6 @@ class Rabbit extends Animal{
 
 	public function getRandomRabbitType() : int{
 		$arr = [0, 1, 2, 3, 4, 5, 99];
-
 		return $arr[mt_rand(0, count($arr) - 1)];
 	}
 
@@ -117,7 +116,6 @@ class Rabbit extends Animal{
 		if(mt_rand(1, 200) <= (5 + 2 * $lootingL)){
 			$drops[] = ItemItem::get(ItemItem::RABBIT_FOOT, 0, 1);
 		}
-
 		return $drops;
 	}
 

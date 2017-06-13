@@ -25,7 +25,7 @@ use pocketmine\entity\Entity;
 use pocketmine\item\Food;
 use pocketmine\item\Item;
 
-class EntityEatItemEvent extends EntityEatEvent{
+class EntityEatItemEvent extends EntityEatEvent {
 	public function __construct(Entity $entity, Food $foodSource){
 		parent::__construct($entity, $foodSource);
 	}
@@ -43,12 +43,4 @@ class EntityEatItemEvent extends EntityEatEvent{
 		}
 		parent::setResidue($residue);
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "EntityEatItemEvent";
-	}
-
 }

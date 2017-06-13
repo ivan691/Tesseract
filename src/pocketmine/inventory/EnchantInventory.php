@@ -26,14 +26,13 @@ use pocketmine\item\Dye;
 use pocketmine\item\EnchantedBook;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\enchantment\EnchantmentEntry;
-use pocketmine\item\enchantment\EnchantmentLevelTable;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
 use pocketmine\Player;
 use pocketmine\tile\EnchantTable;
 
-class EnchantInventory extends TemporaryInventory{
+class EnchantInventory extends TemporaryInventory {
 	private $bookshelfAmount = 0;
 
 	private $levels = [];
@@ -45,7 +44,7 @@ class EnchantInventory extends TemporaryInventory{
 	}
 
 	/**
-	 * @return InventoryHolder|EnchantTable
+	 * @return EnchantTable
 	 */
 	public function getHolder(){
 		return $this->holder;
@@ -81,6 +80,7 @@ class EnchantInventory extends TemporaryInventory{
 		return $min + mt_rand() / mt_getrandmax() * ($max - $min);
 	}
 
+	/*
 	public function onSlotChange($index, $before, $send){
 		parent::onSlotChange($index, $before, $send);
 
@@ -174,6 +174,7 @@ class EnchantInventory extends TemporaryInventory{
 			}
 		}
 	}
+	*/
 
 	public function onClose(Player $who){
 		parent::onClose($who);
@@ -210,7 +211,6 @@ class EnchantInventory extends TemporaryInventory{
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -255,7 +255,6 @@ class EnchantInventory extends TemporaryInventory{
 					}
 				}
 			}
-
 			return $count;
 		}else{
 			return mt_rand(0, 15);
@@ -263,9 +262,8 @@ class EnchantInventory extends TemporaryInventory{
 	}
 
 	/**
-	 * @param Enchantment   $enchantment
+	 * @param Enchantment $enchantment
 	 * @param Enchantment[] $enchantments
-	 *
 	 * @return Enchantment[]
 	 */
 	public function removeConflictEnchantment(Enchantment $enchantment, array $enchantments){
@@ -302,7 +300,6 @@ class EnchantInventory extends TemporaryInventory{
 				$result[] = $enchantment;
 			}
 		}
-
 		return $result;
 	}
 }

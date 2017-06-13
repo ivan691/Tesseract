@@ -30,7 +30,7 @@ use pocketmine\item\Item;
 use pocketmine\Player;
 use pocketmine\Server;
 
-class Lava extends Liquid{
+class Lava extends Liquid {
 
 	protected $id = self::LAVA;
 
@@ -50,7 +50,7 @@ class Lava extends Liquid{
 		$entity->fallDistance *= 0.5;
 		$ProtectL = 0;
 		if(!$entity->hasEffect(Effect::FIRE_RESISTANCE)){
-			$ev = new EntityDamageByBlockEvent($this, $entity, EntityDamageEvent::CAUSE_LAVA, 3);
+			$ev = new EntityDamageByBlockEvent($this, $entity, EntityDamageEvent::CAUSE_LAVA, 4);
 			if($entity->attack($ev->getFinalDamage(), $ev) === true){
 				$ev->useArmors();
 			}

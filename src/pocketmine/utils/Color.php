@@ -25,7 +25,7 @@
 
 namespace pocketmine\utils;
 
-class Color{
+class Color {
 
 	const COLOR_DYE_BLACK = 0;//dye colors
 	const COLOR_DYE_RED = 1;
@@ -88,7 +88,6 @@ class Color{
 			$tb += $c->getBlue();
 			++$count;
 		}
-
 		return Color::getRGB($tr / $count, $tg / $count, $tb / $count);
 	}
 
@@ -96,7 +95,6 @@ class Color{
 		if(isset(self::$dyeColors[$id])){
 			return clone self::$dyeColors[$id];
 		}
-
 		return Color::getRGB(0, 0, 0);
 	}
 

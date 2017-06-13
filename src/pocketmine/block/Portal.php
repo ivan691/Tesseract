@@ -23,10 +23,10 @@ namespace pocketmine\block;
 
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\Player;
 use pocketmine\math\Vector3;
+use pocketmine\Player;
 
-class Portal extends Transparent{
+class Portal extends Transparent {
 
 	protected $id = self::PORTAL;
 

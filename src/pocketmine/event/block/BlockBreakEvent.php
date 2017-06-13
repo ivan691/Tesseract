@@ -26,7 +26,7 @@ use pocketmine\event\Cancellable;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class BlockBreakEvent extends BlockEvent implements Cancellable{
+class BlockBreakEvent extends BlockEvent implements Cancellable {
 	public static $handlerList = null;
 
 	/** @var \pocketmine\Player */
@@ -80,17 +80,9 @@ class BlockBreakEvent extends BlockEvent implements Cancellable{
 	}
 
 	/**
-	 * @param boolean $instaBreak
+	 * @param bool $instaBreak
 	 */
 	public function setInstaBreak($instaBreak){
 		$this->instaBreak = (bool) $instaBreak;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "BlockBreakEvent";
-	}
-
 }

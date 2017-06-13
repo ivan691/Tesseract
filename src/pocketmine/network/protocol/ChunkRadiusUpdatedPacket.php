@@ -22,7 +22,7 @@
 namespace pocketmine\network\protocol;
 
 
-class ChunkRadiusUpdatedPacket extends DataPacket{
+class ChunkRadiusUpdatedPacket extends DataPacket {
 
 	const NETWORK_ID = Info::CHUNK_RADIUS_UPDATED_PACKET;
 
@@ -36,12 +36,4 @@ class ChunkRadiusUpdatedPacket extends DataPacket{
 		$this->reset();
 		$this->putVarInt($this->radius);
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "ChunkRadiusUpdatedPacket";
-	}
-
 }

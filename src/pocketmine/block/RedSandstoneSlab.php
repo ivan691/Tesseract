@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class RedSandstoneSlab extends Slab{
+class RedSandstoneSlab extends Slab {
 
 	protected $id = Block::RED_SANDSTONE_SLAB;
 

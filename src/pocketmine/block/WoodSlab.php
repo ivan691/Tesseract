@@ -26,7 +26,7 @@ use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\Player;
 
-class WoodSlab extends Transparent{
+class WoodSlab extends Transparent {
 
 	protected $id = self::WOOD_SLAB;
 
@@ -49,7 +49,6 @@ class WoodSlab extends Transparent{
 			6 => "",
 			7 => ""
 		];
-
 		return (($this->meta & 0x08) === 0x08 ? "Upper " : "") . $names[$this->meta & 0x07] . " Wooden Slab";
 	}
 

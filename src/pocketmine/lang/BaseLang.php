@@ -24,7 +24,7 @@ namespace pocketmine\lang;
 use pocketmine\event\TextContainer;
 use pocketmine\event\TranslationContainer;
 
-class BaseLang{
+class BaseLang {
 
 	const FALLBACK_LANGUAGE = "eng";
 
@@ -79,10 +79,9 @@ class BaseLang{
 	}
 
 	/**
-	 * @param string   $str
+	 * @param string $str
 	 * @param string[] $params
-	 *
-	 * @param null     $onlyPrefix
+	 * @param string|null $onlyPrefix
 	 *
 	 * @return string
 	 */

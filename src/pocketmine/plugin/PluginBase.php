@@ -27,7 +27,7 @@ use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 
-abstract class PluginBase implements Plugin{
+abstract class PluginBase implements Plugin {
 
 	/** @var PluginLoader */
 	private $loader;
@@ -152,9 +152,9 @@ abstract class PluginBase implements Plugin{
 
 	/**
 	 * @param CommandSender $sender
-	 * @param Command       $command
-	 * @param string        $label
-	 * @param array         $args
+	 * @param Command $command
+	 * @param string $label
+	 * @param array $args
 	 *
 	 * @return bool
 	 */
@@ -188,7 +188,7 @@ abstract class PluginBase implements Plugin{
 
 	/**
 	 * @param string $filename
-	 * @param bool   $replace
+	 * @param bool $replace
 	 *
 	 * @return bool
 	 */
@@ -213,12 +213,11 @@ abstract class PluginBase implements Plugin{
 		$ret = stream_copy_to_stream($resource, $fp = fopen($out, "wb")) > 0;
 		fclose($fp);
 		fclose($resource);
-
 		return $ret;
 	}
 
 	/**
-	 * Returns all the resources incrusted on the plugin
+	 * Returns all the resources packaged with the plugin
 	 *
 	 * @return string[]
 	 */
@@ -259,7 +258,7 @@ abstract class PluginBase implements Plugin{
 	public function reloadConfig(){
 		$this->config = new Config($this->configFile);
 		if(($configStream = $this->getResource("config.yml")) !== null){
-			$this->config->setDefaults(yaml_parse(config::fixYAMLIndexes(stream_get_contents($configStream))));
+			$this->config->setDefaults(yaml_parse(Config::fixYAMLIndexes(stream_get_contents($configStream))));
 			fclose($configStream);
 		}
 	}

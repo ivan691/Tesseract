@@ -27,7 +27,7 @@ use pocketmine\math\Vector3;
 use pocketmine\network\protocol\LevelEventPacket;
 use pocketmine\Player;
 
-class Weather{
+class Weather {
 	const CLEAR = 0;
 	const SUNNY = 0;
 	const RAIN = 1;
@@ -125,7 +125,6 @@ class Weather{
 			if($weather <= 3){
 				return $weather;
 			}
-
 			return self::SUNNY;
 		}
 		switch(strtolower($weather)){

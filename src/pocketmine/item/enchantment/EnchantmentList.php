@@ -22,7 +22,7 @@
 namespace pocketmine\item\enchantment;
 
 
-class EnchantmentList{
+class EnchantmentList {
 
 	/** @var EnchantmentEntry[] */
 	private $enchantments;
@@ -32,7 +32,7 @@ class EnchantmentList{
 	}
 
 	/**
-	 * @param                  $slot
+	 * @param $slot
 	 * @param EnchantmentEntry $entry
 	 */
 	public function setSlot($slot, EnchantmentEntry $entry){
@@ -41,7 +41,6 @@ class EnchantmentList{
 
 	/**
 	 * @param $slot
-	 *
 	 * @return EnchantmentEntry
 	 */
 	public function getSlot($slot){

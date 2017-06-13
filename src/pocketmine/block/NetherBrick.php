@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class NetherBrick extends Solid{
+class NetherBrick extends Solid {
 
 	protected $id = self::NETHER_BRICKS;
 

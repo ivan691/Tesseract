@@ -21,13 +21,13 @@
 
 namespace pocketmine\entity;
 
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item as ItemItem;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\item\Item as ItemItem;
 
-class Mooshroom extends Animal{
+class Mooshroom extends Animal {
 	const NETWORK_ID = 16;
 
 	public $width = 0.3;
@@ -64,7 +64,6 @@ class Mooshroom extends Animal{
 		}
 		$drops = array(ItemItem::get(ItemItem::RAW_BEEF, 0, mt_rand(1, 3 + $lootingL)));
 		$drops[] = ItemItem::get(ItemItem::LEATHER, 0, mt_rand(0, 2 + $lootingL));
-
 		return $drops;
 	}
 }

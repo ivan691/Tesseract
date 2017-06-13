@@ -26,7 +26,7 @@ use pocketmine\item\Tool;
 use pocketmine\level\Level;
 use pocketmine\Player;
 
-class SnowLayer extends Flowable{
+class SnowLayer extends Flowable {
 
 	protected $id = self::SNOW_LAYER;
 

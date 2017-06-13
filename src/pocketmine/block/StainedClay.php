@@ -24,7 +24,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Tool;
 
-class StainedClay extends Solid{
+class StainedClay extends Solid {
 
 	protected $id = self::STAINED_CLAY;
 
@@ -76,7 +76,6 @@ class StainedClay extends Solid{
 			14 => "Red Stained Clay",
 			15 => "Black Stained Clay",
 		];
-
 		return $names[$this->meta & 0x0f];
 	}
 

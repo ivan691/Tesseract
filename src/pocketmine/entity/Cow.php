@@ -21,13 +21,13 @@
 
 namespace pocketmine\entity;
 
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item as ItemItem;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\item\Item as ItemItem;
 
-class Cow extends Animal{
+class Cow extends Animal {
 	const NETWORK_ID = 11;
 
 	public $width = 0.3;
@@ -70,7 +70,6 @@ class Cow extends Animal{
 		/*if ($this->lastDamageCause instanceof EntityDamageByEntityEvent and $this->lastDamageCause->getEntity() instanceof Player) {
 			$drops[] = ItemItem::get(ItemItem::LEATHER, 0, mt_rand(0,2));
 		}*/
-
 		return $drops;
 	}
 }

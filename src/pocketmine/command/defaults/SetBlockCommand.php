@@ -31,7 +31,7 @@ use pocketmine\item\ItemBlock;
 use pocketmine\item\Item;
 
 
-class SetBlockCommand extends VanillaCommand{
+class SetBlockCommand extends VanillaCommand {
 
 	public function __construct($name){
 		parent::__construct(
@@ -49,7 +49,6 @@ class SetBlockCommand extends VanillaCommand{
 
 		if(count($args) < 4 or count($args) > 5){
 			$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 			return false;
 		}
 
@@ -68,7 +67,6 @@ class SetBlockCommand extends VanillaCommand{
 				$x = (int) round($x);
 			}else{
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 				return false;
 			}
 			if($y{0} === "~"){
@@ -78,7 +76,6 @@ class SetBlockCommand extends VanillaCommand{
 				$y = (int) round($y);
 			}else{
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 				return false;
 			}
 			if($z{0} === "~"){
@@ -87,12 +84,10 @@ class SetBlockCommand extends VanillaCommand{
 				$z = (int) round($z);
 			}else{
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 				return false;
 			}
 			if(!(is_integer($x) and is_integer($y) and is_integer($z))){
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 				return false;
 			}
 
@@ -101,20 +96,16 @@ class SetBlockCommand extends VanillaCommand{
 				$level = ($sender instanceof Player) ? $sender->getLevel() : $sender->getServer()->getDefaultLevel();
 				if($level->setBlock($pos, $block)){
 					$sender->sendMessage("Successfully set the block at ($x, $y, $z) to block $args[3]");
-
 					return true;
 				}else{
 					$sender->sendMessage(TextFormat::RED . new TranslationContainer("commands.generic.exception", []));
-
 					return false;
 				}
 			}
 		}else{
 			$sender->sendMessage(TextFormat::RED . new TranslationContainer("command.setblock.invalidBlock", []));
-
 			return false;
 		}
-
 		return true;
 	}
 }

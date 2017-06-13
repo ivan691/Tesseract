@@ -26,7 +26,7 @@ use pocketmine\entity\Entity;
 use pocketmine\event\Cancellable;
 use pocketmine\item\Potion;
 
-class EntityDrinkPotionEvent extends EntityEvent implements Cancellable{
+class EntityDrinkPotionEvent extends EntityEvent implements Cancellable {
 
 	public static $handlerList = null;
 
@@ -49,12 +49,4 @@ class EntityDrinkPotionEvent extends EntityEvent implements Cancellable{
 	public function getPotion(){
 		return $this->potion;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "EntityDrinkPotionEvent";
-	}
-
 }

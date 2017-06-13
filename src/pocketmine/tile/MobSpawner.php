@@ -24,18 +24,18 @@ namespace pocketmine\tile;
 use pocketmine\entity\Entity;
 use pocketmine\event\entity\EntityGenerateEvent;
 use pocketmine\item\Item;
+use pocketmine\level\format\Chunk;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\FloatTag;
 use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\level\format\Chunk;
 use pocketmine\Player;
 
-class MobSpawner extends Spawnable{
+class MobSpawner extends Spawnable {
 
 	public function __construct(Level $level, CompoundTag $nbt){
 		if(!isset($nbt->EntityId) or !($nbt->EntityId instanceof IntTag)){
@@ -131,7 +131,6 @@ class MobSpawner extends Spawnable{
 		if($hasPlayer and $count < 15){ // Spawn limit = 15
 			return true;
 		}
-
 		return false;
 	}
 

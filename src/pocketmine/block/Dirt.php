@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\Player;
 
-class Dirt extends Solid{
+class Dirt extends Solid {
 
 	protected $id = self::DIRT;
 

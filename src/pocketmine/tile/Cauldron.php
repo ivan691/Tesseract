@@ -22,15 +22,15 @@
 namespace pocketmine\tile;
 
 use pocketmine\level\Level;
+use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\utils\Color;
 
-class Cauldron extends Spawnable{
+class Cauldron extends Spawnable {
 
 	public function __construct(Level $level, CompoundTag $nbt){
 		if(!isset($nbt->PotionId) or !($nbt->PotionId instanceof ShortTag)){
@@ -73,10 +73,8 @@ class Cauldron extends Spawnable{
 			$green = ($color >> 8) & 0xff;
 			$red = ($color >> 16) & 0xff;
 			$blue = ($color) & 0xff;
-
 			return Color::getRGB($red, $green, $blue);
 		}
-
 		return null;
 	}
 
@@ -127,7 +125,6 @@ class Cauldron extends Spawnable{
 		if($this->getPotionId() === 0xffff and $this->isCustomColor()){
 			$nbt->CustomColor = $this->namedtag->CustomColor;
 		}
-
 		return $nbt;
 	}
 }

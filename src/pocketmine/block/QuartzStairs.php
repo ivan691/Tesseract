@@ -24,7 +24,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Tool;
 
-class QuartzStairs extends Stair{
+class QuartzStairs extends Stair {
 
 	protected $id = self::QUARTZ_STAIRS;
 

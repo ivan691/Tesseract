@@ -28,7 +28,7 @@ namespace pocketmine\inventory;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-interface Inventory{
+interface Inventory {
 	const MAX_STACK = 64;
 
 	public function getSize();
@@ -56,7 +56,7 @@ interface Inventory{
 	 * If a plugin refuses the update or $index is invalid, it'll return false
 	 * If a source Player is specified, it won't send a Inventory update to it
 	 *
-	 * @param int  $index
+	 * @param int $index
 	 * @param Item $item
 	 *
 	 * @return bool
@@ -69,10 +69,9 @@ interface Inventory{
 	 *
 	 * Returns the Items that did not fit.
 	 *
-	 * @param array $slots
+	 * @param Item ...$item
 	 *
 	 * @return Item[]
-	 * @internal param Item ...$item
 	 */
 	public function addItem(...$slots);
 
@@ -89,10 +88,9 @@ interface Inventory{
 	 * Removes the given Item from the inventory.
 	 * It will return the Items that couldn't be removed.
 	 *
-	 * @param array $slots
+	 * @param Item ...$item
 	 *
 	 * @return Item[]
-	 * @internal param Item ...$item
 	 */
 	public function removeItem(...$slots);
 
@@ -112,7 +110,7 @@ interface Inventory{
 	public function sendContents($target);
 
 	/**
-	 * @param int             $index
+	 * @param int $index
 	 * @param Player|Player[] $target
 	 */
 	public function sendSlot($index, $target);
@@ -215,7 +213,7 @@ interface Inventory{
 	public function onClose(Player $who);
 
 	/**
-	 * @param int  $index
+	 * @param int $index
 	 * @param Item $before
 	 * @param bool $send
 	 */

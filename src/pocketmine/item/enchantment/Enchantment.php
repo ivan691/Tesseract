@@ -67,9 +67,8 @@ use pocketmine\item\WoodenHoe;
 use pocketmine\item\WoodenPickaxe;
 use pocketmine\item\WoodenShovel;
 use pocketmine\item\WoodenSword;
-use pocketmine\Server;
 
-class Enchantment{
+class Enchantment {
 
 	const TYPE_INVALID = -1;
 
@@ -135,7 +134,7 @@ class Enchantment{
 
 
 	/** @var Enchantment[] */
-	protected static $enchantments;
+	public static $enchantments;
 
 	public static function init(){
 		self::$enchantments = new \SplFixedArray(256);
@@ -172,28 +171,23 @@ class Enchantment{
 
 	/**
 	 * @param int $id
-	 *
 	 * @return $this
 	 */
 	public static function getEnchantment($id){
 		if(isset(self::$enchantments[$id])){
 			return clone self::$enchantments[(int) $id];
 		}
-
 		return new Enchantment(self::TYPE_INVALID, "unknown", 0, 0, 0);
 	}
 
 	public static function registerEnchantment($id, $name, $rarity, $activationType, $slot){
 		if(isset(self::$enchantments[$id])){
 			Server::getInstance()->getLogger()->debug("Unable to register enchantment with id $id.");
-
 			return new Enchantment(self::TYPE_INVALID, "unknown", 0, 0, 0);
 		}
 		self::$enchantments[$id] = new Enchantment($id, $name, $rarity, $activationType, $slot);
-
 		return new Enchantment($id, $name, $rarity, $activationType, $slot);
 	}
-
 
 	public static function getEnchantmentByName($name){
 		if(defined(Enchantment::class . "::TYPE_" . strtoupper($name))){
@@ -283,7 +277,6 @@ class Enchantment{
 			case self::TYPE_BOW_INFINITY:
 				return 1;
 		}
-
 		return 0;
 	}
 
@@ -329,7 +322,6 @@ class Enchantment{
 			case self::TYPE_FISHING_LURE:
 				return 3;
 		}
-
 		return 999;
 	}
 
@@ -339,13 +331,25 @@ class Enchantment{
 	private $rarity;
 	private $activationType;
 	private $slot;
+	private $nickname;
+	private $isCustomVar;
 
-	private function __construct($id, $name, $rarity, $activationType, $slot){
+	public function __construct($id, $name, $rarity, $activationType, $slot, $nickname = "", $custom = false){
 		$this->id = (int) $id;
 		$this->name = (string) $name;
 		$this->rarity = (int) $rarity;
 		$this->activationType = (int) $activationType;
 		$this->slot = (int) $slot;
+		$this->nickname = $nickname;
+		$this->isCustomVar = $custom;
+	}
+
+	public function getNickName(){
+		return $this->nickname;
+	}
+
+	public function isCustom(){
+		return (bool) $this->isCustomVar;
 	}
 
 	public function getId(){
@@ -386,7 +390,6 @@ class Enchantment{
 		if($ent->getId() == $this->getId() and $ent->getLevel() == $this->getLevel() and $ent->getActivationType() == $this->getActivationType() and $ent->getRarity() == $this->getRarity()){
 			return true;
 		}
-
 		return false;
 	}
 
@@ -396,7 +399,6 @@ class Enchantment{
 		while(count($set) < $count){
 			$set[] = self::$words[mt_rand(0, count(self::$words) - 1)];
 		}
-
 		return implode(" ", $set);
 	}
 }

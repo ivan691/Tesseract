@@ -33,7 +33,7 @@ use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\Server;
 
-class Fire extends Flowable{
+class Fire extends Flowable {
 
 	protected $id = self::FIRE;
 
@@ -95,7 +95,6 @@ class Fire extends Flowable{
 		if($type == Level::BLOCK_UPDATE_NORMAL or $type == Level::BLOCK_UPDATE_RANDOM or $type == Level::BLOCK_UPDATE_SCHEDULED){
 			if(!$this->getSide(Vector3::SIDE_DOWN)->isTopFacingSurfaceSolid() and !$this->canNeighborBurn()){
 				$this->getLevel()->setBlock($this, new Air(), true);
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}elseif($type == Level::BLOCK_UPDATE_NORMAL or $type == Level::BLOCK_UPDATE_RANDOM){
 				$this->getLevel()->scheduleUpdate($this, $this->getTickRate() + mt_rand(0, 10));
@@ -175,7 +174,6 @@ class Fire extends Flowable{
 				}
 			}
 		}
-
 		return 0;
 	}
 
@@ -235,7 +233,6 @@ class Fire extends Flowable{
 			for($i = 0; $i < 5; $i++){
 				$chance = max($chance, $block->getSide($i)->getBurnChance());
 			}
-
 			return $chance;
 		}
 	}

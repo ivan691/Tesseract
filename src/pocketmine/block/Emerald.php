@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class Emerald extends Solid{
+class Emerald extends Solid {
 
 	protected $id = self::EMERALD_BLOCK;
 

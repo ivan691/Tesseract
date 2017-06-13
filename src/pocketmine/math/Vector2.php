@@ -23,7 +23,7 @@ namespace pocketmine\math;
 
 use pocketmine\utils\Random;
 
-class Vector2{
+class Vector2 {
 	public $x;
 	public $y;
 

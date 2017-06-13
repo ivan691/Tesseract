@@ -21,11 +21,11 @@
 
 namespace pocketmine\entity;
 
+use pocketmine\item\Item as ItemItem;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
-use pocketmine\item\Item as ItemItem;
 
-class IronGolem extends Animal{
+class IronGolem extends Animal {
 	const NETWORK_ID = 20;
 
 	public $width = 0.3;
@@ -63,7 +63,6 @@ class IronGolem extends Animal{
 		//Not affected by Looting.
 		$drops = array(ItemItem::get(ItemItem::IRON_INGOT, 0, mt_rand(3, 5)));
 		$drops[] = ItemItem::get(ItemItem::POPPY, 0, mt_rand(0, 2));
-
 		return $drops;
 	}
 }

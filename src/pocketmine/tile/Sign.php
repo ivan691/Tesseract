@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  *  ____            _        _   __  __ _                  __  __ ____
@@ -28,21 +29,22 @@ use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class Sign extends Spawnable{
+class Sign extends Spawnable {
 
 	public function __construct(Level $level, CompoundTag $nbt){
 		if(!isset($nbt->Text1)){
 			$nbt->Text1 = new StringTag("Text1", "");
 		}
-		if(!isset($nbt->Text2)){
+		if(!isset($nbt->Text2) or !($nbt->Text2 instanceof StringTag)){
 			$nbt->Text2 = new StringTag("Text2", "");
 		}
-		if(!isset($nbt->Text3)){
+		if(!isset($nbt->Text3) or !($nbt->Text3 instanceof StringTag)){
 			$nbt->Text3 = new StringTag("Text3", "");
 		}
-		if(!isset($nbt->Text4)){
+		if(!isset($nbt->Text4) or !($nbt->Text4 instanceof StringTag)){
 			$nbt->Text4 = new StringTag("Text4", "");
 		}
+
 		parent::__construct($level, $nbt);
 	}
 
@@ -87,22 +89,26 @@ class Sign extends Spawnable{
 		if($nbt["id"] !== Tile::SIGN){
 			return false;
 		}
+
 		$ev = new SignChangeEvent($this->getBlock(), $player, [
 			TextFormat::clean($nbt["Text1"], ($removeFormat = $player->getRemoveFormat())),
 			TextFormat::clean($nbt["Text2"], $removeFormat),
 			TextFormat::clean($nbt["Text3"], $removeFormat),
 			TextFormat::clean($nbt["Text4"], $removeFormat)
 		]);
+
 		if(!isset($this->namedtag->Creator) or $this->namedtag["Creator"] !== $player->getRawUniqueId()){
 			$ev->setCancelled();
 		}
+
 		$this->level->getServer()->getPluginManager()->callEvent($ev);
+
 		if(!$ev->isCancelled()){
 			$this->setText(...$ev->getLines());
-
 			return true;
 		}else{
 			return false;
 		}
 	}
+
 }

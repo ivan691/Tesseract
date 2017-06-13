@@ -26,7 +26,7 @@ use pocketmine\entity\Living;
 use pocketmine\plugin\PluginManager;
 use pocketmine\Server;
 
-class TimingsHandler{
+class TimingsHandler {
 
 	/** @var TimingsHandler[] */
 	private static $HANDLERS = [];
@@ -44,7 +44,7 @@ class TimingsHandler{
 	private $violations = 0;
 
 	/**
-	 * @param string         $name
+	 * @param string $name
 	 * @param TimingsHandler $parent
 	 */
 	public function __construct($name, TimingsHandler $parent = null){

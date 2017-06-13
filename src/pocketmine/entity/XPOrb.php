@@ -26,7 +26,7 @@ use pocketmine\level\sound\ExpPickupSound;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class XPOrb extends Entity{
+class XPOrb extends Entity {
 	const NETWORK_ID = 69;
 
 	public $width = 0.25;

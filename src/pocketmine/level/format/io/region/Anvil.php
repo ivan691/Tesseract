@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace pocketmine\level\format\io\region;
 
+
 use pocketmine\level\format\Chunk;
 use pocketmine\level\format\io\ChunkException;
 use pocketmine\level\format\io\ChunkUtils;
@@ -35,7 +36,7 @@ use pocketmine\Player;
 use pocketmine\utils\MainLogger;
 
 
-class Anvil extends McRegion{
+class Anvil extends McRegion {
 
 	const REGION_FILE_EXTENSION = "mca";
 
@@ -127,7 +128,7 @@ class Anvil extends McRegion{
 			}
 
 			if(isset($chunk->BiomeColors)){
-				$biomeIds = ChunkUtils::convertBiomeColors($chunk->BiomeColors->getValue()); //Convert back to PC format (RIP colours D:)
+				$biomeIds = ChunkUtils::convertBiomeColors($chunk->BiomeColors->getValue()); //Convert back to original format
 			}elseif(isset($chunk->Biomes)){
 				$biomeIds = $chunk->Biomes->getValue();
 			}else{
@@ -146,11 +147,9 @@ class Anvil extends McRegion{
 			$result->setLightPopulated(isset($chunk->LightPopulated) ? ((bool) $chunk->LightPopulated->getValue()) : false);
 			$result->setPopulated(isset($chunk->TerrainPopulated) ? ((bool) $chunk->TerrainPopulated->getValue()) : false);
 			$result->setGenerated(true);
-
 			return $result;
 		}catch(\Throwable $e){
 			MainLogger::getLogger()->logException($e);
-
 			return null;
 		}
 	}

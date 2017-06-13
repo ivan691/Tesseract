@@ -26,7 +26,7 @@ use pocketmine\event\TranslationContainer;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class TellCommand extends VanillaCommand{
+class TellCommand extends VanillaCommand {
 
 	public function __construct($name){
 		parent::__construct(
@@ -55,7 +55,6 @@ class TellCommand extends VanillaCommand{
 
 		if($player === $sender){
 			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.message.sameTarget"));
-
 			return true;
 		}
 

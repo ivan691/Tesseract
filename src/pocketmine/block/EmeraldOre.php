@@ -21,11 +21,11 @@
 
 namespace pocketmine\block;
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 
-class EmeraldOre extends Solid{
+class EmeraldOre extends Solid {
 
 	protected $id = self::EMERALD_ORE;
 
@@ -56,7 +56,6 @@ class EmeraldOre extends Solid{
 				$fortunel = $fortunel > 3 ? 3 : $fortunel;
 				$times = [1, 1, 2, 3, 4];
 				$time = $times[mt_rand(0, $fortunel + 1)];
-
 				return [
 					[Item::EMERALD, 0, $time],
 				];

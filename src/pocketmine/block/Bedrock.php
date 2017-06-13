@@ -23,7 +23,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Item;
 
-class Bedrock extends Solid{
+class Bedrock extends Solid {
 
 	protected $id = self::BEDROCK;
 

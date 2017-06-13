@@ -26,7 +26,7 @@ use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 
-class Lever extends Solid{
+class Lever extends RedstoneSource {
 	protected $id = self::LEVER;
 
 	public function __construct($meta = 0){
@@ -63,7 +63,6 @@ class Lever extends Solid{
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
-
 		return false;
 	}
 
@@ -85,10 +84,8 @@ class Lever extends Solid{
 				$this->meta = $faces[$face];
 			}
 			$this->getLevel()->setBlock($block, $this, true, false);
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -143,7 +140,6 @@ class Lever extends Solid{
 		$this->getLevel()->setBlock($this, $this, true, false);
 		if($this->isActivated()) $this->activate();
 		else $this->deactivate();
-
 		return true;
 	}
 

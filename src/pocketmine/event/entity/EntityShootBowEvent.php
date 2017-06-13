@@ -27,8 +27,7 @@ use pocketmine\entity\Projectile;
 use pocketmine\event\Cancellable;
 use pocketmine\item\Item;
 
-class EntityShootBowEvent extends EntityEvent implements Cancellable{
-
+class EntityShootBowEvent extends EntityEvent implements Cancellable {
 	public static $handlerList = null;
 
 	/** @var Item */
@@ -39,10 +38,10 @@ class EntityShootBowEvent extends EntityEvent implements Cancellable{
 	private $force;
 
 	/**
-	 * @param Living     $shooter
-	 * @param Item       $bow
+	 * @param Living $shooter
+	 * @param Item $bow
 	 * @param Projectile $projectile
-	 * @param float      $force
+	 * @param float $force
 	 */
 	public function __construct(Living $shooter, Item $bow, Projectile $projectile, $force){
 		$this->entity = $shooter;
@@ -99,11 +98,5 @@ class EntityShootBowEvent extends EntityEvent implements Cancellable{
 		$this->force = $force;
 	}
 
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "EntityShootBowEvent";
-	}
 
 }

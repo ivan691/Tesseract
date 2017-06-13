@@ -26,11 +26,9 @@ use pocketmine\Server;
 
 
 /**
- * Class Config
- *
  * Config Class for simple config manipulation of multiple formats.
  */
-class Config{
+class Config {
 	const DETECT = -1; //Detect by file extension
 	const PROPERTIES = 0; // .properties
 	const CNF = Config::PROPERTIES; // .cnf
@@ -48,9 +46,9 @@ class Config{
 
 	/** @var string */
 	private $file;
-	/** @var boolean */
+	/** @var bool */
 	private $correct = false;
-	/** @var integer */
+	/** @var int */
 	private $type = Config::DETECT;
 
 	public static $formats = [
@@ -73,9 +71,9 @@ class Config{
 
 	/**
 	 * @param string $file Path of the file to be loaded
-	 * @param int    $type Config type to load, -1 by default (detect)
-	 * @param array  $default Array with the default values that will be written to the file if it did not exist
-	 * @param null   &$correct Sets correct to true if everything has been loaded correctly
+	 * @param int $type Config type to load, -1 by default (detect)
+	 * @param array $default Array with the default values that will be written to the file if it did not exist
+	 * @param null &$correct Sets correct to true if everything has been loaded correctly
 	 */
 	public function __construct($file, $type = Config::DETECT, $default = [], &$correct = null){
 		$this->load($file, $type, $default);
@@ -103,7 +101,7 @@ class Config{
 
 	/**
 	 * @param       $file
-	 * @param int   $type
+	 * @param int $type
 	 * @param array $default
 	 *
 	 * @return bool
@@ -168,7 +166,7 @@ class Config{
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function check(){
 		return $this->correct === true;
@@ -177,7 +175,7 @@ class Config{
 	/**
 	 * @param bool $async
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function save($async = false){
 		if($this->correct === true){
@@ -189,7 +187,7 @@ class Config{
 						$content = $this->writeProperties();
 						break;
 					case Config::JSON:
-						$content = json_encode($this->config, JSON_PRETTY_PRINT | JSON_BIGINT_AS_STRING);
+						$content = json_encode($this->config, JSON_PRETTY_PRINT | JSON_BIGINT_AS_STRING | JSON_UNESCAPED_UNICODE);
 						break;
 					case Config::YAML:
 						$content = yaml_emit($this->config, YAML_UTF8_ENCODING);
@@ -224,7 +222,7 @@ class Config{
 	/**
 	 * @param $k
 	 *
-	 * @return boolean|mixed
+	 * @return bool|mixed
 	 */
 	public function __get($k){
 		return $this->get($k);
@@ -241,7 +239,7 @@ class Config{
 	/**
 	 * @param $k
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function __isset($k){
 		return $this->exists($k);
@@ -315,7 +313,7 @@ class Config{
 	 * @param       $k
 	 * @param mixed $default
 	 *
-	 * @return boolean|mixed
+	 * @return bool|mixed
 	 */
 	public function get($k, $default = false){
 		return ($this->correct and isset($this->config[$k])) ? $this->config[$k] : $default;
@@ -323,7 +321,7 @@ class Config{
 
 	/**
 	 * @param string $k key to be set
-	 * @param mixed  $v value to set key
+	 * @param mixed $v value to set key
 	 */
 	public function set($k, $v = true){
 		$this->config[$k] = $v;
@@ -345,13 +343,12 @@ class Config{
 	 * @param      $k
 	 * @param bool $lowercase If set, searches Config in single-case / lowercase.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function exists($k, $lowercase = false){
 		if($lowercase === true){
 			$k = strtolower($k); //Convert requested  key to lower
 			$array = array_change_key_case($this->config, CASE_LOWER); //Change all keys in array to lower
-
 			return isset($array[$k]); //Find $k in modified array
 		}else{
 			return isset($this->config[$k]);
@@ -385,7 +382,7 @@ class Config{
 	 * @param $default
 	 * @param $data
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	private function fillDefaults($default, &$data){
 		$changed = 0;

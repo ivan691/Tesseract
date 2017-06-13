@@ -23,7 +23,7 @@ namespace pocketmine\event;
 
 use pocketmine\level\Level;
 
-class LevelTimings{
+class LevelTimings {
 
 	/** @var TimingsHandler */
 	public $setBlock;

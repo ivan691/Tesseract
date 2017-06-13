@@ -22,6 +22,7 @@
 namespace pocketmine\tile;
 
 use pocketmine\block\Block;
+use pocketmine\entity\Item as ItemEntity;
 use pocketmine\inventory\DropperInventory;
 use pocketmine\inventory\InventoryHolder;
 use pocketmine\item\Item;
@@ -29,17 +30,15 @@ use pocketmine\level\Level;
 use pocketmine\level\particle\SmokeParticle;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\entity\Item as ItemEntity;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\IntTag;
-
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 
-class Dropper extends Spawnable implements InventoryHolder, Container, Nameable{
+class Dropper extends Spawnable implements InventoryHolder, Container, Nameable {
 
 	/** @var DropperInventory */
 	protected $inventory;
@@ -121,7 +120,7 @@ class Dropper extends Spawnable implements InventoryHolder, Container, Nameable{
 	/**
 	 * This method should not be used by plugins, use the Inventory
 	 *
-	 * @param int  $index
+	 * @param int $index
 	 * @param Item $item
 	 *
 	 * @return bool
@@ -165,7 +164,6 @@ class Dropper extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
-
 			return;
 		}
 
@@ -225,7 +223,6 @@ class Dropper extends Spawnable implements InventoryHolder, Container, Nameable{
 					if($t instanceof Tile){
 						if($t->getInventory()->canAddItem($needItem)){
 							$t->getInventory()->addItem($needItem);
-
 							return;
 						}
 					}

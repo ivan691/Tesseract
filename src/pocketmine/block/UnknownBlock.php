@@ -21,7 +21,7 @@
 
 namespace pocketmine\block;
 
-class UnknownBlock extends Solid{
+class UnknownBlock extends Transparent {
 
 	public function isSolid(){
 		return false;

@@ -26,7 +26,7 @@ use pocketmine\item\Tool;
 use pocketmine\level\Level;
 use pocketmine\Player;
 
-class TallGrass extends Flowable{
+class TallGrass extends Flowable {
 
 	const NORMAL = 1;
 	const FERN = 2;
@@ -48,7 +48,6 @@ class TallGrass extends Flowable{
 			2 => "Fern",
 			3 => ""
 		];
-
 		return $names[$this->meta & 0x03];
 	}
 
@@ -75,7 +74,7 @@ class TallGrass extends Flowable{
 	public function onUpdate($type){
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if($this->getSide(0)->isTransparent() === true){ //Replace with common break method
-				$this->getLevel()->setBlock($this, new Air(), true, true);
+				$this->getLevel()->setBlock($this, new Air(), false, false);
 
 				return Level::BLOCK_UPDATE_NORMAL;
 			}

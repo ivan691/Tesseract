@@ -27,7 +27,7 @@ use pocketmine\level\Level;
 use pocketmine\Player;
 use pocketmine\Server;
 
-abstract class Crops extends Flowable{
+abstract class Crops extends Flowable {
 
 	public function canBeActivated() : bool{
 		return true;
@@ -71,7 +71,6 @@ abstract class Crops extends Flowable{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if($this->getSide(0)->isTransparent() === true){
 				$this->getLevel()->useBreakOn($this);
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}elseif($type === Level::BLOCK_UPDATE_RANDOM){

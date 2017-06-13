@@ -27,13 +27,13 @@ use pocketmine\event\TranslationContainer;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class DeopCommand extends VanillaCommand{
+class DeopCommand extends VanillaCommand {
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
 			"%pocketmine.command.deop.description",
-			"%pocketmine.command.deop.usage"
+			"%commands.deop.usage"
 		);
 		$this->setPermission("pocketmine.command.op.take");
 	}

@@ -26,7 +26,7 @@ use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginException;
 use pocketmine\Server;
 
-class PermissibleBase implements Permissible{
+class PermissibleBase implements Permissible {
 	/** @var ServerOperator */
 	private $opable = null;
 
@@ -120,7 +120,7 @@ class PermissibleBase implements Permissible{
 	 *
 	 * @param Plugin $plugin
 	 * @param string $name
-	 * @param bool   $value
+	 * @param bool $value
 	 *
 	 * @return PermissionAttachment
 	 *
@@ -199,8 +199,8 @@ class PermissibleBase implements Permissible{
 	}
 
 	/**
-	 * @param bool[]               $children
-	 * @param bool                 $invert
+	 * @param bool[] $children
+	 * @param bool $invert
 	 * @param PermissionAttachment $attachment
 	 */
 	private function calculateChildPermissions(array $children, $invert, $attachment){

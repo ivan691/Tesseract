@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  *  ____            _        _   __  __ _                  __  __ ____
@@ -29,7 +30,7 @@ use pocketmine\network\protocol\ContainerSetSlotPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 
-abstract class BaseInventory implements Inventory{
+abstract class BaseInventory implements Inventory {
 
 	/** @var InventoryType */
 	protected $type;
@@ -50,10 +51,10 @@ abstract class BaseInventory implements Inventory{
 
 	/**
 	 * @param InventoryHolder $holder
-	 * @param InventoryType   $type
-	 * @param Item[]          $items
-	 * @param int             $overrideSize
-	 * @param string          $overrideTitle
+	 * @param InventoryType $type
+	 * @param Item[] $items
+	 * @param int $overrideSize
+	 * @param string $overrideTitle
 	 */
 	public function __construct(InventoryHolder $holder, InventoryType $type, array $items = [], $overrideSize = null, $overrideTitle = null){
 		$this->holder = $holder;
@@ -115,7 +116,7 @@ abstract class BaseInventory implements Inventory{
 
 	/**
 	 * @param Item[] $items
-	 * @param bool   $send
+	 * @param bool $send
 	 */
 	public function setContents(array $items, $send = true){
 		if(count($items) > $this->size){
@@ -148,7 +149,6 @@ abstract class BaseInventory implements Inventory{
 			Server::getInstance()->getPluginManager()->callEvent($ev = new EntityInventoryChangeEvent($holder, $this->getItem($index), $item, $index));
 			if($ev->isCancelled()){
 				$this->sendSlot($index, $this->getViewers());
-
 				return false;
 			}
 			$item = $ev->getNewItem();
@@ -242,7 +242,6 @@ abstract class BaseInventory implements Inventory{
 				return $i;
 			}
 		}
-
 		return -1;
 	}
 
@@ -376,7 +375,6 @@ abstract class BaseInventory implements Inventory{
 				Server::getInstance()->getPluginManager()->callEvent($ev = new EntityInventoryChangeEvent($holder, $old, $item, $index));
 				if($ev->isCancelled()){
 					$this->sendSlot($index, $this->getViewers());
-
 					return false;
 				}
 				$item = $ev->getNewItem();
@@ -466,12 +464,13 @@ abstract class BaseInventory implements Inventory{
 				continue;
 			}
 			$pk->windowid = $id;
+			$pk->targetEid = $player->getId();
 			$player->dataPacket($pk);
 		}
 	}
 
 	/**
-	 * @param int             $index
+	 * @param int $index
 	 * @param Player|Player[] $target
 	 */
 	public function sendSlot($index, $target){

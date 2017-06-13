@@ -23,11 +23,11 @@ namespace pocketmine\entity;
 
 use pocketmine\level\Level;
 use pocketmine\nbt\tag\ByteTag;
-use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class Bat extends FlyingAnimal{
+class Bat extends FlyingAnimal {
 
 	const NETWORK_ID = 19;
 
@@ -70,7 +70,6 @@ class Bat extends FlyingAnimal{
 		if($this->age > 20 * 60 * 10){
 			$this->kill();
 		}
-
 		return parent::onUpdate($currentTick);
 	}
 

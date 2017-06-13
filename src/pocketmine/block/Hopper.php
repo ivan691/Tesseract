@@ -32,7 +32,7 @@ use pocketmine\Player;
 use pocketmine\tile\Hopper as TileHopper;
 use pocketmine\tile\Tile;
 
-class Hopper extends Transparent{
+class Hopper extends Transparent {
 
 	protected $id = self::HOPPER_BLOCK;
 
@@ -62,14 +62,16 @@ class Hopper extends Transparent{
 			if($t instanceof TileHopper){
 				if($t->hasLock() and !$t->checkLock($item->getCustomName())){
 					$player->getServer()->getLogger()->debug($player->getName() . " attempted to open a locked hopper");
-
 					return true;
 				}
 				$player->addWindow($t->getInventory());
 			}
 		}
-
 		return true;
+	}
+
+	public function activate(){
+		//TODO: Hopper content freezing (requires basic redstone system upgrade)
 	}
 
 	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){

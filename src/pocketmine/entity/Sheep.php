@@ -22,14 +22,14 @@
 namespace pocketmine\entity;
 
 use pocketmine\block\Wool;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
 use pocketmine\item\Item as ItemItem;
 use pocketmine\level\Level;
+use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\Player;
 
-class Sheep extends Animal implements Colorable{
+class Sheep extends Animal implements Colorable {
 	const NETWORK_ID = 13;
 
 	const DATA_COLOR_INFO = 16;
@@ -68,7 +68,6 @@ class Sheep extends Animal implements Colorable{
 		$rand .= str_repeat(Wool::RED . " ", 5);
 		$rand .= str_repeat(Wool::BLACK . " ", 10);
 		$arr = explode(" ", $rand);
-
 		return intval($arr[mt_rand(0, count($arr) - 1)]);
 	}
 
@@ -102,7 +101,6 @@ class Sheep extends Animal implements Colorable{
 		$drops = [
 			ItemItem::get(ItemItem::WOOL, $this->getColor(), 1)
 		];
-
 		return $drops;
 	}
 }

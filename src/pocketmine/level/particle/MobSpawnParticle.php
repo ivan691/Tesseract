@@ -21,10 +21,10 @@
 
 namespace pocketmine\level\particle;
 
-use pocketmine\network\protocol\LevelEventPacket;
 use pocketmine\math\Vector3;
+use pocketmine\network\protocol\LevelEventPacket;
 
-class MobSpawnParticle extends Particle{
+class MobSpawnParticle extends Particle {
 
 	protected $width;
 	protected $height;

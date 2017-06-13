@@ -28,7 +28,7 @@ namespace pocketmine\event\block;
 use pocketmine\block\Block;
 use pocketmine\event\Event;
 
-abstract class BlockEvent extends Event{
+abstract class BlockEvent extends Event {
 	/** @var \pocketmine\block\Block */
 	protected $block;
 
@@ -45,12 +45,4 @@ abstract class BlockEvent extends Event{
 	public function getBlock(){
 		return $this->block;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "BlockEvent";
-	}
-
 }

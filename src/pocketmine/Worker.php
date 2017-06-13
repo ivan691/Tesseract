@@ -24,7 +24,7 @@ namespace pocketmine;
 /**
  * This class must be extended by all custom threading classes
  */
-abstract class Worker extends \Worker{
+abstract class Worker extends \Worker {
 
 	/** @var \ClassLoader */
 	protected $classLoader;
@@ -46,7 +46,6 @@ abstract class Worker extends \Worker{
 		if(!interface_exists("ClassLoader", false)){
 			require(\pocketmine\PATH . "src/spl/ClassLoader.php");
 			require(\pocketmine\PATH . "src/spl/BaseClassLoader.php");
-			require(\pocketmine\PATH . "src/pocketmine/CompatibleClassLoader.php");
 		}
 		if($this->classLoader !== null){
 			$this->classLoader->register(true);
@@ -60,7 +59,6 @@ abstract class Worker extends \Worker{
 			if($this->getClassLoader() === null){
 				$this->setClassLoader();
 			}
-
 			return parent::start($options);
 		}
 

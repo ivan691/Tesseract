@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class Cobblestone extends Solid{
+class Cobblestone extends Solid {
 
 	protected $id = self::COBBLESTONE;
 

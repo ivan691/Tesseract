@@ -26,7 +26,7 @@ use pocketmine\event\TranslationContainer;
 use pocketmine\Server;
 
 
-class BanListCommand extends VanillaCommand{
+class BanListCommand extends VanillaCommand {
 
 	public function __construct($name){
 		parent::__construct(
@@ -60,7 +60,6 @@ class BanListCommand extends VanillaCommand{
 				break;
 			default:
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 				return false;
 		}
 

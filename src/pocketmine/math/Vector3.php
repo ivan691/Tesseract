@@ -23,7 +23,7 @@ namespace pocketmine\math;
 
 use pocketmine\utils\Random;
 
-class Vector3{
+class Vector3 {
 
 	const SIDE_DOWN = 0;
 	const SIDE_UP = 1;
@@ -88,8 +88,8 @@ class Vector3{
 
 	/**
 	 * @param Vector3|int $x
-	 * @param int         $y
-	 * @param int         $z
+	 * @param int $y
+	 * @param int $z
 	 *
 	 * @return Vector3
 	 */
@@ -103,8 +103,8 @@ class Vector3{
 
 	/**
 	 * @param Vector3|int $x
-	 * @param int         $y
-	 * @param int         $z
+	 * @param int $y
+	 * @param int $z
 	 *
 	 * @return Vector3
 	 */
@@ -159,23 +159,20 @@ class Vector3{
 		}
 	}
 
-	public static function getOppositeSide($side){
-		switch((int) $side){
-			case Vector3::SIDE_DOWN:
-				return Vector3::SIDE_UP;
-			case Vector3::SIDE_UP:
-				return Vector3::SIDE_DOWN;
-			case Vector3::SIDE_NORTH:
-				return Vector3::SIDE_SOUTH;
-			case Vector3::SIDE_SOUTH:
-				return Vector3::SIDE_NORTH;
-			case Vector3::SIDE_WEST:
-				return Vector3::SIDE_EAST;
-			case Vector3::SIDE_EAST:
-				return Vector3::SIDE_WEST;
-			default:
-				return -1;
+	/**
+	 * Returns the Vector3 side number opposite the specified one
+	 *
+	 * @param int $side 0-5 one of the Vector3::SIDE_* constants
+	 * @return int
+	 *
+	 * @throws \InvalidArgumentException if an invalid side is supplied
+	 */
+	public static function getOppositeSide(int $side) : int{
+		if($side >= 0 and $side <= 5){
+			return $side ^ 0x01;
 		}
+
+		throw new \InvalidArgumentException("Invalid side $side given to getOppositeSide");
 	}
 
 	public function distance(Vector3 $pos){
@@ -237,7 +234,7 @@ class Vector3{
 	 * passed in vector, or null if not possible.
 	 *
 	 * @param Vector3 $v
-	 * @param float   $x
+	 * @param float $x
 	 *
 	 * @return Vector3
 	 */
@@ -264,7 +261,7 @@ class Vector3{
 	 * passed in vector, or null if not possible.
 	 *
 	 * @param Vector3 $v
-	 * @param float   $y
+	 * @param float $y
 	 *
 	 * @return Vector3
 	 */
@@ -291,7 +288,7 @@ class Vector3{
 	 * passed in vector, or null if not possible.
 	 *
 	 * @param Vector3 $v
-	 * @param float   $z
+	 * @param float $z
 	 *
 	 * @return Vector3
 	 */
@@ -324,7 +321,6 @@ class Vector3{
 		$this->x = $x;
 		$this->y = $y;
 		$this->z = $z;
-
 		return $this;
 	}
 
@@ -340,7 +336,6 @@ class Vector3{
 		$this->x = $pos->x + $x;
 		$this->y = $pos->y + $y;
 		$this->z = $pos->z + $z;
-
 		return $this;
 	}
 

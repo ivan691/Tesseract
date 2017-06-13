@@ -24,10 +24,9 @@ namespace pocketmine\block;
 use pocketmine\inventory\AnvilInventory;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\level\sound\AnvilFallSound;
 use pocketmine\Player;
 
-class Anvil extends Fallable{
+class Anvil extends Fallable {
 
 	const NORMAL = 0;
 	const SLIGHTLY_DAMAGED = 4;
@@ -62,7 +61,6 @@ class Anvil extends Fallable{
 			self::VERY_DAMAGED => "Very Damaged Anvil",
 			12 => "Anvil" //just in case somebody uses /give to get an anvil with damage 12 or higher, to prevent crash
 		];
-
 		return $names[$this->meta & 0x0c];
 	}
 
@@ -90,7 +88,6 @@ class Anvil extends Fallable{
 		$direction = ($player !== null ? $player->getDirection() : 0) & 0x03;
 		$this->meta = ($this->meta & 0x0c) | $direction;
 		$this->getLevel()->setBlock($block, $this, true, true);
-		$this->level->addSound(new AnvilFallSound($this));
 	}
 
 	public function getDrops(Item $item) : array{

@@ -40,7 +40,7 @@ use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 
 
-class Beacon extends Spawnable implements Nameable, InventoryHolder{
+class Beacon extends Spawnable implements Nameable, InventoryHolder {
 
 	private $inventory;
 
@@ -73,7 +73,6 @@ class Beacon extends Spawnable implements Nameable, InventoryHolder{
 		if($this->hasName()){
 			$c->CustomName = $this->namedtag->CustomName;
 		}
-
 		return $c;
 	}
 
@@ -88,7 +87,6 @@ class Beacon extends Spawnable implements Nameable, InventoryHolder{
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
-
 			return;
 		}
 		$this->namedtag->CustomName = new StringTag("CustomName", $str);
@@ -97,7 +95,6 @@ class Beacon extends Spawnable implements Nameable, InventoryHolder{
 	public function updateCompoundTag(CompoundTag $nbt, Player $player) : bool{
 		$this->setPrimaryEffect($nbt->primary->getValue());
 		$this->setSecondaryEffect($nbt->secondary->getValue());
-
 		return true;
 	}
 
@@ -141,7 +138,6 @@ class Beacon extends Spawnable implements Nameable, InventoryHolder{
 		else
 			return $layers;
 		if($this->checkShape($this->getSide(0, 4), 4)) $layers++;
-
 		return $layers;
 	}
 
@@ -186,7 +182,6 @@ class Beacon extends Spawnable implements Nameable, InventoryHolder{
 		for($x = $pos->x - $layer; $x <= $pos->x + $layer; $x++)
 			for($z = $pos->z - $layer; $z <= $pos->z + $layer; $z++)
 				if(!in_array($this->getLevel()->getBlockIdAt($x, $pos->y, $z), [Block::DIAMOND_BLOCK, Block::IRON_BLOCK, Block::EMERALD_BLOCK, Block::GOLD_BLOCK])) return false;
-
 		return true;
 	}
 
@@ -215,7 +210,7 @@ class Beacon extends Spawnable implements Nameable, InventoryHolder{
 		if(!empty($this->getEffects())){
 			$this->applyEffects($this);
 		}
-		$this->getLevel()->getServer()->getScheduler()->scheduleDelayedTask(new BeaconDelayedCheckTask($this, $this->getLevel()->getId()), 20 * 4);//4 seconds
+		$this->getLevel()->getServer()->getScheduler()->scheduleDelayedTask(new BeaconDelayedCheckTask($this, $this->getLevel()), 20 * 4);//4 seconds
 	}
 
 	public function getInventory(){

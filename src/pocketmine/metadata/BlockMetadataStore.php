@@ -25,7 +25,7 @@ use pocketmine\Block\Block;
 use pocketmine\level\Level;
 use pocketmine\plugin\Plugin;
 
-class BlockMetadataStore extends MetadataStore{
+class BlockMetadataStore extends MetadataStore {
 	/** @var Level */
 	private $owningLevel;
 
@@ -68,7 +68,7 @@ class BlockMetadataStore extends MetadataStore{
 			throw new \InvalidArgumentException("Object must be a Block");
 		}
 		if($block->getLevel() === $this->owningLevel){
-			parent::hasMetadata($block, $metadataKey, $owningPlugin);
+			parent::removeMetadata($block, $metadataKey, $owningPlugin);
 		}else{
 			throw new \InvalidStateException("Block does not belong to world " . $this->owningLevel->getName());
 		}

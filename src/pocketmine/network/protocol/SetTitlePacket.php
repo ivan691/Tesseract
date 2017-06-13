@@ -23,15 +23,15 @@ namespace pocketmine\network\protocol;
 
 #include <rules/DataPacket.h>
 
-class SetTitlePacket extends DataPacket{
+class SetTitlePacket extends DataPacket {
 
 	const NETWORK_ID = Info::SET_TITLE_PACKET;
 
 	const TYPE_CLEAR = 0;
 	const TYPE_RESET = 1;
-	const TYPE_TITLE = 2;
-	const TYPE_SUB_TITLE = 3;
-	const TYPE_ACTION_BAR = 4;
+	const TYPE_SET_TITLE = 2;
+	const TYPE_SET_SUBTITLE = 3;
+	const TYPE_SET_ACTION_BAR = 4;
 	const TYPE_TIMES = 5;
 
 	public $type;
@@ -56,12 +56,4 @@ class SetTitlePacket extends DataPacket{
 		$this->putVarInt($this->duration);
 		$this->putVarInt($this->fadeOutDuration);
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "SetTitlePacket";
-	}
-
 }

@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class DisconnectPacket extends DataPacket{
+class DisconnectPacket extends DataPacket {
 
 	const NETWORK_ID = Info::DISCONNECT_PACKET;
 
@@ -39,9 +39,6 @@ class DisconnectPacket extends DataPacket{
 	public function encode(){
 		$this->reset();
 		$this->putBool($this->hideDisconnectionScreen);
-		if(!$this->hideDisconnectionScreen){
-			$this->putString($this->message);
-		}
+		$this->putString($this->message);
 	}
-
 }

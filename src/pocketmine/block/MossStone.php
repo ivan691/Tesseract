@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class MossStone extends Solid{
+class MossStone extends Solid {
 
 	protected $id = self::MOSS_STONE;
 

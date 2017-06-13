@@ -29,7 +29,7 @@ use pocketmine\level\particle\SmokeParticle;
 use pocketmine\level\sound\FizzSound;
 use pocketmine\math\Vector3;
 
-abstract class Liquid extends Transparent{
+abstract class Liquid extends Transparent {
 
 	/** @var Vector3 */
 	private $temporalVector = null;
@@ -261,7 +261,6 @@ abstract class Liquid extends Transparent{
 				if($this instanceof Lava and $bottomBlock instanceof Water){
 					$this->getLevel()->setBlock($bottomBlock, Block::get(Item::STONE), true);
 					$this->triggerLavaMixEffects($bottomBlock);
-
 					return;
 				}
 
@@ -285,7 +284,6 @@ abstract class Liquid extends Transparent{
 
 				if($l >= 8){
 					$this->checkForHarden();
-
 					return;
 				}
 

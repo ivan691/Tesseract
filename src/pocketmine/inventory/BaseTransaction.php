@@ -24,7 +24,7 @@ namespace pocketmine\inventory;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class BaseTransaction implements Transaction{
+class BaseTransaction implements Transaction {
 	/** @var Inventory */
 	protected $inventory;
 	/** @var int */
@@ -44,10 +44,10 @@ class BaseTransaction implements Transaction{
 
 	/**
 	 * @param Inventory $inventory
-	 * @param int       $slot
-	 * @param Item      $targetItem
-	 * @param string[]  $achievements
-	 * @param int       $transactionType
+	 * @param int $slot
+	 * @param Item $targetItem
+	 * @param string[] $achievements
+	 * @param int $transactionType
 	 */
 	public function __construct($inventory, $slot, Item $targetItem, $achievements = [], $transactionType = Transaction::TYPE_NORMAL){
 		$this->inventory = $inventory;
@@ -134,9 +134,7 @@ class BaseTransaction implements Transaction{
 
 	/**
 	 * Returns the change in inventory resulting from this transaction
-	 * @return array|Item
-	 *                    "in" => items added to the inventory
-	 *                    "out" => items removed from the inventory
+	 * @return array ("in" => items added to the inventory, "out" => items removed from the inventory)
 	 * ]
 	 */
 	public function getChange(){
@@ -182,7 +180,6 @@ class BaseTransaction implements Transaction{
 
 	/**
 	 * @param Player $source
-	 *
 	 * @return bool
 	 *
 	 * Handles transaction execution. Returns whether transaction was successful or not.

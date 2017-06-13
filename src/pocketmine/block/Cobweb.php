@@ -22,11 +22,11 @@
 namespace pocketmine\block;
 
 use pocketmine\entity\Entity;
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 
-class Cobweb extends Flowable{
+class Cobweb extends Flowable {
 
 	protected $id = self::COBWEB;
 
@@ -70,7 +70,6 @@ class Cobweb extends Flowable{
 				];
 			}
 		}
-
 		return [];
 	}
 }

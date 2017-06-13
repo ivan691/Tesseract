@@ -27,14 +27,14 @@ use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\IntTag;
 use pocketmine\network\protocol\ContainerSetDataPacket;
 use pocketmine\Server;
 
-class BrewingStand extends Spawnable implements InventoryHolder, Container, Nameable{
+class BrewingStand extends Spawnable implements InventoryHolder, Container, Nameable {
 	const MAX_BREW_TIME = 400;
 	/** @var BrewingInventory */
 	protected $inventory;
@@ -88,7 +88,6 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
-
 			return;
 		}
 
@@ -153,7 +152,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 	/**
 	 * This method should not be used by plugins, use the Inventory
 	 *
-	 * @param int  $index
+	 * @param int $index
 	 * @param Item $item
 	 *
 	 * @return bool
@@ -192,7 +191,6 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -306,7 +304,6 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 		if($this->hasName()){
 			$nbt->CustomName = $this->namedtag->CustomName;
 		}
-
 		return $nbt;
 	}
 }

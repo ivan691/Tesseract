@@ -24,7 +24,7 @@ namespace pocketmine\inventory;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class DropItemTransaction extends BaseTransaction{
+class DropItemTransaction extends BaseTransaction {
 
 	const TRANSACTION_TYPE = Transaction::TYPE_DROP_ITEM;
 
@@ -71,7 +71,6 @@ class DropItemTransaction extends BaseTransaction{
 			$source->getFloatingInventory()->removeItem($droppedItem);
 		}
 		$source->dropItem($droppedItem);
-
 		return true;
 	}
 }

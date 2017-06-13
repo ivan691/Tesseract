@@ -22,7 +22,7 @@
 namespace pocketmine\block;
 
 
-class NetherReactor extends Solid{
+class NetherReactor extends Solid {
 
 	protected $id = self::NETHER_REACTOR;
 

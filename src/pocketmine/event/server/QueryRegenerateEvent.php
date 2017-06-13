@@ -21,12 +21,10 @@
 
 namespace pocketmine\event\server;
 
-
 use pocketmine\Server;
 use pocketmine\utils\Binary;
 
-class QueryRegenerateEvent extends ServerEvent{
-
+class QueryRegenerateEvent extends ServerEvent {
 	public static $handlerList = null;
 
 	const GAME_ID = "MINECRAFTPE";
@@ -225,13 +223,6 @@ class QueryRegenerateEvent extends ServerEvent{
 
 	public function getShortQuery(){
 		return $this->serverName . "\x00" . $this->gametype . "\x00" . $this->map . "\x00" . $this->numPlayers . "\x00" . $this->maxPlayers . "\x00" . Binary::writeLShort($this->port) . $this->ip . "\x00";
-	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "QueryRegenerateEvent";
 	}
 
 }

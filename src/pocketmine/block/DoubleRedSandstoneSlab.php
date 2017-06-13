@@ -23,7 +23,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Item;
 
-class DoubleRedSandstoneSlab extends DoubleSlab{
+class DoubleRedSandstoneSlab extends DoubleSlab {
 
 	protected $id = Block::DOUBLE_RED_SANDSTONE_SLAB;
 

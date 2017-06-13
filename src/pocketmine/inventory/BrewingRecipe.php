@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\Server;
 use pocketmine\utils\UUID;
 
-class BrewingRecipe implements Recipe{
+class BrewingRecipe implements Recipe {
 
 	private $id = null;
 
@@ -40,7 +40,6 @@ class BrewingRecipe implements Recipe{
 
 	/**
 	 * BrewingRecipe constructor.
-	 *
 	 * @param Item $result
 	 * @param Item $ingredient
 	 * @param Item $potion

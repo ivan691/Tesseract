@@ -32,7 +32,7 @@ use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 
-abstract class Command{
+abstract class Command {
 	/** @var \stdClass */
 	private static $defaultDataTemplate = null;
 
@@ -67,18 +67,15 @@ abstract class Command{
 	protected $usageMessage;
 
 	/** @var string */
-	private $permission = null;
-
-	/** @var string */
 	private $permissionMessage = null;
 
 	/** @var TimingsHandler */
 	public $timings;
 
 	/**
-	 * @param string   $name
-	 * @param string   $description
-	 * @param string   $usageMessage
+	 * @param string $name
+	 * @param string $description
+	 * @param string $usageMessage
 	 * @param string[] $aliases
 	 */
 	public function __construct($name, $description = "", $usageMessage = null, array $aliases = []){
@@ -109,18 +106,16 @@ abstract class Command{
 	 */
 	public function generateCustomCommandData(Player $player){
 		//TODO: fix command permission filtering on join
-		/*if(!$this->testPermission($player)){
+		/*if(!$this->testPermissionSilent($player)){
 			return null;
 		}*/
 		$customData = clone $this->commandData;
 		$customData->aliases = $this->getAliases();
-
 		/*foreach($customData->overloads as &$overload){
-			if(($p = @$overload->pocketminePermission) !== null and !$player->hasPermission($p)){
+			if(isset($overload->pocketminePermission) and !$player->hasPermission($overload->pocketminePermission)){
 				unset($overload);
 			}
 		}*/
-
 		return $customData;
 	}
 
@@ -130,8 +125,8 @@ abstract class Command{
 
 	/**
 	 * @param CommandSender $sender
-	 * @param string        $commandLabel
-	 * @param string[]      $args
+	 * @param string $commandLabel
+	 * @param string[] $args
 	 *
 	 * @return mixed
 	 */
@@ -333,14 +328,13 @@ abstract class Command{
 		if(self::$defaultDataTemplate === null){
 			self::$defaultDataTemplate = json_decode(file_get_contents(Server::getInstance()->getFilePath() . "src/pocketmine/resources/command_default.json"));
 		}
-
 		return clone self::$defaultDataTemplate;
 	}
 
 	/**
 	 * @param CommandSender $source
-	 * @param string        $message
-	 * @param bool          $sendToSource
+	 * @param string $message
+	 * @param bool $sendToSource
 	 */
 	public static function broadcastCommandMessage(CommandSender $source, $message, $sendToSource = true){
 		if($message instanceof TextContainer){

@@ -26,7 +26,7 @@ use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\Server;
 
-class MelonStem extends Crops{
+class MelonStem extends Crops {
 
 	protected $id = self::MELON_STEM;
 
@@ -42,7 +42,6 @@ class MelonStem extends Crops{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if($this->getSide(0)->isTransparent() === true){
 				$this->getLevel()->useBreakOn($this);
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}elseif($type === Level::BLOCK_UPDATE_RANDOM){

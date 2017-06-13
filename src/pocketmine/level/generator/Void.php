@@ -23,11 +23,11 @@ namespace pocketmine\level\generator;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\level\format\Chunk;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
-use pocketmine\level\format\Chunk;
 
-class Void extends Generator{
+class Void extends Generator {
 	/** @var ChunkManager */
 	private $level;
 	/** @var Chunk */

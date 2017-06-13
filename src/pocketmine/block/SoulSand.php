@@ -25,7 +25,7 @@ namespace pocketmine\block;
 use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
 
-class SoulSand extends Solid{
+class SoulSand extends Solid {
 
 	protected $id = self::SOUL_SAND;
 

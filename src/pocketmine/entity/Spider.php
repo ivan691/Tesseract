@@ -21,12 +21,12 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\Item as ItemItem;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\Player;
 
-class Spider extends Monster{
+class Spider extends Monster {
 	const NETWORK_ID = 35;
 	public $width = 0.3;
 	public $length = 0.9;
@@ -74,7 +74,6 @@ class Spider extends Monster{
 				}
 			}
 		}
-
 		return $drops;
 	}
 }

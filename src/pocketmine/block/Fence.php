@@ -25,7 +25,7 @@ use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
 
-class Fence extends Transparent{
+class Fence extends Transparent {
 
 	const FENCE_OAK = 0;
 	const FENCE_SPRUCE = 1;
@@ -67,7 +67,6 @@ class Fence extends Transparent{
 			"",
 			""
 		];
-
 		return $names[$this->meta & 0x07];
 	}
 

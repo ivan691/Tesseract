@@ -23,13 +23,13 @@ namespace pocketmine\entity;
 
 use pocketmine\block\Liquid;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\item\Item as ItemItem;
 use pocketmine\math\Vector3;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\protocol\ExplodePacket;
-use pocketmine\item\Item as ItemItem;
 use pocketmine\Player;
 
-class Lightning extends Animal{
+class Lightning extends Animal {
 	const NETWORK_ID = 93;
 
 	public $width = 0.3;
@@ -52,7 +52,6 @@ class Lightning extends Animal{
 			$this->kill();
 			$this->close();
 		}
-
 		return true;
 	}
 

@@ -24,24 +24,16 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class EntityFallPacket extends DataPacket{
-
+class EntityFallPacket extends DataPacket {
 	const NETWORK_ID = Info::ENTITY_FALL_PACKET;
 
-	public $uvarint0;
-	public $item;
-	public $uvarint1;
-	public $uvarint2;
+	public $fallDistance;
 
 	public function decode(){
-
+		$this->fallDistance = $this->getLFloat();
 	}
 
 	public function encode(){
-		$this->putUnsignedVarInt($this->uvarint0);
-		$this->putSlot($this->item);
-		$this->putVarInt($this->varint1);
-		$this->putVarInt($this->varint2);
-	}
 
+	}
 }

@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class DoubleSlab extends Solid{
+class DoubleSlab extends Solid {
 
 	protected $id = self::DOUBLE_SLAB;
 
@@ -50,9 +50,7 @@ class DoubleSlab extends Solid{
 			5 => "Stone Brick",
 			6 => "Quartz",
 			7 => "Nether Brick",
-			8 => "Purpur",
 		];
-
 		return "Double " . $names[$this->meta & 0x07] . " Slab";
 	}
 

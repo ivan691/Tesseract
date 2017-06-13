@@ -21,10 +21,10 @@
 
 namespace pocketmine\block;
 
-use pocketmine\item\Item;
 use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item;
 
-class Carrot extends Crops{
+class Carrot extends Crops {
 
 	protected $id = self::CARROT_BLOCK;
 
@@ -45,7 +45,6 @@ class Carrot extends Crops{
 		}else{
 			$drops[] = [Item::CARROT, 0, 1];
 		}
-
 		return $drops;
 	}
 }

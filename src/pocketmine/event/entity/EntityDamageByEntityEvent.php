@@ -24,7 +24,7 @@ namespace pocketmine\event\entity;
 use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
 
-class EntityDamageByEntityEvent extends EntityDamageEvent{
+class EntityDamageByEntityEvent extends EntityDamageEvent {
 
 	/** @var Entity */
 	private $damager;
@@ -32,11 +32,11 @@ class EntityDamageByEntityEvent extends EntityDamageEvent{
 	private $knockBack;
 
 	/**
-	 * @param Entity    $damager
-	 * @param Entity    $entity
-	 * @param int       $cause
+	 * @param Entity $damager
+	 * @param Entity $entity
+	 * @param int $cause
 	 * @param int|int[] $damage
-	 * @param float     $knockBack
+	 * @param float $knockBack
 	 */
 	public function __construct(Entity $damager, Entity $entity, $cause, $damage, $knockBack = 0.4){
 		$this->damager = $damager;
@@ -79,12 +79,4 @@ class EntityDamageByEntityEvent extends EntityDamageEvent{
 	public function setKnockBack($knockBack){
 		$this->knockBack = $knockBack;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "EntityDamageByEntityEvent";
-	}
-
 }

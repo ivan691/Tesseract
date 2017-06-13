@@ -21,11 +21,11 @@
 
 namespace pocketmine\block;
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
-use pocketmine\item\enchantment\Enchantment;
 
-class Gravel extends Fallable{
+class Gravel extends Fallable {
 
 	protected $id = self::GRAVEL;
 
@@ -49,7 +49,6 @@ class Gravel extends Fallable{
 		$drops = [];
 		if($item->getEnchantmentLevel(Enchantment::TYPE_MINING_SILK_TOUCH) > 0){//使用精准采集附魔 不掉落燧石
 			$drops[] = [Item::GRAVEL, 0, 1];
-
 			return $drops;
 		}
 		$fortunel = $item->getEnchantmentLevel(Enchantment::TYPE_MINING_FORTUNE);
@@ -61,7 +60,6 @@ class Gravel extends Fallable{
 		if(mt_rand(1, 10) !== 1){//90%
 			$drops[] = [Item::GRAVEL, 0, 1];
 		}
-
 		return $drops;
 	}
 }

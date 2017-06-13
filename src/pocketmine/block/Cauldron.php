@@ -26,25 +26,25 @@ use pocketmine\event\player\PlayerBucketFillEvent;
 use pocketmine\event\player\PlayerGlassBottleEvent;
 use pocketmine\item\Armor;
 use pocketmine\item\Item;
-use pocketmine\item\Tool;
 use pocketmine\item\Potion;
+use pocketmine\item\Tool;
 use pocketmine\level\sound\ExplodeSound;
 use pocketmine\level\sound\GraySplashSound;
 use pocketmine\level\sound\SpellSound;
 use pocketmine\level\sound\SplashSound;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\Server;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\IntTag;
 use pocketmine\tile\Cauldron as TileCauldron;
 use pocketmine\tile\Tile;
 use pocketmine\utils\Color;
 
-class Cauldron extends Solid{
+class Cauldron extends Solid {
 
 	protected $id = self::CAULDRON_BLOCK;
 
@@ -85,15 +85,13 @@ class Cauldron extends Solid{
 			}
 		}
 
-		$tile = Tile::createTile("Cauldron", $this->getLevel(), $nbt);//
+		$tile = Tile::createTile("Cauldron", $this->getLevel(), $nbt);
 		$this->getLevel()->setBlock($block, $this, true, true);
-
 		return true;
 	}
 
 	public function onBreak(Item $item){
 		$this->getLevel()->setBlock($this, new Air(), true);
-
 		return true;
 	}
 
@@ -103,7 +101,6 @@ class Cauldron extends Solid{
 				[Item::CAULDRON, 0, 1]
 			];
 		}
-
 		return [];
 	}
 
@@ -289,7 +286,6 @@ class Cauldron extends Solid{
 				}
 				break;
 		}
-
 		return true;
 	}
 

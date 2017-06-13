@@ -2,40 +2,37 @@
 
 /*
  *
- *    _______                                _
- *   |__   __|                              | |
- *      | | ___  ___ ___  ___ _ __ __ _  ___| |_
- *      | |/ _ \/ __/ __|/ _ \  __/ _` |/ __| __|
- *      | |  __/\__ \__ \  __/ | | (_| | (__| |_
- *      |_|\___||___/___/\___|_|  \__,_|\___|\__|
- *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
- * 
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
  *
- */
+ *
+*/
 
 namespace pocketmine\block;
 
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
-use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\tile\EnderChest as TileEnderChest;
 use pocketmine\tile\Tile;
 
-class EnderChest extends Transparent{
+class EnderChest extends Transparent {
 
 	protected $id = self::ENDER_CHEST;
 
@@ -51,12 +48,20 @@ class EnderChest extends Transparent{
 		return 22.5;
 	}
 
-	public function getToolType(){
-		return Tool::TYPE_PICKAXE;
+	public function getResistance(){
+		return 3000;
+	}
+
+	public function getLightLevel(){
+		return 7;
 	}
 
 	public function getName() : string{
 		return "Ender Chest";
+	}
+
+	public function getToolType(){
+		return Tool::TYPE_PICKAXE;
 	}
 
 	protected function recalculateBoundingBox(){
@@ -82,25 +87,17 @@ class EnderChest extends Transparent{
 
 		$this->getLevel()->setBlock($block, $this, true, true);
 		$nbt = new CompoundTag("", [
-			new ListTag("Items", []),
 			new StringTag("id", Tile::ENDER_CHEST),
 			new IntTag("x", $this->x),
 			new IntTag("y", $this->y),
 			new IntTag("z", $this->z)
 		]);
-		$nbt->Items->setTagType(NBT::TAG_Compound);
 
 		if($item->hasCustomName()){
 			$nbt->CustomName = new StringTag("CustomName", $item->getCustomName());
 		}
 
-		$tile = Tile::createTile("EnderChest", $this->getLevel(), $nbt);
-
-		return true;
-	}
-
-	public function onBreak(Item $item){
-		$this->getLevel()->setBlock($this, new Air(), true, true);
+		Tile::createTile("EnderChest", $this->getLevel(), $nbt);
 
 		return true;
 	}
@@ -133,6 +130,11 @@ class EnderChest extends Transparent{
 	}
 
 	public function getDrops(Item $item) : array{
+		if($item->hasEnchantment(Enchantment::TYPE_MINING_SILK_TOUCH)){
+			return [
+				[$this->id, 0, 1],
+			];
+		}
 		return [
 			[Item::OBSIDIAN, 0, 8],
 		];

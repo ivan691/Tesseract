@@ -26,7 +26,7 @@ use pocketmine\item\Tool;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\Player;
 
-class Slab extends Transparent{
+class Slab extends Transparent {
 
 	const STONE = 0;
 	const SANDSTONE = 1;
@@ -36,7 +36,6 @@ class Slab extends Transparent{
 	const STONE_BRICK = 5;
 	const QUARTZ = 6;
 	const NETHER_BRICK = 7;
-	const PURPUR_BLOCK = 8;
 
 	protected $id = self::SLAB;
 
@@ -57,9 +56,8 @@ class Slab extends Transparent{
 			4 => "Brick",
 			5 => "Stone Brick",
 			6 => "Quartz",
-			7 => "Purpur",
+			7 => "",
 		];
-
 		return (($this->meta & 0x08) > 0 ? "Upper " : "") . $names[$this->meta & 0x07] . " Slab";
 	}
 
@@ -68,7 +66,6 @@ class Slab extends Transparent{
 		if($type == self::WOODEN){
 			return 5;
 		}
-
 		return 0;
 	}
 
@@ -77,7 +74,6 @@ class Slab extends Transparent{
 		if($type == self::WOODEN){
 			return 5;
 		}
-
 		return 0;
 	}
 

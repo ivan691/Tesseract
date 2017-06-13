@@ -30,7 +30,7 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class GiveCommand extends VanillaCommand{
+class GiveCommand extends VanillaCommand {
 
 	public function __construct($name){
 		parent::__construct(
@@ -72,7 +72,6 @@ class GiveCommand extends VanillaCommand{
 
 			if(!($tags instanceof CompoundTag) or $exception !== null){
 				$sender->sendMessage(new TranslationContainer("commands.give.tagError", [$exception !== null ? $exception->getMessage() : "Invalid tag conversion"]));
-
 				return true;
 			}
 
@@ -99,7 +98,6 @@ class GiveCommand extends VanillaCommand{
 			(string) $item->getCount(),
 			$player->getName()
 		]));
-
 		return true;
 	}
 }

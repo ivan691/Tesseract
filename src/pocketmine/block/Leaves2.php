@@ -21,10 +21,11 @@
 
 namespace pocketmine\block;
 
-use pocketmine\item\Item;
-use pocketmine\item\enchantment\Enchantment;
 
-class Leaves2 extends Leaves{
+use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\Item;
+
+class Leaves2 extends Leaves {
 
 	const WOOD_TYPE = self::WOOD2;
 
@@ -39,7 +40,6 @@ class Leaves2 extends Leaves{
 			self::ACACIA => "Acacia Leaves",
 			self::DARK_OAK => "Dark Oak Leaves",
 		];
-
 		return $names[$this->meta & 0x01];
 	}
 

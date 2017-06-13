@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\Player;
 
-class Torch extends Flowable{
+class Torch extends Flowable {
 
 	protected $id = self::TORCH;
 
@@ -34,7 +34,7 @@ class Torch extends Flowable{
 	}
 
 	public function getLightLevel(){
-		return 14;
+		return 15;
 	}
 
 	public function getName() : string{

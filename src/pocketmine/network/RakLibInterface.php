@@ -23,18 +23,19 @@ namespace pocketmine\network;
 
 use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\network\protocol\DataPacket;
-use pocketmine\network\protocol\Info as ProtocolInfo;
 use pocketmine\network\protocol\Info;
+use pocketmine\network\protocol\Info as ProtocolInfo;
 use pocketmine\network\protocol\BatchPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 use raklib\protocol\EncapsulatedPacket;
+use raklib\protocol\PacketReliability;
 use raklib\RakLib;
 use raklib\server\RakLibServer;
 use raklib\server\ServerHandler;
 use raklib\server\ServerInstance;
 
-class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
+class RakLibInterface implements ServerInstance, AdvancedSourceInterface {
 
 	/** @var Server */
 	private $server;
@@ -81,7 +82,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 			}
 		}
 
-		if($this->rakLib->isTerminated()){
+		if(!$this->rakLib->isRunning() and !$this->rakLib->isShutdown()){
 			$this->network->unregisterInterface($this);
 
 			throw new \Exception("RakLib Thread crashed");
@@ -186,11 +187,11 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 		}
 
 		$this->interface->sendOption("name",
-		                             "MCPE;" . rtrim(addcslashes($name, ";"), '\\') . ";" .
-		                             Info::CURRENT_PROTOCOL . ";" .
-		                             Info::MINECRAFT_VERSION_NETWORK . ";" .
-		                             $poc . ";" .
-		                             $pc
+			"MCPE;" . rtrim(addcslashes($name, ";"), '\\') . ";" .
+			Info::CURRENT_PROTOCOL . ";" .
+			Info::MINECRAFT_VERSION_NETWORK . ";" .
+			$poc . ";" .
+			$pc
 		);
 	}
 
@@ -217,7 +218,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 				if($needACK){
 					$pk = new EncapsulatedPacket();
 					$pk->buffer = $packet->buffer;
-					$pk->reliability = 3;
+					$pk->reliability = PacketReliability::RELIABLE_ORDERED;
 					$pk->orderChannel = 0;
 
 					if($needACK === true){
@@ -228,18 +229,16 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 						$packet->__encapsulatedPacket = new CachedEncapsulatedPacket;
 						$packet->__encapsulatedPacket->identifierACK = null;
 						$packet->__encapsulatedPacket->buffer = $packet->buffer; // #blameshoghi
-						$packet->__encapsulatedPacket->reliability = 3;
+						$packet->__encapsulatedPacket->reliability = PacketReliability::RELIABLE_ORDERED;
 						$packet->__encapsulatedPacket->orderChannel = 0;
 					}
 					$pk = $packet->__encapsulatedPacket;
 				}
 
 				$this->interface->sendEncapsulated($identifier, $pk, ($needACK === true ? RakLib::FLAG_NEED_ACK : 0) | ($immediate === true ? RakLib::PRIORITY_IMMEDIATE : RakLib::PRIORITY_NORMAL));
-
 				return $pk->identifierACK;
 			}else{
 				$this->server->batchPackets([$player], [$packet], true);
-
 				return null;
 			}
 		}

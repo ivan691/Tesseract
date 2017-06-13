@@ -2,11 +2,11 @@
 
 /*
  *
- *  ____            _        _   __  __ _                  __  __ ____  
- * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
  * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
- * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
- * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,7 +15,7 @@
  *
  * @author PocketMine Team
  * @link http://www.pocketmine.net/
- * 
+ *
  *
 */
 
@@ -39,7 +39,7 @@ use pocketmine\metadata\MetadataValue;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
 
-class Block extends Position implements BlockIds, Metadatable{
+class Block extends Position implements BlockIds, Metadatable {
 
 	/** @var \SplFixedArray */
 	public static $list = null;
@@ -193,7 +193,6 @@ class Block extends Position implements BlockIds, Metadatable{
 
 			self::$list[self::BREWING_STAND_BLOCK] = BrewingStand::class;
 			self::$list[self::END_PORTAL_FRAME] = EndPortalFrame::class;
-			self::$list[self::END_PORTAL] = EndPortal::class;
 			self::$list[self::END_STONE] = EndStone::class;
 
 			self::$list[self::END_STONE_BRICKS] = EndStoneBricks::class;
@@ -267,6 +266,7 @@ class Block extends Position implements BlockIds, Metadatable{
 			self::$list[self::STONE_PRESSURE_PLATE] = StonePressurePlate::class;
 			self::$list[self::LIGHT_WEIGHTED_PRESSURE_PLATE] = LightWeightedPressurePlate::class;
 			self::$list[self::HEAVY_WEIGHTED_PRESSURE_PLATE] = HeavyWeightedPressurePlate::class;
+			self::$list[self::REDSTONE_WIRE] = RedstoneWire::class;
 			self::$list[self::LIT_REDSTONE_LAMP] = LitRedstoneLamp::class;
 			self::$list[self::REDSTONE_LAMP] = RedstoneLamp::class;
 			self::$list[self::REDSTONE_TORCH] = RedstoneTorch::class;
@@ -275,7 +275,7 @@ class Block extends Position implements BlockIds, Metadatable{
 			self::$list[self::LEVER] = Lever::class;
 			self::$list[self::DAYLIGHT_SENSOR] = DaylightDetector::class;
 			self::$list[self::DAYLIGHT_SENSOR_INVERTED] = DaylightDetectorInverted::class;
-			self::$list[self::NOTEBLOCK] = NoteBlock::class;
+			self::$list[self::NOTEBLOCK] = Noteblock::class;
 			self::$list[self::SKULL_BLOCK] = SkullBlock::class;
 			self::$list[self::NETHER_QUARTZ_ORE] = NetherQuartzOre::class;
 			self::$list[self::ACTIVATOR_RAIL] = ActivatorRail::class;
@@ -292,6 +292,7 @@ class Block extends Position implements BlockIds, Metadatable{
 			self::$list[self::INVISIBLE_BEDROCK] = InvisibleBedrock::class;
 			self::$list[self::HOPPER_BLOCK] = Hopper::class;
 			self::$list[self::DRAGON_EGG] = DragonEgg::class;
+			self::$list[self::COMMAND_BLOCK] = CommandBlock::class;
 
 			foreach(self::$list as $id => $class){
 				if($class !== null){
@@ -314,6 +315,8 @@ class Block extends Position implements BlockIds, Metadatable{
 							}else{
 								self::$lightFilter[$id] = 1;
 							}
+						}elseif($block instanceof SolidLight){
+							self::$lightFilter[$id] = 1;
 						}else{
 							self::$lightFilter[$id] = 15;
 						}
@@ -331,8 +334,8 @@ class Block extends Position implements BlockIds, Metadatable{
 	}
 
 	/**
-	 * @param int      $id
-	 * @param int      $meta
+	 * @param int $id
+	 * @param int $meta
 	 * @param Position $pos
 	 *
 	 * @return Block
@@ -375,13 +378,13 @@ class Block extends Position implements BlockIds, Metadatable{
 	/**
 	 * Places the Block, using block space and block target, and side. Returns if the block has been placed.
 	 *
-	 * @param Item   $item
-	 * @param Block  $block
-	 * @param Block  $target
-	 * @param int    $face
-	 * @param float  $fx
-	 * @param float  $fy
-	 * @param float  $fz
+	 * @param Item $item
+	 * @param Block $block
+	 * @param Block $target
+	 * @param int $face
+	 * @param float $fx
+	 * @param float $fy
+	 * @param float $fz
 	 * @param Player $player = null
 	 *
 	 * @return bool
@@ -430,7 +433,7 @@ class Block extends Position implements BlockIds, Metadatable{
 	/**
 	 * Do actions when activated by Item. Returns if it has done anything
 	 *
-	 * @param Item   $item
+	 * @param Item $item
 	 * @param Player $player
 	 *
 	 * @return bool
@@ -479,7 +482,6 @@ class Block extends Position implements BlockIds, Metadatable{
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -489,7 +491,6 @@ class Block extends Position implements BlockIds, Metadatable{
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -582,10 +583,6 @@ class Block extends Position implements BlockIds, Metadatable{
 	}
 
 	public function canPassThrough(){
-		return false;
-	}
-
-	public function canClimb() : bool{
 		return false;
 	}
 
@@ -751,7 +748,6 @@ class Block extends Position implements BlockIds, Metadatable{
 		if($this->boundingBox === null){
 			$this->boundingBox = $this->recalculateBoundingBox();
 		}
-
 		return $this->boundingBox;
 	}
 

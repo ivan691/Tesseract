@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class Gold extends Solid{
+class Gold extends Solid {
 
 	protected $id = self::GOLD_BLOCK;
 

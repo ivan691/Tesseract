@@ -22,13 +22,13 @@
 namespace pocketmine\block;
 
 use pocketmine\event\block\BlockGrowEvent;
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
-use pocketmine\item\enchantment\Enchantment;
 use pocketmine\Player;
 use pocketmine\Server;
 
-class NetherWart extends Flowable{
+class NetherWart extends Flowable {
 
 	protected $id = self::NETHER_WART_BLOCK;
 
@@ -44,10 +44,8 @@ class NetherWart extends Flowable{
 		$down = $this->getSide(0);
 		if($down->getId() === self::SOUL_SAND){
 			$this->getLevel()->setBlock($block, $this, true, true);
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -55,7 +53,6 @@ class NetherWart extends Flowable{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if($this->getSide(0)->isTransparent() === true){
 				$this->getLevel()->useBreakOn($this);
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}elseif($type === Level::BLOCK_UPDATE_RANDOM){
@@ -75,7 +72,6 @@ class NetherWart extends Flowable{
 				return Level::BLOCK_UPDATE_RANDOM;
 			}
 		}
-
 		return false;
 	}
 
@@ -88,7 +84,6 @@ class NetherWart extends Flowable{
 		}else{
 			$drops[] = [Item::NETHER_WART, 0, 1];
 		}
-
 		return $drops;
 	}
 }

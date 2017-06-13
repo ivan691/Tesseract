@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class AddItemPacket extends DataPacket{
+class AddItemPacket extends DataPacket {
 
 	const NETWORK_ID = Info::ADD_ITEM_PACKET;
 
@@ -38,12 +38,4 @@ class AddItemPacket extends DataPacket{
 		$this->reset();
 		$this->putSlot($this->item);
 	}
-
-	/**
-	 * @return AddItemPacket|string
-	 */
-	public function getName(){
-		return "AddItemPacket";
-	}
-
 }

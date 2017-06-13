@@ -21,7 +21,7 @@
 
 namespace pocketmine\block;
 
-class WetSponge extends Solid{
+class WetSponge extends Solid {
 
 	protected $id = self::WET_SPONGE;
 

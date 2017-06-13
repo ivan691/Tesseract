@@ -28,16 +28,12 @@ use pocketmine\level\Level;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\Player;
 
-class Ladder extends Transparent{
+class Ladder extends Transparent {
 
 	protected $id = self::LADDER;
 
 	public function __construct($meta = 0){
 		$this->meta = $meta;
-	}
-
-	public function canClimb() : bool{
-		return true;
 	}
 
 	public function getName() : string{
@@ -63,7 +59,7 @@ class Ladder extends Transparent{
 
 	protected function recalculateBoundingBox(){
 
-		$f = 0.1875;
+		$f = 0.125;
 
 		if($this->meta === 2){
 			return new AxisAlignedBB(
@@ -133,16 +129,19 @@ class Ladder extends Transparent{
 			4 => 5,
 			5 => 4,
 		];
+		/*if($this->getSide(0)->getId() === self::AIR){ //Replace with common break method
+			Server::getInstance()->api->entity->drop($this, Item::get(LADDER, 0, 1));
+			$this->getLevel()->setBlock($this, new Air(), true, true, true);
+			return Level::BLOCK_UPDATE_NORMAL;
+			}*/
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if(isset($faces[$this->meta])){
 				if($this->getSide($faces[$this->meta])->getId() === self::AIR){
 					$this->getLevel()->useBreakOn($this);
 				}
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
-
 		return false;
 	}
 

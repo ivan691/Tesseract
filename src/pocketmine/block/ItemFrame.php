@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  *  _____   _____   __   _   _   _____  __    __  _____
@@ -29,7 +30,7 @@ use pocketmine\Player;
 use pocketmine\tile\ItemFrame as TileItemFrame;
 use pocketmine\tile\Tile;
 
-class ItemFrame extends Flowable{
+class ItemFrame extends Flowable {
 	protected $id = Block::ITEM_FRAME_BLOCK;
 
 	public function __construct($meta = 0){
@@ -56,6 +57,7 @@ class ItemFrame extends Flowable{
 			]);
 			$tile = Tile::createTile(Tile::ITEM_FRAME, $this->getLevel(), $nbt);
 		}
+
 		if($tile->hasItem()){
 			$tile->setItemRotation(($tile->getItemRotation() + 1) % 8);
 		}else{
@@ -64,6 +66,9 @@ class ItemFrame extends Flowable{
 				$frameItem->setCount(1);
 				$item->setCount($item->getCount() - 1);
 				$tile->setItem($frameItem);
+				if($item->getId() === Item::FILLED_MAP){
+					$tile->SetMapID($item->getMapId());
+				}
 				if($player instanceof Player and $player->isSurvival()){
 					$player->getInventory()->setItemInHand($item->getCount() <= 0 ? Item::get(Item::AIR) : $item);
 				}
@@ -80,7 +85,6 @@ class ItemFrame extends Flowable{
 				$this->level->dropItem($tile->getBlock(), $tile->getItem());
 			}
 		}
-
 		return parent::onBreak($item);
 	}
 
@@ -94,11 +98,9 @@ class ItemFrame extends Flowable{
 			];
 			if(!$this->getSide($sides[$this->meta])->isSolid()){
 				$this->level->useBreakOn($this);
-
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
-
 		return false;
 	}
 
@@ -106,14 +108,17 @@ class ItemFrame extends Flowable{
 		if($face === 0 or $face === 1){
 			return false;
 		}
+
 		$faces = [
 			2 => 3,
 			3 => 2,
 			4 => 1,
 			5 => 0
 		];
+
 		$this->meta = $faces[$face];
 		$this->level->setBlock($block, $this, true, true);
+
 		$nbt = new CompoundTag("", [
 			new StringTag("id", Tile::ITEM_FRAME),
 			new IntTag("x", $block->x),
@@ -122,14 +127,17 @@ class ItemFrame extends Flowable{
 			new FloatTag("ItemDropChance", 1.0),
 			new ByteTag("ItemRotation", 0)
 		]);
+
 		if($item->hasCustomBlockData()){
 			foreach($item->getCustomBlockData() as $key => $v){
 				$nbt->{$key} = $v;
 			}
 		}
+
 		Tile::createTile(Tile::ITEM_FRAME, $this->getLevel(), $nbt);
 
 		return true;
+
 	}
 
 	public function getDrops(Item $item) : array{
@@ -137,4 +145,5 @@ class ItemFrame extends Flowable{
 			[Item::ITEM_FRAME, 0, 1]
 		];
 	}
+
 }

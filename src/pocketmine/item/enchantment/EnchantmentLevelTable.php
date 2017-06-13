@@ -24,7 +24,7 @@ namespace pocketmine\item\enchantment;
 use pocketmine\item\Item;
 use pocketmine\utils\Range;
 
-class EnchantmentLevelTable{
+class EnchantmentLevelTable {
 
 	private static $map = [];
 
@@ -185,8 +185,7 @@ class EnchantmentLevelTable{
 
 	/**
 	 * @param Item $item
-	 * @param int  $modifiedLevel
-	 *
+	 * @param int $modifiedLevel
 	 * @return Enchantment[]
 	 */
 	public static function getPossibleEnchantments(Item $item, int $modifiedLevel){

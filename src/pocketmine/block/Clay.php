@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class Clay extends Solid{
+class Clay extends Solid {
 
 	protected $id = self::CLAY_BLOCK;
 

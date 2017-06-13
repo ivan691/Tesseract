@@ -27,7 +27,7 @@ namespace {
 				case is_array($var):
 					echo str_repeat("  ", $cnt) . "array(" . count($var) . ") {" . PHP_EOL;
 					foreach($var as $key => $value){
-						echo str_repeat("  ", $cnt + 1) . "[" . (is_integer($key) ? $key : '"' . $key . '"') . "]=>" . PHP_EOL;
+						echo str_repeat("  ", $cnt + 1) . "[" . (is_int($key) ? $key : '"' . $key . '"') . "]=>" . PHP_EOL;
 						++$cnt;
 						safe_var_dump($value);
 						--$cnt;
@@ -68,7 +68,7 @@ namespace pocketmine {
 
 	use pocketmine\utils\Binary;
 	use pocketmine\utils\MainLogger;
-
+	use pocketmine\utils\ServerKiller;
 	use pocketmine\utils\Terminal;
 	use pocketmine\utils\Utils;
 	use pocketmine\wizard\Installer;
@@ -113,7 +113,7 @@ namespace pocketmine {
 	$autoloader->register(true);
 
 
-	set_time_limit(0);
+	set_time_limit(0); //Who set it to 30 seconds?!?!
 
 	gc_enable();
 	error_reporting(-1);
@@ -215,7 +215,6 @@ namespace pocketmine {
 				}
 
 				return parse_offset($offset);
-				break;
 			case 'linux':
 				// Ubuntu / Debian.
 				if(file_exists('/etc/timezone')){
@@ -242,22 +241,18 @@ namespace pocketmine {
 				}
 
 				return parse_offset($offset);
-				break;
 			case 'mac':
 				if(is_link('/etc/localtime')){
 					$filename = readlink('/etc/localtime');
 					if(strpos($filename, '/usr/share/zoneinfo/') === 0){
 						$timezone = substr($filename, 20);
-
 						return trim($timezone);
 					}
 				}
 
 				return false;
-				break;
 			default:
 				return false;
-				break;
 		}
 	}
 
@@ -329,7 +324,7 @@ namespace pocketmine {
 
 	/**
 	 * @param object $value
-	 * @param bool   $includeCurrent
+	 * @param bool $includeCurrent
 	 *
 	 * @return int
 	 */
@@ -342,7 +337,6 @@ namespace pocketmine {
 		if(count($ret) >= 1 and preg_match('/^.* refcount\\(([0-9]+)\\)\\{$/', trim($ret[0]), $m) > 0){
 			return ((int) $m[1]) - ($includeCurrent ? 3 : 4); //$value + zval call + extra call
 		}
-
 		return -1;
 	}
 
@@ -434,11 +428,6 @@ namespace pocketmine {
 		++$errors;
 	}
 
-	if(!extension_loaded("sqlite3")){
-		$logger->critical("Unable to find the SQLite3 extension.");
-		++$errors;
-	}
-
 	if(!extension_loaded("zlib")){
 		$logger->critical("Unable to find the Zlib extension.");
 		++$errors;
@@ -461,31 +450,48 @@ namespace pocketmine {
 	@define("INT32_MASK", is_int(0xffffffff) ? 0xffffffff : -1);
 	@ini_set("opcache.mmap_base", bin2hex(random_bytes(8))); //Fix OPCache address errors
 
-	$lang = "unknown";
 	if(!file_exists(\pocketmine\DATA . "server.properties") and !isset($opts["no-wizard"])){
-		$inst = new Installer();
-		$lang = $inst->getDefaultLang();
+		$installer = new Installer();
+		if(!$installer->run()){
+			$logger->shutdown();
+			$logger->join();
+			exit(-1);
+		}
 	}
 
 	ThreadManager::init();
-	new Server($autoloader, $logger, \pocketmine\PATH, \pocketmine\DATA, \pocketmine\PLUGIN_PATH, $lang);
+	new Server($autoloader, $logger, \pocketmine\PATH, \pocketmine\DATA, \pocketmine\PLUGIN_PATH);
 
 	$logger->info("Stopping other threads");
 
+	$killer = new ServerKiller(8);
+	$killer->start();
+	usleep(10000); //Fixes ServerKiller not being able to start on single-core machines
+
+	$erroredThreads = 0;
 	foreach(ThreadManager::getInstance()->getAll() as $id => $thread){
-		$logger->debug("Stopping " . (new \ReflectionClass($thread))->getShortName() . " thread");
-		$thread->quit();
+		$logger->debug("Stopping " . $thread->getThreadName() . " thread");
+		try{
+			$thread->quit();
+			$logger->debug($thread->getThreadName() . " thread stopped successfully.");
+		}catch(\ThreadException $e){
+			++$erroredThreads;
+			$logger->debug("Could not stop " . $thread->getThreadName() . " thread: " . $e->getMessage());
+		}
 	}
 
 	$logger->shutdown();
 	$logger->join();
 
-	//echo "Server has stopped" . Terminal::$FORMAT_RESET . "\n";
+	echo Terminal::$FORMAT_RESET . PHP_EOL;
 
-	$logger->info(Utils::getThreadCount() . " threads has stopped");//add threads count
-
-	$logger->info("Server has stopped");
-
-	exit(0);
+	if($erroredThreads > 0){
+		if(\pocketmine\DEBUG > 1){
+			echo "Some threads could not be stopped, performing a force-kill" . PHP_EOL . PHP_EOL;
+		}
+		kill(getmypid());
+	}else{
+		exit(0);
+	}
 
 }

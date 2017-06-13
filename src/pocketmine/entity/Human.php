@@ -41,11 +41,10 @@ use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\protocol\AddPlayerPacket;
-use pocketmine\network\protocol\RemoveEntityPacket;
 use pocketmine\Player;
 use pocketmine\utils\UUID;
 
-class Human extends Creature implements ProjectileSource, InventoryHolder{
+class Human extends Creature implements ProjectileSource, InventoryHolder {
 
 	const DATA_PLAYER_FLAG_SLEEP = 1;
 	const DATA_PLAYER_FLAG_DEAD = 2; //TODO: CHECK
@@ -115,15 +114,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		$this->skinId = $skinId;
 	}
 
-	public function jump() {
-		parent::jump();
-		if ($this->isSprinting()) {
-			$this->exhaust(0.8, PlayerExhaustEvent::CAUSE_SPRINT_JUMPING);
-		} else {
-			$this->exhaust(0.2, PlayerExhaustEvent::CAUSE_JUMPING);
-		}
-	}
-
 	public function getFood() : float{
 		return $this->attributeMap->getAttribute(Attribute::HUNGER)->getValue();
 	}
@@ -136,17 +126,17 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 	 *
 	 * @throws \InvalidArgumentException
 	 */
-	public function setFood(float $new) {
+	public function setFood(float $new){
 		$attr = $this->attributeMap->getAttribute(Attribute::HUNGER);
 		$old = $attr->getValue();
 		$attr->setValue($new);
 		// ranges: 18-20 (regen), 7-17 (none), 1-6 (no sprint), 0 (health depletion)
-		foreach ([17, 6, 0] as $bound) {
-			if (($old > $bound) !== ($new > $bound)) {
+		foreach([17, 6, 0] as $bound){
+			if(($old > $bound) !== ($new > $bound)){
 				$reset = true;
 			}
 		}
-		if (isset($reset)) {
+		if(isset($reset)){
 			$this->foodTickTimer = 0;
 		}
 
@@ -202,7 +192,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 	 * Increases a human's exhaustion level.
 	 *
 	 * @param float $amount
-	 * @param int   $cause
+	 * @param int $cause
 	 *
 	 * @return float the amount of exhaustion level increased
 	 */
@@ -243,10 +233,8 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		$this->server->getPluginManager()->callEvent($ev = new PlayerExperienceChangeEvent($this, $level, $this->getXpProgress()));
 		if(!$ev->isCancelled()){
 			$this->attributeMap->getAttribute(Attribute::EXPERIENCE_LEVEL)->setValue($ev->getExpLevel());
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -264,7 +252,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 
 	public function setXpProgress(float $progress) : bool{
 		$this->attributeMap->getAttribute(Attribute::EXPERIENCE)->setValue($progress);
-
 		return true;
 	}
 
@@ -275,7 +262,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 	/**
 	 * Changes the total exp of a player
 	 *
-	 * @param int  $xp
+	 * @param int $xp
 	 * @param bool $syncLevel This will reset the level to be in sync with the total. Usually you don't want to do this,
 	 *                        because it'll mess up use of xp in anvils and enchanting tables.
 	 *
@@ -318,10 +305,8 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 			$this->totalXp = $xp;
 			$this->setXpLevel($ev->getExpLevel());
 			$this->setXpProgress($ev->getProgress());
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -343,7 +328,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 
 	public function recalculateXpProgress() : float{
 		$this->setXpProgress($progress = $this->getRemainderXp() / self::getLevelXpRequirement($this->getXpLevel()));
-
 		return $progress;
 	}
 
@@ -375,7 +359,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		}elseif($level <= 21863){
 			return (4.5 * ($level ** 2)) - (162.5 * $level) + 2220;
 		}
-
 		return PHP_INT_MAX; //prevent float returns for invalid levels on 32-bit systems
 	}
 
@@ -394,7 +377,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		}elseif($level <= 21863){
 			return (9 * $level) - 158;
 		}
-
 		return PHP_INT_MAX;
 	}
 
@@ -430,7 +412,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		$answer = max(Math::solveQuadratic($a, $b, $c)); //Use largest result value
 		$level = floor($answer);
 		$progress = $answer - $level;
-
 		return [$level, $progress];
 	}
 
@@ -452,7 +433,6 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 			//Potential for crashes here if a plugin attempts to use this, say for an NPC plugin or something...
 			$this->transactionQueue = new SimpleTransactionQueue($this);
 		}
-
 		return $this->transactionQueue;
 	}
 
@@ -549,56 +529,48 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		$this->attributeMap->addAttribute(Attribute::getAttribute(Attribute::ABSORPTION));
 	}
 
-	public function entityBaseTick($tickDiff = 1, $EnchantL = 0) {
+	public function entityBaseTick($tickDiff = 1, $EnchantL = 0){
 		if($this->getInventory() instanceof PlayerInventory){
 			$EnchantL = $this->getInventory()->getHelmet()->getEnchantmentLevel(Enchantment::TYPE_WATER_BREATHING);
 		}
 		$hasUpdate = parent::entityBaseTick($tickDiff, $EnchantL);
 
-		$this->doFoodTick($tickDiff);
-
-		return $hasUpdate;
-	}
-
-	public function doFoodTick(int $tickDiff = 1) {
-		if ($this->isAlive()) {
+		if($this->isAlive()){
 			$food = $this->getFood();
 			$health = $this->getHealth();
-			$difficulty = $this->server->getDifficulty();
-
-			$this->foodTickTimer += $tickDiff;
-			if ($this->foodTickTimer >= 80) {
-				$this->foodTickTimer = 0;
-			}
-
-			if ($difficulty === 0 and $this->foodTickTimer % 10 === 0) { //Peaceful
-				if ($food < 20) {
-					$this->addFood(1.0);
-				}
-				if ($this->foodTickTimer % 20 === 0 and $health < $this->getMaxHealth()) {
+			if($food >= 18){
+				$this->foodTickTimer++;
+				if($this->foodTickTimer >= 80 and $health < $this->getMaxHealth()){
 					$this->heal(1, new EntityRegainHealthEvent($this, 1, EntityRegainHealthEvent::CAUSE_SATURATION));
-				}
-			}
+					$this->exhaust(3.0, PlayerExhaustEvent::CAUSE_HEALTH_REGEN);
+					$this->foodTickTimer = 0;
 
-			if ($this->foodTickTimer === 0) {
-				if ($food >= 18) {
-					if ($health < $this->getMaxHealth()) {
-						$this->heal(1, new EntityRegainHealthEvent($this, 1, EntityRegainHealthEvent::CAUSE_SATURATION));
-						$this->exhaust(3.0, PlayerExhaustEvent::CAUSE_HEALTH_REGEN);
+				}
+			}elseif($food === 0){
+				$this->foodTickTimer++;
+				if($this->foodTickTimer >= 80){
+					$diff = $this->server->getDifficulty();
+					$can = false;
+					if($diff === 1){
+						$can = $health > 10;
+					}elseif($diff === 2){
+						$can = $health > 1;
+					}elseif($diff === 3){
+						$can = true;
 					}
-				} elseif ($food <= 0) {
-					if (($difficulty === 1 and $health > 10) or ($difficulty === 2 and $health > 1) or $difficulty === 3) {
+					if($can){
 						$this->attack(1, new EntityDamageEvent($this, EntityDamageEvent::CAUSE_STARVATION, 1));
 					}
 				}
 			}
-
-			if ($food <= 6) {
-				if ($this->isSprinting()) {
+			if($food <= 6){
+				if($this->isSprinting()){
 					$this->setSprinting(false);
 				}
 			}
 		}
+
+		return $hasUpdate;
 	}
 
 	public function getName(){

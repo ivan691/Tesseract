@@ -23,7 +23,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Item;
 
-class InvisibleBedrock extends Transparent{
+class InvisibleBedrock extends Transparent {
 
 	protected $id = self::INVISIBLE_BEDROCK;
 

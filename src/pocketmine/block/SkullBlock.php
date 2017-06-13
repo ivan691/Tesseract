@@ -2,24 +2,22 @@
 
 /*
  *
- *    _______                                _
- *   |__   __|                              | |
- *      | | ___  ___ ___  ___ _ __ __ _  ___| |_
- *      | |/ _ \/ __/ __|/ _ \  __/ _` |/ __| __|
- *      | |  __/\__ \__ \  __/ | | (_| | (__| |_
- *      |_|\___||___/___/\___|_|  \__,_|\___|\__|
- *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
- * 
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
  *
- */
+ *
+*/
 
 namespace pocketmine\block;
 
@@ -35,7 +33,7 @@ use pocketmine\tile\Skull as SkullTile;
 
 use pocketmine\tile\Tile;
 
-class SkullBlock extends Flowable{
+class SkullBlock extends Flowable {
 
 	protected $id = self::SKULL_BLOCK;
 
@@ -86,7 +84,6 @@ class SkullBlock extends Flowable{
 			$z1 = 0.25;
 			$z2 = 0.75;
 		}
-
 		return new AxisAlignedBB(
 			$this->x + $x1,
 			$this->y + 0.25,
@@ -122,11 +119,9 @@ class SkullBlock extends Flowable{
 			if($item->hasCustomName()){
 				$nbt->CustomName = new StringTag("CustomName", $item->getCustomName());
 			}
-			Tile::createTile("Skull", $this->getLevel(), $nbt);
-
+			Tile::createTile("Skull", $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 			return true;
 		}
-
 		return false;
 	}
 
@@ -137,7 +132,6 @@ class SkullBlock extends Flowable{
 				[Item::MOB_HEAD, $tile->getType(), 1]
 			];
 		}
-
 		return [];
 	}
 }

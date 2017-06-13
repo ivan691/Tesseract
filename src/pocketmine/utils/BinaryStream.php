@@ -27,7 +27,7 @@ namespace pocketmine\utils;
 
 use pocketmine\item\Item;
 
-class BinaryStream extends \stdClass{
+class BinaryStream extends \stdClass {
 
 	public $offset;
 	public $buffer;
@@ -58,15 +58,12 @@ class BinaryStream extends \stdClass{
 	public function get($len){
 		if($len < 0){
 			$this->offset = strlen($this->buffer) - 1;
-
 			return "";
 		}elseif($len === true){
 			$str = substr($this->buffer, $this->offset);
 			$this->offset = strlen($this->buffer);
-
 			return $str;
 		}
-
 		return $len === 1 ? $this->buffer{$this->offset++} : substr($this->buffer, ($this->offset += $len) - $len, $len);
 	}
 
@@ -179,11 +176,18 @@ class BinaryStream extends \stdClass{
 	}
 
 	public function getUUID(){
-		return UUID::fromBinary($this->get(16));
+		$part1 = $this->getLInt();
+		$part0 = $this->getLInt();
+		$part3 = $this->getLInt();
+		$part2 = $this->getLInt();
+		return new UUID($part0, $part1, $part2, $part3);
 	}
 
 	public function putUUID(UUID $uuid){
-		$this->put($uuid->toBinary());
+		$this->putLInt($uuid->getPart(1));
+		$this->putLInt($uuid->getPart(0));
+		$this->putLInt($uuid->getPart(3));
+		$this->putLInt($uuid->getPart(2));
 	}
 
 	public function getSlot(){
@@ -224,7 +228,6 @@ class BinaryStream extends \stdClass{
 	public function putSlot(Item $item){
 		if($item->getId() === 0){
 			$this->putVarInt(0);
-
 			return;
 		}
 
@@ -248,8 +251,6 @@ class BinaryStream extends \stdClass{
 		$this->put($v);
 	}
 
-	//TODO: varint64
-
 	/**
 	 * Reads an unsigned varint32 from the stream.
 	 */
@@ -259,7 +260,6 @@ class BinaryStream extends \stdClass{
 
 	/**
 	 * Writes an unsigned varint32 to the stream.
-	 *
 	 * @param $v
 	 */
 	public function putUnsignedVarInt($v){
@@ -275,43 +275,26 @@ class BinaryStream extends \stdClass{
 
 	/**
 	 * Writes a signed varint32 to the stream.
-	 *
 	 * @param $v
 	 */
 	public function putVarInt($v){
 		$this->put(Binary::writeVarInt($v));
 	}
 
-	public function getEntityId(){
-		return $this->getVarInt();
+	public function getUnsignedVarLong(){
+		return Binary::readUnsignedVarLong($this);
 	}
 
-	public function putEntityId($v){
-		$this->putVarInt($v);
+	public function putUnsignedVarLong($v){
+		$this->buffer .= Binary::writeUnsignedVarLong($v);
 	}
 
-	public function getBlockCoords(&$x, &$y, &$z){
-		$x = $this->getVarInt();
-		$y = $this->getUnsignedVarInt();
-		$z = $this->getVarInt();
+	public function getVarLong(){
+		return Binary::readVarLong($this);
 	}
 
-	public function putBlockCoords($x, $y, $z){
-		$this->putVarInt($x);
-		$this->putUnsignedVarInt($y);
-		$this->putVarInt($z);
-	}
-
-	public function getVector3f(&$x, &$y, &$z){
-		$x = $this->getLFloat(4);
-		$y = $this->getLFloat(4);
-		$z = $this->getLFloat(4);
-	}
-
-	public function putVector3f($x, $y, $z){
-		$this->putLFloat($x);
-		$this->putLFloat($y);
-		$this->putLFloat($z);
+	public function putVarLong($v){
+		$this->buffer .= Binary::writeVarLong($v);
 	}
 
 	public function feof(){

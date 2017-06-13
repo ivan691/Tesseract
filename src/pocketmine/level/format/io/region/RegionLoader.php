@@ -28,7 +28,7 @@ use pocketmine\level\format\io\ChunkException;
 use pocketmine\utils\Binary;
 use pocketmine\utils\MainLogger;
 
-class RegionLoader{
+class RegionLoader {
 	const VERSION = 1;
 	const COMPRESSION_GZIP = 1;
 	const COMPRESSION_ZLIB = 2;
@@ -40,7 +40,7 @@ class RegionLoader{
 	protected $filePath;
 	protected $filePointer;
 	protected $lastSector;
-	/** @var LevelProvider */
+	/** @var McRegion */
 	protected $levelProvider;
 	protected $locationTable = [];
 
@@ -100,7 +100,6 @@ class RegionLoader{
 				$this->locationTable[$index][1] = 1;
 				MainLogger::getLogger()->error("Corrupted chunk header detected");
 			}
-
 			return null;
 		}
 
@@ -110,7 +109,6 @@ class RegionLoader{
 			$this->writeLocationIndex($index);
 		}elseif($compression !== self::COMPRESSION_ZLIB and $compression !== self::COMPRESSION_GZIP){
 			MainLogger::getLogger()->error("Invalid compression type");
-
 			return null;
 		}
 
@@ -119,7 +117,6 @@ class RegionLoader{
 			return $chunk;
 		}else{
 			MainLogger::getLogger()->error("Corrupted chunk detected");
-
 			return null;
 		}
 	}
@@ -251,7 +248,6 @@ class RegionLoader{
 			$lastSector = $sector;
 		}
 		ftruncate($this->filePointer, ($sector + 1) << 12); //Truncate to the end of file written
-
 		return $shift;
 	}
 

@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\item\Tool;
 use pocketmine\Player;
 
-class IronDoor extends Door{
+class IronDoor extends Door {
 
 	protected $id = self::IRON_DOOR_BLOCK;
 

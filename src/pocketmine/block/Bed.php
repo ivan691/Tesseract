@@ -21,7 +21,6 @@
 
 namespace pocketmine\block;
 
-use pocketmine\event\TranslationContainer;
 use pocketmine\item\Item;
 use pocketmine\level\Explosion;
 use pocketmine\level\Level;
@@ -29,7 +28,7 @@ use pocketmine\math\AxisAlignedBB;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class Bed extends Transparent{
+class Bed extends Transparent {
 
 	protected $id = self::BED_BLOCK;
 
@@ -64,7 +63,6 @@ class Bed extends Transparent{
 		if($this->getLevel()->getDimension() == Level::DIMENSION_NETHER){
 			$explosion = new Explosion($this, 6, $this);
 			$explosion->explodeA();
-
 			return true;
 		}
 
@@ -73,8 +71,7 @@ class Bed extends Transparent{
 		$isNight = ($time >= Level::TIME_NIGHT and $time < Level::TIME_SUNRISE);
 
 		if($player instanceof Player and !$isNight){
-			$player->sendMessage(new TranslationContainer(TextFormat::GRAY . "%message.bed.sleep.night"));
-
+			$player->sendMessage(TextFormat::GRAY . "You can only sleep at night");
 			return true;
 		}
 
@@ -103,7 +100,7 @@ class Bed extends Transparent{
 		}
 
 		if($player instanceof Player and $player->sleepOn($b) === false){
-			$player->sendMessage(new TranslationContainer(TextFormat::GRAY . "%tile.bed.occupied"));
+			$player->sendMessage(TextFormat::GRAY . "This bed is occupied");
 		}
 
 		return true;

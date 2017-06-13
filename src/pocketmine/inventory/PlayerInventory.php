@@ -26,7 +26,6 @@ use pocketmine\event\entity\EntityArmorChangeEvent;
 use pocketmine\event\entity\EntityInventoryChangeEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\item\Item;
-
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\network\protocol\ContainerSetContentPacket;
 use pocketmine\network\protocol\ContainerSetSlotPacket;
@@ -35,17 +34,14 @@ use pocketmine\network\protocol\MobEquipmentPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 
-class PlayerInventory extends BaseInventory{
+class PlayerInventory extends BaseInventory {
 
 	protected $itemInHandIndex = 0;
 	/** @var int[] */
 	protected $hotbar;
 
 	public function __construct(Human $player, $contents = null){
-		for($i = 0; $i < $this->getHotbarSize(); $i++){
-			$this->hotbar[$i] = $i;
-		}
-		//$this->hotbar = array_fill(0, $this->getHotbarSize(), -1);
+		$this->hotbar = range(0, $this->getHotbarSize() - 1, 1);
 		parent::__construct($player, InventoryType::get(InventoryType::PLAYER));
 
 		if($contents !== null){
@@ -101,8 +97,8 @@ class PlayerInventory extends BaseInventory{
 	 *
 	 * Changes the linkage of the specified hotbar slot. This should never be done unless it is requested by the client.
 	 *
-	 * @param $index
-	 * @param $slot
+	 * @param int $index
+	 * @param int $slot
 	 */
 	public function setHotbarSlotIndex($index, $slot){
 		if($this->getHolder()->getServer()->getProperty("settings.deprecated-verbose") !== false){
@@ -120,9 +116,9 @@ class PlayerInventory extends BaseInventory{
 	}
 
 	/**
-	 * @param int  $hotbarSlotIndex
+	 * @param int $hotbarSlotIndex
 	 * @param bool $sendToHolder
-	 * @param int  $slotMapping
+	 * @param int $slotMapping
 	 *
 	 * Sets which hotbar slot the player is currently holding.
 	 * Allows slot remapping as specified by a MobEquipmentPacket. DO NOT CHANGE SLOT MAPPING IN PLUGINS!
@@ -152,7 +148,6 @@ class PlayerInventory extends BaseInventory{
 					if($ev->isCancelled()){
 						$this->sendHeldItem($this->getHolder());
 						$this->sendContents($this->getHolder());
-
 						return;
 					}
 				}
@@ -218,7 +213,6 @@ class PlayerInventory extends BaseInventory{
 
 	/**
 	 * @deprecated
-	 *
 	 * @param int $slot
 	 */
 	public function setHeldItemSlot($slot){
@@ -235,19 +229,17 @@ class PlayerInventory extends BaseInventory{
 		$pk->item = $item;
 		$pk->slot = $this->getHeldItemSlot();
 		$pk->selectedSlot = $this->getHeldItemIndex();
+		$pk->windowId = ContainerSetContentPacket::SPECIAL_INVENTORY;
 
 		if(!is_array($target)){
 			$target->dataPacket($pk);
-			if($target === $this->getHolder()){
+			if($this->getHeldItemSlot() !== -1 and $target === $this->getHolder()){
 				$this->sendSlot($this->getHeldItemSlot(), $target);
 			}
 		}else{
 			$this->getHolder()->getLevel()->getServer()->broadcastPacket($target, $pk);
-			foreach($target as $player){
-				if($player === $this->getHolder()){
-					$this->sendSlot($this->getHeldItemSlot(), $player);
-					break;
-				}
+			if($this->getHeldItemSlot() !== -1 and in_array($this->getHolder(), $target)){
+				$this->sendSlot($this->getHeldItemSlot(), $this->getHolder());
 			}
 		}
 	}
@@ -336,7 +328,6 @@ class PlayerInventory extends BaseInventory{
 			Server::getInstance()->getPluginManager()->callEvent($ev = new EntityArmorChangeEvent($this->getHolder(), $this->getItem($index), $item, $index));
 			if($ev->isCancelled() and $this->getHolder() instanceof Human){
 				$this->sendArmorSlot($index, $this->getViewers());
-
 				return false;
 			}
 			$item = $ev->getNewItem();
@@ -344,7 +335,6 @@ class PlayerInventory extends BaseInventory{
 			Server::getInstance()->getPluginManager()->callEvent($ev = new EntityInventoryChangeEvent($this->getHolder(), $this->getItem($index), $item, $index));
 			if($ev->isCancelled()){
 				$this->sendSlot($index, $this->getViewers());
-
 				return false;
 			}
 			$item = $ev->getNewItem();
@@ -370,7 +360,6 @@ class PlayerInventory extends BaseInventory{
 					}else{
 						$this->sendSlot($index, $this->getViewers());
 					}
-
 					return false;
 				}
 				$item = $ev->getNewItem();
@@ -382,7 +371,6 @@ class PlayerInventory extends BaseInventory{
 					}else{
 						$this->sendSlot($index, $this->getViewers());
 					}
-
 					return false;
 				}
 				$item = $ev->getNewItem();
@@ -469,7 +457,7 @@ class PlayerInventory extends BaseInventory{
 
 
 	/**
-	 * @param int             $index
+	 * @param int $index
 	 * @param Player|Player[] $target
 	 */
 	public function sendArmorSlot($index, $target){
@@ -537,7 +525,7 @@ class PlayerInventory extends BaseInventory{
 	}
 
 	/**
-	 * @param int             $index
+	 * @param int $index
 	 * @param Player|Player[] $target
 	 */
 	public function sendSlot($index, $target){
@@ -566,7 +554,7 @@ class PlayerInventory extends BaseInventory{
 	}
 
 	/**
-	 * @return Human|InventoryHolder|Player
+	 * @return Human|Player
 	 */
 	public function getHolder(){
 		return parent::getHolder();

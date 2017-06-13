@@ -21,7 +21,7 @@
 
 namespace pocketmine\scheduler;
 
-class FileWriteTask extends AsyncTask{
+class FileWriteTask extends AsyncTask {
 
 	private $path;
 	private $contents;

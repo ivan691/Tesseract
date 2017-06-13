@@ -2,20 +2,20 @@
 
 /*
  *
- *  _____   _____   __   _   _   _____  __    __  _____
- * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
- * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
- * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
- * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
- * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author iTX Technologies
- * @link https://itxtech.org
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
  *
 */
 
@@ -23,7 +23,7 @@ namespace pocketmine\item;
 
 use pocketmine\block\BlockIds;
 
-interface ItemIds extends BlockIds{
+interface ItemIds extends BlockIds {
 
 	//All BlockIds are also accessible through this interface.
 	const IRON_SHOVEL = 256;
@@ -105,6 +105,7 @@ interface ItemIds extends BlockIds{
 	const WOODEN_DOOR = 324;
 	const OAK_DOOR = 324;
 	const BUCKET = 325;
+
 	const MINECART = 328;
 	const SADDLE = 329;
 	const IRON_DOOR = 330;
@@ -113,6 +114,7 @@ interface ItemIds extends BlockIds{
 	const SNOWBALL = 332;
 	const BOAT = 333;
 	const LEATHER = 334;
+
 	const BRICK = 336;
 	const CLAY = 337;
 	const SUGARCANE = 338;
@@ -237,6 +239,8 @@ interface ItemIds extends BlockIds{
 	const CLOWN_FISH = 461;
 	const PUFFER_FISH = 462;
 	const COOKED_SALMON = 463;
+
 	const ENCHANTED_GOLDEN_APPLE = 466;
+
 	const CAMERA = 498; #blamemojang
 }

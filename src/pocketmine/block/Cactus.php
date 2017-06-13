@@ -32,7 +32,7 @@ use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\Server;
 
-class Cactus extends Transparent{
+class Cactus extends Transparent {
 
 	protected $id = self::CACTUS;
 

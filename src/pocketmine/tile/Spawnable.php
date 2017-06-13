@@ -27,7 +27,7 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\protocol\BlockEntityDataPacket;
 use pocketmine\Player;
 
-abstract class Spawnable extends Tile{
+abstract class Spawnable extends Tile {
 
 	public function spawnTo(Player $player){
 		if($this->closed){
@@ -82,7 +82,7 @@ abstract class Spawnable extends Tile{
 	 * for example when writing on a sign.
 	 *
 	 * @param CompoundTag $nbt
-	 * @param Player      $player
+	 * @param Player $player
 	 *
 	 * @return bool indication of success, will respawn the tile to the player if false.
 	 */

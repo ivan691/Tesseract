@@ -21,12 +21,12 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\Item as ItemItem;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\Player;
 
-class Chicken extends Animal{
+class Chicken extends Animal {
 	const NETWORK_ID = 10;
 
 	public $width = 0.6;
@@ -72,7 +72,6 @@ class Chicken extends Animal{
 					break;
 			}
 		}
-
 		return $drops;
 	}
 }

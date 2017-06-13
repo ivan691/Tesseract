@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class UseItemPacket extends DataPacket{
+class UseItemPacket extends DataPacket {
 
 	const NETWORK_ID = Info::USE_ITEM_PACKET;
 
@@ -43,7 +43,7 @@ class UseItemPacket extends DataPacket{
 	public $slot;
 
 	public function decode(){
-		$this->getBlockCoords($this->x, $this->y, $this->z);
+		$this->getBlockPosition($this->x, $this->y, $this->z);
 		$this->blockId = $this->getUnsignedVarInt();
 		$this->face = $this->getVarInt();
 		$this->getVector3f($this->fx, $this->fy, $this->fz);
@@ -55,12 +55,4 @@ class UseItemPacket extends DataPacket{
 	public function encode(){
 
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "UseItemPacket";
-	}
-
 }

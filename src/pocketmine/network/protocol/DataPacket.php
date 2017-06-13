@@ -28,7 +28,7 @@ use pocketmine\item\Item;
 use pocketmine\utils\BinaryStream;
 use pocketmine\utils\Utils;
 
-abstract class DataPacket extends BinaryStream{
+abstract class DataPacket extends BinaryStream {
 
 	const NETWORK_ID = 0;
 
@@ -51,7 +51,6 @@ abstract class DataPacket extends BinaryStream{
 		$this->buffer = null;
 		$this->isEncoded = false;
 		$this->offset = 0;
-
 		return $this;
 	}
 
@@ -108,7 +107,7 @@ abstract class DataPacket extends BinaryStream{
 					$value[2] = $this->getVarInt(); //z
 					break;
 				case Entity::DATA_TYPE_LONG:
-					$value = $this->getVarInt(); //TODO: varint64 proper support
+					$value = $this->getVarLong();
 					break;
 				case Entity::DATA_TYPE_VECTOR3F:
 					$value = [0.0, 0.0, 0.0];
@@ -123,7 +122,6 @@ abstract class DataPacket extends BinaryStream{
 				$data[$key] = $value;
 			}
 		}
-
 		return $data;
 	}
 
@@ -159,7 +157,7 @@ abstract class DataPacket extends BinaryStream{
 					$this->putVarInt($d[1][2]); //z
 					break;
 				case Entity::DATA_TYPE_LONG:
-					$this->putVarInt($d[1]); //TODO: varint64 support
+					$this->putVarLong($d[1]);
 					break;
 				case Entity::DATA_TYPE_VECTOR3F:
 					//TODO: change this implementation (use objects)
@@ -168,11 +166,44 @@ abstract class DataPacket extends BinaryStream{
 		}
 	}
 
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "DataPacket";
+	public function getEntityUniqueId(){
+		return $this->getVarLong();
 	}
 
+	public function putEntityUniqueId($eid){
+		$this->putVarLong($eid);
+	}
+
+	public function getEntityRuntimeId(){
+		return $this->getUnsignedVarLong();
+	}
+
+	public function putEntityRuntimeId($eid){
+		$this->putUnsignedVarLong($eid);
+	}
+
+	public function getBlockPosition(&$x, &$y, &$z){
+		$x = $this->getVarInt();
+		$y = $this->getUnsignedVarInt();
+		$z = $this->getVarInt();
+	}
+
+
+	public function putBlockPosition($x, $y, $z){
+		$this->putVarInt($x);
+		$this->putUnsignedVarInt($y);
+		$this->putVarInt($z);
+	}
+
+	public function getVector3f(&$x, &$y, &$z){
+		$x = $this->getLFloat(4);
+		$y = $this->getLFloat(4);
+		$z = $this->getLFloat(4);
+	}
+
+	public function putVector3f($x, $y, $z){
+		$this->putLFloat($x);
+		$this->putLFloat($y);
+		$this->putLFloat($z);
+	}
 }

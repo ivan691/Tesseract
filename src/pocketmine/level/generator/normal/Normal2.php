@@ -36,14 +36,14 @@ use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\biome\BiomeSelector;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\noise\Simplex;
-use pocketmine\level\generator\normal\object\OreType;
-use pocketmine\level\generator\normal\populator\Cave;
-use pocketmine\level\generator\normal\populator\GroundCover;
-use pocketmine\level\generator\normal\populator\Ore;
+use pocketmine\level\generator\object\OreType;
+use pocketmine\level\generator\populator\Cave;
+use pocketmine\level\generator\populator\GroundCover;
+use pocketmine\level\generator\populator\Ore;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
-class Normal2 extends Normal{
+class Normal2 extends Normal {
 	const NAME = "Normal2";
 	/** @var Simplex */
 	private $noiseSeaFloor;
@@ -124,24 +124,24 @@ class Normal2 extends Normal{
 
 		$ores = new Ore();
 		$ores->setOreTypes([
-			                   new OreType(new CoalOre(), 20, 17, 0, 128),
-			                   new OreType(new IronOre(), 20, 9, 0, 64),
-			                   new OreType(new RedstoneOre(), 8, 8, 0, 16),
-			                   new OreType(new LapisOre(), 1, 7, 0, 16),
-			                   new OreType(new GoldOre(), 2, 9, 0, 32),
-			                   new OreType(new DiamondOre(), 1, 8, 0, 16),
-			                   new OreType(new Dirt(), 10, 33, 0, 128),
-			                   new OreType(new Gravel(), 8, 33, 0, 128),
-			                   new OreType(new Stone(Stone::GRANITE), 10, 33, 0, 80),
-			                   new OreType(new Stone(Stone::DIORITE), 10, 33, 0, 80),
-			                   new OreType(new Stone(Stone::ANDESITE), 10, 33, 0, 80)
-		                   ]);
+			new OreType(new CoalOre(), 20, 17, 0, 128),
+			new OreType(new IronOre(), 20, 9, 0, 64),
+			new OreType(new RedstoneOre(), 8, 8, 0, 16),
+			new OreType(new LapisOre(), 1, 7, 0, 16),
+			new OreType(new GoldOre(), 2, 9, 0, 32),
+			new OreType(new DiamondOre(), 1, 8, 0, 16),
+			new OreType(new Dirt(), 10, 33, 0, 128),
+			new OreType(new Gravel(), 8, 33, 0, 128),
+			new OreType(new Stone(Stone::GRANITE), 10, 33, 0, 80),
+			new OreType(new Stone(Stone::DIORITE), 10, 33, 0, 80),
+			new OreType(new Stone(Stone::ANDESITE), 10, 33, 0, 80)
+		]);
 		$this->populators[] = $ores;
 	}
 
 
 	public function generateChunk($chunkX, $chunkZ){
-		$this->random->setSeed(0xdeadbeef ^ $chunkX ^ $chunkZ ^ $this->level->getSeed());
+		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
 
 		$seaFloorNoise = Generator::getFastNoise2D($this->noiseSeaFloor, 16, 16, 4, $chunkX * 16, 0, $chunkZ * 16);
 		$landNoise = Generator::getFastNoise2D($this->noiseLand, 16, 16, 4, $chunkX * 16, 0, $chunkZ * 16);
@@ -190,7 +190,7 @@ class Normal2 extends Normal{
 						$genyHeight = $this->seaFloorHeight;
 					}
 					$canRiver = false;
-				}elseif($genyHeight <= $this->beathStopHeight && $genyHeight >= $this->beathStartHeight){
+				}else if($genyHeight <= $this->beathStopHeight && $genyHeight >= $this->beathStartHeight){
 					$biome = Biome::getBiome(Biome::BEACH);
 				}else{
 					$biome = $this->pickBiome($chunkX * 16 + $genx, $chunkZ * 16 + $genz);
@@ -251,14 +251,14 @@ class Normal2 extends Normal{
 
 		//populator chunk
 		foreach($this->generationPopulators as $populator){
-			$populator->populate($this->level, ($chunkX << 16), ($chunkZ << 16), $this->random);
+			$populator->populate($this->level, $chunkX, $chunkZ, $this->random);
 		}
 
 	}
 
 
 	public function populateChunk($chunkX, $chunkZ){
-		$this->random->setSeed(0xdeadbeef ^ $chunkX ^ $chunkZ ^ $this->level->getSeed());
+		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
 		foreach($this->populators as $populator){
 			$populator->populate($this->level, $chunkX, $chunkZ, $this->random);
 		}

@@ -23,7 +23,7 @@ namespace pocketmine\inventory;
 
 use pocketmine\Player;
 
-abstract class TemporaryInventory extends ContainerInventory{
+abstract class TemporaryInventory extends ContainerInventory {
 	//TODO
 
 	abstract public function getResultSlotIndex();

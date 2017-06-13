@@ -21,15 +21,14 @@
 
 namespace pocketmine\item;
 
-
-use pocketmine\Player;
 use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Human;
 use pocketmine\event\entity\EntityDrinkPotionEvent;
 use pocketmine\network\protocol\EntityEventPacket;
+use pocketmine\Player;
 
-class Potion extends Item{
+class Potion extends Item {
 
 	//No effects
 	const WATER_BOTTLE = 0;
@@ -70,7 +69,7 @@ class Potion extends Item{
 	const STRENGTH_TWO = 33;
 	const WEAKNESS = 34;
 	const WEAKNESS_T = 35;
-	const DECAY = 36;
+	const DECAY = 36; //TODO
 
 	//Structure: Potion ID => [matching effect, duration in ticks, amplifier]
 	//Use false if no effects.
@@ -123,9 +122,7 @@ class Potion extends Item{
 		self::STRENGTH_TWO => [Effect::STRENGTH, (90 * 20), 1],
 
 		self::WEAKNESS => [Effect::WEAKNESS, (90 * 20), 0],
-		self::WEAKNESS_T => [Effect::WEAKNESS, (240 * 20), 0],
-
-		self::DECAY => [Effect::WITHER, (40 * 20), 0]
+		self::WEAKNESS_T => [Effect::WEAKNESS, (240 * 20), 0]
 	];
 
 	public function __construct($meta = 0, $count = 1){
@@ -137,7 +134,6 @@ class Potion extends Item{
 		if($effect !== null){
 			return $effect->getColor();
 		}
-
 		return [0, 0, 0];
 	}
 
@@ -159,14 +155,12 @@ class Potion extends Item{
 
 	/**
 	 * @param int $id
-	 *
 	 * @return Effect[]
 	 */
 	public static function getEffectsById(int $id) : array{
 		if(count(self::POTIONS[$id] ?? []) === 3){
 			return [Effect::getEffect(self::POTIONS[$id][0])->setDuration(self::POTIONS[$id][1])->setAmplifier(self::POTIONS[$id][2])];
 		}
-
 		return [];
 	}
 
@@ -179,7 +173,6 @@ class Potion extends Item{
 			$human->dataPacket($pk);
 		}
 		$server = $human->getLevel()->getServer();
-
 		$server->broadcastPacket($human->getViewers(), $pk);
 
 		$server->getPluginManager()->callEvent($ev = new EntityDrinkPotionEvent($human, $this));
@@ -306,8 +299,6 @@ class Potion extends Item{
 			case self::WEAKNESS:
 			case self::WEAKNESS_T:
 				return "Potion of Weakness";
-			case self::DECAY:
-				return "Potion of WHTHER II";
 			default:
 				return "Potion";
 		}

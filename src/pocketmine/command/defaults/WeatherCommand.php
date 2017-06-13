@@ -28,7 +28,7 @@ use pocketmine\level\weather\Weather;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class WeatherCommand extends VanillaCommand{
+class WeatherCommand extends VanillaCommand {
 
 	public function __construct($name){
 		parent::__construct(
@@ -57,7 +57,6 @@ class WeatherCommand extends VanillaCommand{
 			if($wea >= 0 and $wea <= 3){
 				$sender->getLevel()->getWeather()->setWeather($wea, $duration);
 				$sender->sendMessage(new TranslationContainer("pocketmine.command.weather.changed", [$sender->getLevel()->getFolderName()]));
-
 				return true;
 				/*if(WeatherManager::isRegistered($sender->getLevel())){
 					$sender->getLevel()->getWeather()->setWeather($wea, $duration);
@@ -69,21 +68,18 @@ class WeatherCommand extends VanillaCommand{
 				}*/
 			}else{
 				$sender->sendMessage(TextFormat::RED . "%pocketmine.command.weather.invalid");
-
 				return false;
 			}
 		}
 
 		if(count($args) < 2){
 			$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$this->usageMessage]));
-
 			return false;
 		}
 
 		$level = $sender->getServer()->getLevelByName($args[0]);
 		if(!$level instanceof Level){
 			$sender->sendMessage(TextFormat::RED . "%pocketmine.command.weather.invalid.level");
-
 			return false;
 		}
 
@@ -93,7 +89,6 @@ class WeatherCommand extends VanillaCommand{
 		if($wea >= 0 and $wea <= 3){
 			$level->getWeather()->setWeather($wea, $duration);
 			$sender->sendMessage(new TranslationContainer("pocketmine.command.weather.changed", [$level->getFolderName()]));
-
 			return true;
 			/*if(WeatherManager::isRegistered($level)){
 				$level->getWeather()->setWeather($wea, $duration);
@@ -105,7 +100,6 @@ class WeatherCommand extends VanillaCommand{
 			}*/
 		}else{
 			$sender->sendMessage(TextFormat::RED . "%pocketmine.command.weather.invalid");
-
 			return false;
 		}
 	}

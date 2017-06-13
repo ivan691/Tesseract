@@ -25,7 +25,7 @@ use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\Player;
 
-class DoublePlant extends Flowable{
+class DoublePlant extends Flowable {
 
 	protected $id = self::DOUBLE_PLANT;
 
@@ -53,14 +53,13 @@ class DoublePlant extends Flowable{
 			4 => "Rose Bush",
 			5 => "Peony"
 		];
-
 		return $names[$this->meta & 0x07];
 	}
 
 	public function onUpdate($type){
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if($this->getSide(0)->isTransparent() === true && !$this->getSide(0) instanceof DoublePlant){ //Replace with common break method
-				$this->getLevel()->setBlock($this, new Air(), true, true);
+				$this->getLevel()->setBlock($this, new Air(), false, false);
 
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
@@ -75,10 +74,8 @@ class DoublePlant extends Flowable{
 		if($down->getId() === self::GRASS or $down->getId() === self::DIRT){
 			$this->getLevel()->setBlock($block, $this, true);
 			$this->getLevel()->setBlock($up, Block::get($this->id, $this->meta ^ 0x08), true);
-
 			return true;
 		}
-
 		return false;
 	}
 

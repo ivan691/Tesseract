@@ -25,7 +25,7 @@ use pocketmine\Thread;
 use pocketmine\utils\Binary;
 use pocketmine\utils\MainLogger;
 
-class RCONInstance extends Thread{
+class RCONInstance extends Thread {
 	public $stop;
 	public $cmd;
 	public $response;
@@ -66,7 +66,6 @@ class RCONInstance extends Thread{
 			. Binary::writeLInt((int) $packetType)
 			. $payload
 			. "\x00\x00"; //Terminate payload and packet
-
 		return socket_write($client, Binary::writeLInt(strlen($pk)) . $pk);
 	}
 
@@ -88,7 +87,6 @@ class RCONInstance extends Thread{
 		$requestID = Binary::readLInt(socket_read($client, 4));
 		$packetType = Binary::readLInt(socket_read($client, 4));
 		$payload = rtrim(socket_read($client, $size + 2)); //Strip two null bytes
-
 		return true;
 	}
 

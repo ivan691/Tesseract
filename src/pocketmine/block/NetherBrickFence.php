@@ -16,29 +16,20 @@
  * @author PocketMine Team
  * @link http://www.pocketmine.net/
  *
- */
+ *
+*/
 
 namespace pocketmine\block;
 
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class NetherBrickFence extends Transparent{
+class NetherBrickFence extends Transparent {
 
 	protected $id = self::NETHER_BRICK_FENCE;
 
 	public function __construct($meta = 0){
 		$this->meta = $meta;
-	}
-
-	public function getBreakTime(Item $item){
-		if($item instanceof Air){
-			//Breaking by hand
-			return 10;
-		}else{
-			// Other breaktimes are equal to woodfences.
-			return parent::getBreakTime($item);
-		}
 	}
 
 	public function getHardness(){

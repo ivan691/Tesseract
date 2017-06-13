@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class HayBale extends Solid{
+class HayBale extends Solid {
 
 	protected $id = self::HAY_BALE;
 

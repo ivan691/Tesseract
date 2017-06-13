@@ -24,9 +24,8 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-
 //TODO: check orientation
-class Stonecutter extends Solid{
+class Stonecutter extends Solid {
 
 	protected $id = self::STONECUTTER;
 

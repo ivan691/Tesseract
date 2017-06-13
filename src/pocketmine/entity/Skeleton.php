@@ -22,12 +22,12 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\network\protocol\MobEquipmentPacket;
 use pocketmine\item\Item as ItemItem;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\network\protocol\MobEquipmentPacket;
+use pocketmine\Player;
 
-class Skeleton extends Monster implements ProjectileSource{
+class Skeleton extends Monster implements ProjectileSource {
 	const NETWORK_ID = 34;
 
 	public $dropExp = [5, 5];

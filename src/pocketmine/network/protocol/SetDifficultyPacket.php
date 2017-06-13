@@ -24,7 +24,7 @@ namespace pocketmine\network\protocol;
 #include <rules/DataPacket.h>
 
 
-class SetDifficultyPacket extends DataPacket{
+class SetDifficultyPacket extends DataPacket {
 
 	const NETWORK_ID = Info::SET_DIFFICULTY_PACKET;
 
@@ -38,13 +38,4 @@ class SetDifficultyPacket extends DataPacket{
 		$this->reset();
 		$this->putUnsignedVarInt($this->difficulty);
 	}
-
-	/**
-	 * @return PacketName|string
-	 */
-	public function getName(){
-		return "SetDifficultyPacket";
-	}
-
-
 }

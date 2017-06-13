@@ -24,7 +24,7 @@ namespace pocketmine\permission;
 use pocketmine\Server;
 use pocketmine\utils\MainLogger;
 
-class BanList{
+class BanList {
 
 	/** @var BanEntry[] */
 	private $list = [];
@@ -90,10 +90,10 @@ class BanList{
 	}
 
 	/**
-	 * @param string    $target
-	 * @param string    $reason
+	 * @param string $target
+	 * @param string $reason
 	 * @param \DateTime $expires
-	 * @param string    $source
+	 * @param string $source
 	 *
 	 * @return BanEntry
 	 */
@@ -105,9 +105,6 @@ class BanList{
 
 		$this->list[$entry->getName()] = $entry;
 		$this->save();
-		if(($player = Server::getInstance()->getPlayerExact($target)) instanceof Player){
-			$player->kick($reason);
-		}
 
 		return $entry;
 	}

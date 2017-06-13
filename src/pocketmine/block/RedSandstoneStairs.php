@@ -21,7 +21,7 @@
 
 namespace pocketmine\block;
 
-class RedSandstoneStairs extends SandstoneStairs{
+class RedSandstoneStairs extends SandstoneStairs {
 
 	protected $id = Block::RED_SANDSTONE_STAIRS;
 

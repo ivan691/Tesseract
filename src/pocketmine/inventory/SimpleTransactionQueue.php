@@ -22,10 +22,9 @@
 namespace pocketmine\inventory;
 
 use pocketmine\event\inventory\InventoryTransactionEvent;
-
 use pocketmine\Player;
 
-class SimpleTransactionQueue implements TransactionQueue{
+class SimpleTransactionQueue implements TransactionQueue {
 
 	/** @var Player[] */
 	protected $player = null;

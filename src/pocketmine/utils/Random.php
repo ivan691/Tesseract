@@ -25,7 +25,7 @@ namespace pocketmine\utils;
  * XorShift128Engine Random Number Noise, used for fast seeded values
  * Most of the code in this class was adapted from the XorShift128Engine in the php-random library.
  */
-class Random{
+class Random {
 	const X = 123456789;
 	const Y = 362436069;
 	const Z = 521288629;

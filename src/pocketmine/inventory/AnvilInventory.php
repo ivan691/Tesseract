@@ -29,7 +29,7 @@ use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\event\inventory\AnvilProcessEvent;
 
-class AnvilInventory extends TemporaryInventory{
+class AnvilInventory extends TemporaryInventory {
 
 	const TARGET = 0;
 	const SACRIFICE = 1;
@@ -69,7 +69,6 @@ class AnvilInventory extends TemporaryInventory{
 			}
 			$player->getFloatingInventory()->addItem($resultItem);
 		}
-
 		return true;
 	}
 
@@ -78,7 +77,6 @@ class AnvilInventory extends TemporaryInventory{
 		Server::getInstance()->getPluginManager()->callEvent($ev = new AnvilProcessEvent($this));
 		if($ev->isCancelled()){
 			$this->clearAll();
-
 			return false;
 		}
 		if($sacrifice instanceof EnchantedBook && $sacrifice->hasEnchantments()){ //Enchanted Books!
@@ -105,7 +103,6 @@ class AnvilInventory extends TemporaryInventory{
 		if($transaction->getSlot() === $this->getResultSlotIndex()){
 			return false;
 		}
-
 		return true;
 	}
 

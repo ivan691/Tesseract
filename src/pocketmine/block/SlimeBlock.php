@@ -22,7 +22,7 @@
 namespace pocketmine\block;
 
 
-class SlimeBlock extends Solid{
+class SlimeBlock extends Solid {
 
 	protected $id = self::SLIME_BLOCK;
 

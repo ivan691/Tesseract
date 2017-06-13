@@ -25,7 +25,7 @@ use LogLevel;
 use pocketmine\Thread;
 use pocketmine\Worker;
 
-class MainLogger extends \AttachableThreadedLogger{
+class MainLogger extends \AttachableThreadedLogger {
 	protected $logFile;
 	protected $logStream;
 	protected $shutdown;
@@ -52,13 +52,12 @@ class MainLogger extends \AttachableThreadedLogger{
 		$msg = $this->shouldSendMsg;
 		$this->shouldSendMsg = "";
 		$this->lastGet = time();
-
 		return $msg;
 	}
 
 	/**
 	 * @param string $logFile
-	 * @param bool   $logDebug
+	 * @param bool $logDebug
 	 *
 	 * @throws \RuntimeException
 	 */
@@ -107,10 +106,6 @@ class MainLogger extends \AttachableThreadedLogger{
 
 	public function info($message, $name = "INFO"){
 		$this->send($message, \LogLevel::INFO, $name, TextFormat::WHITE);
-	}
-
-	public function developer($message, $name = "DEVELOPER"){
-		$this->send($message, \LogLevel::DEVELOPER, $name, TextFormat::GOLD);
 	}
 
 	public function debug($message, $name = "DEBUG"){
@@ -206,25 +201,7 @@ class MainLogger extends \AttachableThreadedLogger{
 	protected function send($message, $level, $prefix, $color){
 		$now = time();
 
-		$thread = \Thread::getCurrentThread();
-		if($thread === null){
-			$threadName = "Server thread";
-		}elseif($thread instanceof Thread or $thread instanceof Worker){
-			$threadName = $thread->getThreadName() . " thread";
-		}else{
-			$threadName = (new \ReflectionClass($thread))->getShortName() . " thread";
-		}
-
-		if($this->shouldRecordMsg){
-			if((time() - $this->lastGet) >= 10) $this->shouldRecordMsg = false; // 10 secs timeout
-			else{
-				if(strlen($this->shouldSendMsg) >= 10000) $this->shouldSendMsg = "";
-				$this->shouldSendMsg .= $color . "|" . $prefix . "|" . trim($message, "\r\n") . "\n";
-			}
-		}
-
-		$message = TextFormat::toANSI(TextFormat::GREEN . "[Tesseract] " . TextFormat::RESET . TextFormat::AQUA . "[" . date("H:i:s", $now) . "] " . $color . $prefix . "> " . $message . TextFormat::RESET);
-		//$message = TextFormat::toANSI(TextFormat::AQUA . "[" . date("H:i:s") . "] ". TextFormat::RESET . $color ."<".$prefix . ">" . " " . $message . TextFormat::RESET);
+		$message = TextFormat::toANSI(TextFormat::GREEN . "[Tesseract] " . TextFormat::AQUA . "[" . date("H:i:s", $now) . "] " . TextFormat::RESET . $color . "[" . $prefix . "]:" . " " . $message . TextFormat::RESET);
 		$cleanMessage = TextFormat::clean($message);
 
 		if(!Terminal::hasFormattingCodes()){
@@ -248,40 +225,6 @@ class MainLogger extends \AttachableThreadedLogger{
 			});
 		}
 	}
-
-	/*public function run(){
-		$this->shutdown = false;
-		if($this->write){
-			$this->logResource = fopen($this->logFile, "a+b");
-			if(!is_resource($this->logResource)){
-				throw new \RuntimeException("Couldn't open log file");
-			}
-
-			while($this->shutdown === false){
-				if(!$this->write) {
-					fclose($this->logResource);
-					break;
-				}
-				$this->synchronized(function(){
-					while($this->logStream->count() > 0){
-						$chunk = $this->logStream->shift();
-						fwrite($this->logResource, $chunk);
-					}
-
-					$this->wait(25000);
-				});
-			}
-
-			if($this->logStream->count() > 0){
-				while($this->logStream->count() > 0){
-					$chunk = $this->logStream->shift();
-					fwrite($this->logResource, $chunk);
-				}
-			}
-
-			fclose($this->logResource);
-		}
-	}*/
 
 	public function run(){
 		$this->shutdown = false;

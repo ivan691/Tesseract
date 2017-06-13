@@ -22,12 +22,12 @@
 namespace pocketmine\entity;
 
 use pocketmine\level\Level;
-use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\level\particle\SpellParticle;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
 
-class ThrownExpBottle extends Projectile{
+class ThrownExpBottle extends Projectile {
 	const NETWORK_ID = 68;
 
 	public $width = 0.25;

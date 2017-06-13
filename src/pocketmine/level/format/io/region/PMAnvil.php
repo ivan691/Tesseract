@@ -37,7 +37,7 @@ use pocketmine\utils\MainLogger;
  * This format is exactly the same as the PC Anvil format, with the only difference being that the stored data order
  * is XZY instead of YZX for more performance loading and saving worlds.
  */
-class PMAnvil extends Anvil{
+class PMAnvil extends Anvil {
 
 	const REGION_FILE_EXTENSION = "mcapm";
 
@@ -140,11 +140,9 @@ class PMAnvil extends Anvil{
 			$result->setLightPopulated(isset($chunk->LightPopulated) ? ((bool) $chunk->LightPopulated->getValue()) : false);
 			$result->setPopulated(isset($chunk->TerrainPopulated) ? ((bool) $chunk->TerrainPopulated->getValue()) : false);
 			$result->setGenerated(true);
-
 			return $result;
 		}catch(\Throwable $e){
 			MainLogger::getLogger()->logException($e);
-
 			return null;
 		}
 	}

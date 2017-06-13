@@ -23,8 +23,7 @@ namespace pocketmine\item;
 
 use pocketmine\entity\Effect;
 
-
-interface FoodSource{
+interface FoodSource {
 	public function getResidue();
 
 	public function getFoodRestore() : int;

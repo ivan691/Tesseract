@@ -30,17 +30,18 @@ use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\EndTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\IntArrayTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\LongTag;
-use pocketmine\nbt\tag\NamedTAG;
+use pocketmine\nbt\tag\NamedTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\nbt\tag\Tag;
-#ifndef COMPILE
 use pocketmine\utils\Binary;
+
+#ifndef COMPILE
 
 #endif
 
@@ -50,7 +51,7 @@ use pocketmine\utils\Binary;
 /**
  * Named Binary Tag encoder/decoder
  */
-class NBT{
+class NBT {
 
 	const LITTLE_ENDIAN = 0;
 	const BIG_ENDIAN = 1;
@@ -146,7 +147,6 @@ class NBT{
 				$tag1->{$k} = clone $v;
 			}
 		}
-
 		return $tag1;
 	}
 
@@ -157,7 +157,6 @@ class NBT{
 			if($c === "{"){
 				++$offset;
 				$data = self::parseCompound($data, $offset);
-
 				return new CompoundTag("", $data);
 			}elseif($c !== " " and $c !== "\r" and $c !== "\n" and $c !== "\t"){
 				throw new \Exception("Syntax error: unexpected '$c' at offset $offset");
@@ -405,7 +404,6 @@ class NBT{
 	public function get($len){
 		if($len < 0){
 			$this->offset = strlen($this->buffer) - 1;
-
 			return "";
 		}elseif($len === true){
 			return substr($this->buffer, $this->offset);
@@ -466,7 +464,6 @@ class NBT{
 			foreach($this->data as $tag){
 				$this->writeTag($tag, $network);
 			}
-
 			return $this->buffer;
 		}
 
@@ -546,13 +543,12 @@ class NBT{
 				$tag = new EndTag;
 				break;
 		}
-
 		return $tag;
 	}
 
 	public function writeTag(Tag $tag, bool $network = false){
 		$this->putByte($tag->getType());
-		if($tag instanceof NamedTAG){
+		if($tag instanceof NamedTag){
 			$this->putString($tag->getName(), $network);
 		}
 		$tag->write($this, $network);
@@ -578,7 +574,6 @@ class NBT{
 		if($network === true){
 			return Binary::readVarInt($this);
 		}
-
 		return $this->endianness === self::BIG_ENDIAN ? Binary::readInt($this->get(4)) : Binary::readLInt($this->get(4));
 	}
 
@@ -616,7 +611,6 @@ class NBT{
 
 	public function getString(bool $network = false){
 		$len = $network ? Binary::readUnsignedVarInt($this) : $this->getShort();
-
 		return $this->get($len);
 	}
 

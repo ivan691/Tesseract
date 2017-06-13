@@ -24,7 +24,7 @@ namespace pocketmine\level;
 use pocketmine\entity\Entity;
 use pocketmine\math\Vector3;
 
-class MovingObjectPosition{
+class MovingObjectPosition {
 
 	/** 0 = block, 1 = entity */
 	public $typeOfHit;
@@ -50,10 +50,10 @@ class MovingObjectPosition{
 	}
 
 	/**
-	 * @param int     $x
-	 * @param int     $y
-	 * @param int     $z
-	 * @param int     $side
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param int $side
 	 * @param Vector3 $hitVector
 	 *
 	 * @return MovingObjectPosition
@@ -65,7 +65,6 @@ class MovingObjectPosition{
 		$ob->blockY = $y;
 		$ob->blockZ = $z;
 		$ob->hitVector = new Vector3($hitVector->x, $hitVector->y, $hitVector->z);
-
 		return $ob;
 	}
 
@@ -79,7 +78,6 @@ class MovingObjectPosition{
 		$ob->typeOfHit = 1;
 		$ob->entityHit = $entity;
 		$ob->hitVector = new Vector3($entity->x, $entity->y, $entity->z);
-
 		return $ob;
 	}
 }

@@ -30,7 +30,7 @@ use pocketmine\plugin\PluginException;
 use pocketmine\Server;
 use pocketmine\utils\ReversePriorityQueue;
 
-class ServerScheduler{
+class ServerScheduler {
 	public static $WORKERS = 2;
 	/**
 	 * @var ReversePriorityQueue<Task>
@@ -82,7 +82,7 @@ class ServerScheduler{
 	 * Submits an asynchronous task to a specific Worker in the Pool
 	 *
 	 * @param AsyncTask $task
-	 * @param int       $worker
+	 * @param int $worker
 	 *
 	 * @return void
 	 */
@@ -102,7 +102,7 @@ class ServerScheduler{
 
 	/**
 	 * @param Task $task
-	 * @param int  $delay
+	 * @param int $delay
 	 *
 	 * @return null|TaskHandler
 	 */
@@ -112,7 +112,7 @@ class ServerScheduler{
 
 	/**
 	 * @param Task $task
-	 * @param int  $period
+	 * @param int $period
 	 *
 	 * @return null|TaskHandler
 	 */
@@ -122,8 +122,8 @@ class ServerScheduler{
 
 	/**
 	 * @param Task $task
-	 * @param int  $delay
-	 * @param int  $period
+	 * @param int $delay
+	 * @param int $period
 	 *
 	 * @return null|TaskHandler
 	 */
@@ -191,6 +191,18 @@ class ServerScheduler{
 			}elseif(!$task->getOwner()->isEnabled()){
 				throw new PluginException("Plugin '" . $task->getOwner()->getName() . "' attempted to register a task while disabled");
 			}
+		}elseif($task instanceof CallbackTask and Server::getInstance()->getProperty("settings.deprecated-verbose", true)){
+			$callable = $task->getCallable();
+			if(is_array($callable)){
+				if(is_object($callable[0])){
+					$taskName = "Callback#" . get_class($callable[0]) . "::" . $callable[1];
+				}else{
+					$taskName = "Callback#" . $callable[0] . "::" . $callable[1];
+				}
+			}else{
+				$taskName = "Callback#" . $callable;
+			}
+			//Server::getInstance()->getLogger()->warning("A plugin attempted to register a deprecated CallbackTask ($taskName)");
 		}
 
 		if($delay <= 0){

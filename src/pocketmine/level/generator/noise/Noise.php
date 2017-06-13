@@ -26,7 +26,7 @@
 namespace pocketmine\level\generator\noise;
 
 
-abstract class Noise{
+abstract class Noise {
 	protected $perm = [];
 	protected $offsetX = 0;
 	protected $offsetY = 0;

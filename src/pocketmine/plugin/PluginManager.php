@@ -34,11 +34,10 @@ use pocketmine\permission\Permissible;
 use pocketmine\permission\Permission;
 use pocketmine\Server;
 
-
 /**
  * Manages all the plugins, Permissions and Permissibles
  */
-class PluginManager{
+class PluginManager {
 
 	/** @var Server */
 	private $server;
@@ -92,7 +91,7 @@ class PluginManager{
 	public static $useTimings = false;
 
 	/**
-	 * @param Server           $server
+	 * @param Server $server
 	 * @param SimpleCommandMap $commandMap
 	 */
 	public function __construct(Server $server, SimpleCommandMap $commandMap){
@@ -116,7 +115,7 @@ class PluginManager{
 	/**
 	 * @param string $loaderName A PluginLoader class name
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function registerInterface($loaderName){
 		if(is_subclass_of($loaderName, PluginLoader::class)){
@@ -138,7 +137,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param string         $path
+	 * @param string $path
 	 * @param PluginLoader[] $loaders
 	 *
 	 * @return Plugin
@@ -168,7 +167,7 @@ class PluginManager{
 
 	/**
 	 * @param string $directory
-	 * @param array  $newLoaders
+	 * @param array $newLoaders
 	 *
 	 * @return Plugin[]
 	 */
@@ -208,36 +207,6 @@ class PluginManager{
 
 							if(isset($plugins[$name]) or $this->getPlugin($name) instanceof Plugin){
 								$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.duplicateError", [$name]));
-								continue;
-							}
-
-							$compatible = false;
-							//Check multiple dependencies
-							foreach($description->getCompatibleApis() as $version){
-								//Format: majorVersion.minorVersion.patch
-								$version = array_map("intval", explode(".", $version));
-								$apiVersion = array_map("intval", explode(".", $this->server->getApiVersion()));
-								//Completely different API version
-								if($version[0] > $apiVersion[0]){
-									continue;
-								}
-								//If the plugin uses new API
-								if($version[0] < $apiVersion[0]){
-									$compatible = true;
-									break;
-								}
-								//If the plugin requires new API features, being backwards compatible
-								if($version[1] > $apiVersion[1]){
-									continue;
-								}
-
-								$compatible = true;
-								break;
-							}
-
-
-							if($compatible === false){
-								$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.incompatibleAPI"]));
 								continue;
 							}
 
@@ -378,7 +347,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param boolean $op
+	 * @param bool $op
 	 *
 	 * @return Permission[]
 	 */
@@ -419,7 +388,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param boolean $op
+	 * @param bool $op
 	 */
 	private function dirtyPermissibles($op){
 		foreach($this->getDefaultPermSubscriptions($op) as $p){
@@ -428,7 +397,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param string      $permission
+	 * @param string $permission
 	 * @param Permissible $permissible
 	 */
 	public function subscribeToPermission($permission, Permissible $permissible){
@@ -439,7 +408,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param string      $permission
+	 * @param string $permission
 	 * @param Permissible $permissible
 	 */
 	public function unsubscribeFromPermission($permission, Permissible $permissible){
@@ -477,7 +446,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param boolean     $op
+	 * @param bool $op
 	 * @param Permissible $permissible
 	 */
 	public function subscribeToDefaultPerms($op, Permissible $permissible){
@@ -489,7 +458,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param boolean     $op
+	 * @param bool $op
 	 * @param Permissible $permissible
 	 */
 	public function unsubscribeFromDefaultPerms($op, Permissible $permissible){
@@ -501,7 +470,7 @@ class PluginManager{
 	}
 
 	/**
-	 * @param boolean $op
+	 * @param bool $op
 	 *
 	 * @return Permissible[]
 	 */
@@ -687,7 +656,7 @@ class PluginManager{
 	 * Registers all the events in the given Listener class
 	 *
 	 * @param Listener $listener
-	 * @param Plugin   $plugin
+	 * @param Plugin $plugin
 	 *
 	 * @throws PluginException
 	 */
@@ -734,12 +703,12 @@ class PluginManager{
 	}
 
 	/**
-	 * @param string        $event Class name that extends Event
-	 * @param Listener      $listener
-	 * @param int           $priority
+	 * @param string $event Class name that extends Event
+	 * @param Listener $listener
+	 * @param int $priority
 	 * @param EventExecutor $executor
-	 * @param Plugin        $plugin
-	 * @param bool          $ignoreCancelled
+	 * @param Plugin $plugin
+	 * @param bool $ignoreCancelled
 	 *
 	 * @throws PluginException
 	 */

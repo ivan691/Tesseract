@@ -30,7 +30,7 @@ use pocketmine\level\generator\noise\Noise;
 use pocketmine\level\generator\normal\Normal;
 use pocketmine\utils\Random;
 
-abstract class Generator{
+abstract class Generator {
 	private static $list = [];
 
 	public static function addGenerator($object, $name){
@@ -75,11 +75,11 @@ abstract class Generator{
 
 	/**
 	 * @param Noise $noise
-	 * @param int   $xSize
-	 * @param int   $samplingRate
-	 * @param int   $x
-	 * @param int   $y
-	 * @param int   $z
+	 * @param int $xSize
+	 * @param int $samplingRate
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
 	 *
 	 * @return \SplFixedArray
 	 */
@@ -109,12 +109,12 @@ abstract class Generator{
 
 	/**
 	 * @param Noise $noise
-	 * @param int   $xSize
-	 * @param int   $zSize
-	 * @param int   $samplingRate
-	 * @param int   $x
-	 * @param int   $y
-	 * @param int   $z
+	 * @param int $xSize
+	 * @param int $zSize
+	 * @param int $samplingRate
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
 	 *
 	 * @return \SplFixedArray
 	 */
@@ -161,15 +161,15 @@ abstract class Generator{
 
 	/**
 	 * @param Noise $noise
-	 * @param int   $xSize
-	 * @param int   $ySize
-	 * @param int   $zSize
-	 * @param int   $xSamplingRate
-	 * @param int   $ySamplingRate
-	 * @param int   $zSamplingRate
-	 * @param int   $x
-	 * @param int   $y
-	 * @param int   $z
+	 * @param int $xSize
+	 * @param int $ySize
+	 * @param int $zSize
+	 * @param int $xSamplingRate
+	 * @param int $ySamplingRate
+	 * @param int $zSamplingRate
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
 	 *
 	 * @return \SplFixedArray
 	 */

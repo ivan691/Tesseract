@@ -27,7 +27,7 @@ use pocketmine\event\player\PlayerExhaustEvent;
 use pocketmine\network\protocol\MobEffectPacket;
 use pocketmine\Player;
 
-class Effect{
+class Effect {
 	const SPEED = 1;
 	const SLOWNESS = 2;
 	const HASTE = 3;
@@ -93,14 +93,12 @@ class Effect{
 
 	/**
 	 * @param int $id
-	 *
 	 * @return $this
 	 */
 	public static function getEffect($id){
 		if(isset(self::$effects[$id])){
 			return clone self::$effects[(int) $id];
 		}
-
 		return null;
 	}
 
@@ -108,7 +106,6 @@ class Effect{
 		if(defined(Effect::class . "::" . strtoupper($name))){
 			return self::getEffect(constant(Effect::class . "::" . strtoupper($name)));
 		}
-
 		return null;
 	}
 
@@ -146,7 +143,6 @@ class Effect{
 
 	public function setDuration($ticks){
 		$this->duration = (($ticks > self::MAX_DURATION) ? self::MAX_DURATION : $ticks);
-
 		return $this;
 	}
 
@@ -160,7 +156,6 @@ class Effect{
 
 	public function setVisible($bool){
 		$this->show = (bool) $bool;
-
 		return $this;
 	}
 
@@ -178,7 +173,6 @@ class Effect{
 	 */
 	public function setAmplifier(int $amplifier){
 		$this->amplifier = $amplifier & 0xff;
-
 		return $this;
 	}
 
@@ -188,7 +182,6 @@ class Effect{
 
 	public function setAmbient($ambient = true){
 		$this->ambient = (bool) $ambient;
-
 		return $this;
 	}
 
@@ -203,19 +196,16 @@ class Effect{
 				if(($interval = (25 >> $this->amplifier)) > 0){
 					return ($this->duration % $interval) === 0;
 				}
-
 				return true;
 			case Effect::WITHER:
 				if(($interval = (50 >> $this->amplifier)) > 0){
 					return ($this->duration % $interval) === 0;
 				}
-
 				return true;
 			case Effect::REGENERATION:
 				if(($interval = (40 >> $this->amplifier)) > 0){
 					return ($this->duration % $interval) === 0;
 				}
-
 				return true;
 			case Effect::HUNGER:
 				if($this->amplifier < 0){ // prevents hacking with amplifier -1
@@ -224,7 +214,6 @@ class Effect{
 				if(($interval = 20) > 0){
 					return ($this->duration % $interval) === 0;
 				}
-
 				return true;
 			case Effect::HEALING:
 			case Effect::HARMING:
@@ -233,10 +222,8 @@ class Effect{
 				if(($interval = (20 >> $this->amplifier)) > 0){
 					return ($this->duration % $interval) === 0;
 				}
-
 				return true;
 		}
-
 		return false;
 	}
 

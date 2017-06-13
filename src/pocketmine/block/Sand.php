@@ -24,7 +24,7 @@ namespace pocketmine\block;
 
 use pocketmine\item\Tool;
 
-class Sand extends Fallable{
+class Sand extends Fallable {
 
 	const NORMAL = 0;
 	const RED = 1;

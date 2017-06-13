@@ -21,7 +21,7 @@
 
 namespace pocketmine\utils;
 
-abstract class Terminal{
+abstract class Terminal {
 	public static $FORMAT_BOLD = "";
 	public static $FORMAT_OBFUSCATED = "";
 	public static $FORMAT_ITALIC = "";
@@ -138,13 +138,11 @@ abstract class Terminal{
 			case "mac":
 			case "bsd":
 				self::getEscapeCodes();
-
 				return;
 
 			case "win":
 			case "android":
 				self::getFallbackEscapeCodes();
-
 				return;
 		}
 

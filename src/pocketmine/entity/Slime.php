@@ -21,12 +21,12 @@
 
 namespace pocketmine\entity;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\Item as ItemItem;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\Player;
 
-class Slime extends Living{
+class Slime extends Living {
 	const NETWORK_ID = 37;
 
 	const DATA_SLIME_SIZE = 16;
@@ -75,7 +75,6 @@ class Slime extends Living{
 				}
 			}
 		}
-
 		return $drops;
 	}
 }

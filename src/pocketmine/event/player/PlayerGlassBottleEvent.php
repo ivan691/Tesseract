@@ -26,8 +26,7 @@ use pocketmine\event\Cancellable;
 use pocketmine\item\Item;
 use pocketmine\Player;
 
-class PlayerGlassBottleEvent extends PlayerEvent implements Cancellable{
-
+class PlayerGlassBottleEvent extends PlayerEvent implements Cancellable {
 	public static $handlerList = null;
 
 	/** @var Block */
@@ -37,8 +36,8 @@ class PlayerGlassBottleEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @param Player $Player
-	 * @param Block  $target
-	 * @param Item   $itemInHand
+	 * @param Block $target
+	 * @param Item $itemInHand
 	 */
 	public function __construct(Player $Player, Block $target, Item $itemInHand){
 		$this->player = $Player;
@@ -66,12 +65,4 @@ class PlayerGlassBottleEvent extends PlayerEvent implements Cancellable{
 	public function getBlock(){
 		return $this->target;
 	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "PlayerGlassBottleEvent";
-	}
-
 }

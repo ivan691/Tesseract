@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 use pocketmine\item\Tool;
 
-class StoneBricks extends Solid{
+class StoneBricks extends Solid {
 
 	const NORMAL = 0;
 	const MOSSY = 1;
@@ -52,7 +52,6 @@ class StoneBricks extends Solid{
 			2 => "Cracked Stone Bricks",
 			3 => "Chiseled Stone Bricks",
 		];
-
 		return $names[$this->meta & 0x03];
 	}
 
