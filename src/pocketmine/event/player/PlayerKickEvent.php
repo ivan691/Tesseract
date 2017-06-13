@@ -27,8 +27,7 @@ use pocketmine\Player;
 /**
  * Called when a player leaves the server
  */
-class PlayerKickEvent extends PlayerEvent implements Cancellable{
-
+class PlayerKickEvent extends PlayerEvent implements Cancellable {
 	public static $handlerList = null;
 
 	/** @var string */
@@ -53,13 +52,6 @@ class PlayerKickEvent extends PlayerEvent implements Cancellable{
 
 	public function getQuitMessage(){
 		return $this->quitMessage;
-	}
-
-	/**
-	 * @return EventName|string
-	 */
-	public function getName(){
-		return "PlayerKickEvent";
 	}
 
 }
