@@ -30,7 +30,7 @@ class LevelSaveEvent extends LevelEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "LevelSaveEvent";
 	}

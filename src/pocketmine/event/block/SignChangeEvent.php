@@ -80,7 +80,7 @@ class SignChangeEvent extends BlockEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "SignChangeEvent";
 	}

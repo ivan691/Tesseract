@@ -32,7 +32,7 @@ class ChunkUnloadEvent extends ChunkEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "ChunkUnloadEvent";
 	}

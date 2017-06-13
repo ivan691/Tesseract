@@ -20,6 +20,7 @@
 */
 
 namespace pocketmine\math;
+
 use pocketmine\utils\Random;
 
 class Vector2{

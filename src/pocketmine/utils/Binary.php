@@ -22,10 +22,8 @@
 /**
  * Various Utilities used around the code
  */
- 
+
 namespace pocketmine\utils;
-
-
 
 
 class Binary{
@@ -45,6 +43,7 @@ class Binary{
 	 */
 	public static function readTriad($str){
 		self::checkLength($str, 3);
+
 		return unpack("N", "\x00" . $str)[1];
 	}
 
@@ -68,6 +67,7 @@ class Binary{
 	 */
 	public static function readLTriad($str){
 		self::checkLength($str, 3);
+
 		return unpack("V", $str . "\x00")[1];
 	}
 
@@ -147,6 +147,7 @@ class Binary{
 	 */
 	public static function readShort($str){
 		self::checkLength($str, 2);
+
 		return unpack("n", $str)[1];
 	}
 
@@ -186,6 +187,7 @@ class Binary{
 	 */
 	public static function readLShort($str){
 		self::checkLength($str, 2);
+
 		return unpack("v", $str)[1];
 	}
 
@@ -276,6 +278,7 @@ class Binary{
 
 	public static function readDouble($str){
 		self::checkLength($str, 8);
+
 		return ENDIANNESS === self::BIG_ENDIAN ? unpack("d", $str)[1] : unpack("d", strrev($str))[1];
 	}
 
@@ -285,6 +288,7 @@ class Binary{
 
 	public static function readLDouble($str){
 		self::checkLength($str, 8);
+
 		return ENDIANNESS === self::BIG_ENDIAN ? unpack("d", strrev($str))[1] : unpack("d", $str)[1];
 	}
 
@@ -296,6 +300,7 @@ class Binary{
 		self::checkLength($x, 8);
 		if(PHP_INT_SIZE === 8){
 			$int = unpack("N*", $x);
+
 			return ($int[1] << 32) | $int[2];
 		}else{
 			$value = "0";
@@ -345,6 +350,7 @@ class Binary{
 		$shift = PHP_INT_SIZE === 8 ? 63 : 31;
 		$raw = self::readUnsignedVarInt($stream);
 		$temp = ((($raw << $shift) >> $shift) ^ $raw) >> 1;
+
 		return $temp ^ ($raw & (1 << $shift));
 	}
 
@@ -369,13 +375,14 @@ class Binary{
 	public static function writeUnsignedVarInt($value){
 		$buf = "";
 		for($i = 0; $i < 10; ++$i){
- 			if(($value >> 7) !== 0){
- 				$buf .= chr($value | 0x80); //Let chr() take the last byte of this, it's faster than adding another & 0x7f.
- 			}else{
- 				$buf .= chr($value & 0x7f);
- 				return $buf;
+			if(($value >> 7) !== 0){
+				$buf .= chr($value | 0x80); //Let chr() take the last byte of this, it's faster than adding another & 0x7f.
+			}else{
+				$buf .= chr($value & 0x7f);
+
+				return $buf;
 			}
-		$value = (($value >> 7) & (PHP_INT_MAX >> 6)); //PHP really needs a logical right-shift operator
+			$value = (($value >> 7) & (PHP_INT_MAX >> 6)); //PHP really needs a logical right-shift operator
 		}
 		throw new \InvalidArgumentException("Value too large to be encoded as a varint");
 	}

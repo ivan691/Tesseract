@@ -99,7 +99,7 @@ class ScriptPluginLoader implements PluginLoader{
 
 				if($key === "notscript"){
 					return null;
- 				}
+				}
 
 				$data[$key] = $content;
 			}
@@ -119,7 +119,7 @@ class ScriptPluginLoader implements PluginLoader{
 	 * Returns the filename patterns that this loader accepts
 	 *
 	 * @return array|string
-     */
+	 */
 	public function getPluginFilters(){
 		return "/\\.php$/i";
 	}

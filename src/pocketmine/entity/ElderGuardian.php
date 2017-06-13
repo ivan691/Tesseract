@@ -70,7 +70,7 @@ class ElderGuardian extends WaterAnimal implements Ageable{
 
 			$pk = new EntityEventPacket();
 			$pk->eid = $this->getId();
-            $this->server->broadcastPacket($this->hasSpawned, $pk);
+			$this->server->broadcastPacket($this->hasSpawned, $pk);
 		}
 	}
 
@@ -170,6 +170,7 @@ class ElderGuardian extends WaterAnimal implements Ageable{
 	public function getDrops(){
 		$drops = array(ItemItem::get(ItemItem::PRISMARINE_SHARD, 0, mt_rand(1, 2)));
 		$drops[] = ItemItem::get(ItemItem::RAW_FISH, 0, mt_rand(0, 1));
+
 		return $drops;
 	}
 }

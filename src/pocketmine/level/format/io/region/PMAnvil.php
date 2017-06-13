@@ -19,7 +19,7 @@
  *
 */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace pocketmine\level\format\io\region;
 
@@ -60,10 +60,10 @@ class PMAnvil extends Anvil{
 				continue;
 			}
 			$nbt->Sections[++$subChunks] = new CompoundTag(null, [
-				"Y"          => new ByteTag("Y", $y),
-				"Blocks"     => new ByteArrayTag("Blocks",     $subChunk->getBlockIdArray()),
-				"Data"       => new ByteArrayTag("Data",       $subChunk->getBlockDataArray()),
-				"SkyLight"   => new ByteArrayTag("SkyLight",   $subChunk->getSkyLightArray()),
+				"Y" => new ByteTag("Y", $y),
+				"Blocks" => new ByteArrayTag("Blocks", $subChunk->getBlockIdArray()),
+				"Data" => new ByteArrayTag("Data", $subChunk->getBlockDataArray()),
+				"SkyLight" => new ByteArrayTag("SkyLight", $subChunk->getSkyLightArray()),
 				"BlockLight" => new ByteArrayTag("BlockLight", $subChunk->getBlockLightArray())
 			]);
 		}
@@ -140,9 +140,11 @@ class PMAnvil extends Anvil{
 			$result->setLightPopulated(isset($chunk->LightPopulated) ? ((bool) $chunk->LightPopulated->getValue()) : false);
 			$result->setPopulated(isset($chunk->TerrainPopulated) ? ((bool) $chunk->TerrainPopulated->getValue()) : false);
 			$result->setGenerated(true);
+
 			return $result;
 		}catch(\Throwable $e){
 			MainLogger::getLogger()->logException($e);
+
 			return null;
 		}
 	}

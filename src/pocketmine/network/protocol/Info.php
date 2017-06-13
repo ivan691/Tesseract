@@ -22,6 +22,7 @@
 /**
  * Minecraft: PE multiplayer protocol implementation
  */
+
 namespace pocketmine\network\protocol;
 
 
@@ -30,7 +31,7 @@ interface Info{
 	/**
 	 * Actual Minecraft: PE protocol version
 	 */
-	
+
 	const CURRENT_PROTOCOL = 113;
 	const ACCEPTED_PROTOCOLS = [113];
 	const MINECRAFT_VERSION = "v1.1.0.55";

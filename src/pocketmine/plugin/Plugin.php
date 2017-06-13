@@ -22,6 +22,7 @@
 /**
  * Plugin related classes
  */
+
 namespace pocketmine\plugin;
 
 use pocketmine\command\CommandExecutor;

@@ -33,7 +33,7 @@ class Lever extends Solid{
 		$this->meta = $meta;
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 
@@ -63,6 +63,7 @@ class Lever extends Solid{
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
+
 		return false;
 	}
 
@@ -84,8 +85,10 @@ class Lever extends Solid{
 				$this->meta = $faces[$face];
 			}
 			$this->getLevel()->setBlock($block, $this, true, false);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -94,14 +97,14 @@ class Lever extends Solid{
 		$side = $this->meta;
 		if($this->isActivated()) $side ^= 0x08;
 		$faces = [
-				5 => 0,
-				6 => 0,
-				3 => 2,
-				1 => 4,
-				4 => 3,
-				2 => 5,
-				0 => 1,
-				7 => 1,
+			5 => 0,
+			6 => 0,
+			3 => 2,
+			1 => 4,
+			4 => 3,
+			2 => 5,
+			0 => 1,
+			7 => 1,
 		];
 
 		$block = $this->getSide($faces[$side])->getSide(Vector3::SIDE_UP);
@@ -109,7 +112,7 @@ class Lever extends Solid{
 			$this->activateBlock($block);
 		}
 
-		$this->checkTorchOn($this->getSide($faces[$side]),[$this->getOppositeSide($faces[$side])]);
+		$this->checkTorchOn($this->getSide($faces[$side]), [$this->getOppositeSide($faces[$side])]);
 	}
 
 	public function deactivate(array $ignore = []){
@@ -117,14 +120,14 @@ class Lever extends Solid{
 		$side = $this->meta;
 		if($this->isActivated()) $side ^= 0x08;
 		$faces = [
-				5 => 0,
-				6 => 0,
-				3 => 2,
-				1 => 4,
-				4 => 3,
-				2 => 5,
-				0 => 1,
-				7 => 1,
+			5 => 0,
+			6 => 0,
+			3 => 2,
+			1 => 4,
+			4 => 3,
+			2 => 5,
+			0 => 1,
+			7 => 1,
 		];
 
 		$block = $this->getSide($faces[$side])->getSide(Vector3::SIDE_UP);
@@ -132,7 +135,7 @@ class Lever extends Solid{
 			$this->deactivateBlock($block);
 		}
 
-		$this->checkTorchOff($this->getSide($faces[$side]),[$this->getOppositeSide($faces[$side])]);
+		$this->checkTorchOff($this->getSide($faces[$side]), [$this->getOppositeSide($faces[$side])]);
 	}
 
 	public function onActivate(Item $item, Player $player = null){
@@ -140,6 +143,7 @@ class Lever extends Solid{
 		$this->getLevel()->setBlock($this, $this, true, false);
 		if($this->isActivated()) $this->activate();
 		else $this->deactivate();
+
 		return true;
 	}
 
@@ -156,7 +160,7 @@ class Lever extends Solid{
 		return (($this->meta & 0x08) === 0x08);
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.5;
 	}
 
@@ -164,9 +168,9 @@ class Lever extends Solid{
 		return 2.5;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [
-			[$this->id, 0 ,1],
+			[$this->id, 0, 1],
 		];
 	}
 }

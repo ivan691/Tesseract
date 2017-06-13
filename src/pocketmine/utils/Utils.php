@@ -22,7 +22,9 @@
 /**
  * Various Utilities used around the code
  */
+
 namespace pocketmine\utils;
+
 use pocketmine\ThreadManager;
 
 /**
@@ -157,19 +159,20 @@ class Utils{
 
 	}
 
-    /**
-     * Returns the current Operating System
-     * Windows => win
-     * MacOS => mac
-     * iOS => ios
-     * Android => android
-     * Linux => Linux
-     * BSD => bsd
-     * Other => other
-     *
-     * @param bool $recalculate
-     * @return string
-     */
+	/**
+	 * Returns the current Operating System
+	 * Windows => win
+	 * MacOS => mac
+	 * iOS => ios
+	 * Android => android
+	 * Linux => Linux
+	 * BSD => bsd
+	 * Other => other
+	 *
+	 * @param bool $recalculate
+	 *
+	 * @return string
+	 */
 	public static function getOS($recalculate = false){
 		if(self::$os === null or $recalculate){
 			$uname = php_uname("s");
@@ -193,7 +196,7 @@ class Utils{
 				self::$os = "other";
 			}
 		}
-		
+
 		return self::$os;
 	}
 
@@ -256,6 +259,7 @@ class Utils{
 				return (int) $matches[1];
 			}
 		}
+
 		//TODO: more OS
 
 		return count(ThreadManager::getInstance()->getAll()) + 3; //RakLib + MainLogger + Main Thread
@@ -294,6 +298,7 @@ class Utils{
 				$processors = (int) getenv("NUMBER_OF_PROCESSORS");
 				break;
 		}
+
 		return $processors;
 	}
 
@@ -337,21 +342,21 @@ class Utils{
 	 *
 	 * This function simply forwards to the PHP random_bytes function.
 	 *
-	 * @param int    $length       default 16, Number of bytes to generate
-	 * @param bool   $secure       default true, Generate secure distilled bytes, slower
-	 * @param bool   $raw          default true, returns a binary string if true, or an hexadecimal one
+	 * @param int    $length default 16, Number of bytes to generate
+	 * @param bool   $secure default true, Generate secure distilled bytes, slower
+	 * @param bool   $raw default true, returns a binary string if true, or an hexadecimal one
 	 * @param string $startEntropy default null, adds more initial entropy
-	 * @param int    &$rounds      Will be set to the number of rounds taken
-	 * @param int    &$drop        Will be set to the amount of dropped bytes
+	 * @param int    &$rounds Will be set to the number of rounds taken
+	 * @param int    &$drop Will be set to the amount of dropped bytes
 	 *
 	 * @deprecated prefer PHP 7 random_bytes()
 	 * @return string
 	 */
 	public static function getRandomBytes($length = 16, $secure = true, $raw = true, $startEntropy = "", &$rounds = 0, &$drop = 0){
 		$raw_output = random_bytes($length);
-		if ($raw) {
+		if($raw){
 			return $raw_output;
-		} else {
+		}else{
 			return bin2hex($raw_output);
 		}
 	}
@@ -371,8 +376,8 @@ class Utils{
 	/**
 	 * GETs an URL using cURL
 	 *
-	 * @param     $page
-	 * @param int $timeout default 10
+	 * @param       $page
+	 * @param int   $timeout default 10
 	 * @param array $extraHeaders
 	 *
 	 * @return bool|mixed
@@ -405,7 +410,7 @@ class Utils{
 	 * @param              $page
 	 * @param array|string $args
 	 * @param int          $timeout
-	 * @param array $extraHeaders
+	 * @param array        $extraHeaders
 	 *
 	 * @return bool|mixed
 	 */
@@ -449,6 +454,7 @@ class Utils{
 			}
 			$hash &= 0xFFFFFFFF;
 		}
+
 		return $hash;
 	}
 

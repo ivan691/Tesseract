@@ -36,7 +36,7 @@ class Leaves extends Transparent{
 	const JUNGLE = 3;
 	const ACACIA = 0;
 	const DARK_OAK = 1;
-	
+
 	const WOOD_TYPE = self::WOOD;
 
 	protected $id = self::LEAVES;
@@ -45,7 +45,7 @@ class Leaves extends Transparent{
 		$this->meta = $meta;
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.2;
 	}
 
@@ -68,6 +68,7 @@ class Leaves extends Transparent{
 			self::BIRCH => "Birch Leaves",
 			self::JUNGLE => "Jungle Leaves",
 		];
+
 		return $names[$this->meta & 0x03];
 	}
 
@@ -168,22 +169,23 @@ class Leaves extends Transparent{
 		$this->getLevel()->setBlock($this, $this, true);
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		$drops = [];
 		if($item->isShears() or $item->getEnchantmentLevel(Enchantment::TYPE_MINING_SILK_TOUCH) > 0){
 			$drops[] = [$this->id, $this->meta & 0x03, 1];
 		}else{
 			$fortunel = $item->getEnchantmentLevel(Enchantment::TYPE_MINING_FORTUNE);
 			$fortunel = min(3, $fortunel);
-			$rates = [20,16,12,10];
+			$rates = [20, 16, 12, 10];
 			if(mt_rand(1, $rates[$fortunel]) === 1){ //Saplings
 				$drops[] = [Item::SAPLING, $this->meta & 0x03, 1];
 			}
-			$rates = [200,180,160,120];
+			$rates = [200, 180, 160, 120];
 			if(($this->meta & 0x03) === self::OAK and mt_rand(1, $rates[$fortunel]) === 1){ //Apples
 				$drops[] = [Item::APPLE, 0, 1];
 			}
 		}
+
 		return $drops;
 	}
 }

@@ -68,6 +68,7 @@ class FallingSand extends Entity{
 
 		if($this->blockId === 0){
 			$this->close();
+
 			return;
 		}
 

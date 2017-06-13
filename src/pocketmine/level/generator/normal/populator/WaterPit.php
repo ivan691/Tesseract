@@ -25,6 +25,7 @@ use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
 use pocketmine\level\generator\populator\VariableAmountPopulator;
+
 //TODO: Remove
 class WaterPit extends VariableAmountPopulator{
 	/** @var ChunkManager */
@@ -40,13 +41,14 @@ class WaterPit extends VariableAmountPopulator{
 
 			if($y !== -1 and $this->canWaterPitStay($x, $y, $z)){
 				$this->level->setBlockIdAt($x, $y, $z, Block::STILL_WATER);
-				$this->level->setBlockDataAt($x, $y, $z , 8);
+				$this->level->setBlockDataAt($x, $y, $z, 8);
 			}
 		}
 	}
 
 	private function canWaterPitStay($x, $y, $z){
 		$b = $this->level->getBlockIdAt($x, $y, $z);
+
 		return ($b === Block::AIR or $b === Block::GRASS) and $this->level->getBlockIdAt($x, $y, $z) === Block::DIRT;
 	}
 

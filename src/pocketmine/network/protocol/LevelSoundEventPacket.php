@@ -48,7 +48,7 @@ class LevelSoundEventPacket extends DataPacket{
 	const SOUND_MAD = 18;
 	const SOUND_BOOST = 19;
 	const SOUND_BOW = 20;
-	const SOUND_SQUISH_BIG  = 21;
+	const SOUND_SQUISH_BIG = 21;
 	const SOUND_SQUISH_SMALL = 22;
 	const SOUND_FALL_BIG = 23;
 	const SOUND_FALL_SMALL = 24;
@@ -150,7 +150,7 @@ class LevelSoundEventPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "LevelSoundEventPacket";
 	}

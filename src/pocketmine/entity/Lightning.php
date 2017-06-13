@@ -52,6 +52,7 @@ class Lightning extends Animal{
 			$this->kill();
 			$this->close();
 		}
+
 		return true;
 	}
 

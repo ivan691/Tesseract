@@ -56,7 +56,7 @@ class BanCidCommand extends VanillaCommand{
 		$player = null;
 
 		foreach($sender->getServer()->getOnlinePlayers() as $p){
-			if($p->getClientId() == $cid) {
+			if($p->getClientId() == $cid){
 				$p->kick($reason !== "" ? "Banned by admin. Reason:" . $reason : "Banned by admin.");
 				$player = $p;
 				break;

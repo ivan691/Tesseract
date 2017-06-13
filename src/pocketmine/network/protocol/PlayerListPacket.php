@@ -38,6 +38,7 @@ class PlayerListPacket extends DataPacket{
 
 	public function clean(){
 		$this->entries = [];
+
 		return parent::clean();
 	}
 
@@ -64,7 +65,7 @@ class PlayerListPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerListPacket";
 	}

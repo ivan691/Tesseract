@@ -324,6 +324,7 @@ class Vector3{
 		$this->x = $x;
 		$this->y = $y;
 		$this->z = $z;
+
 		return $this;
 	}
 
@@ -339,6 +340,7 @@ class Vector3{
 		$this->x = $pos->x + $x;
 		$this->y = $pos->y + $y;
 		$this->z = $pos->z + $z;
+
 		return $this;
 	}
 

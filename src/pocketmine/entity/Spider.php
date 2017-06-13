@@ -33,7 +33,7 @@ class Spider extends Monster{
 	public $height = 1.9;
 
 	public $dropExp = [5, 5];
-	
+
 	public function getName() : string{
 		return "Spider";
 	}
@@ -56,12 +56,12 @@ class Spider extends Monster{
 
 		parent::spawnTo($player);
 	}
-	
+
 	public function getDrops(){
 		$drops = array(ItemItem::get(ItemItem::STRING, 0, 1));
-		if ($this->lastDamageCause instanceof EntityDamageByEntityEvent and $this->lastDamageCause->getEntity() instanceof Player) {
-			if (mt_rand(0, 199) < 5) {
-				switch (mt_rand(0, 2)) {
+		if($this->lastDamageCause instanceof EntityDamageByEntityEvent and $this->lastDamageCause->getEntity() instanceof Player){
+			if(mt_rand(0, 199) < 5){
+				switch(mt_rand(0, 2)){
 					case 0:
 						$drops[] = ItemItem::get(ItemItem::IRON_INGOT, 0, 1);
 						break;
@@ -74,6 +74,7 @@ class Spider extends Monster{
 				}
 			}
 		}
+
 		return $drops;
 	}
 }

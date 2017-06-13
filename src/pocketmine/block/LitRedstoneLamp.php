@@ -36,7 +36,7 @@ class LitRedstoneLamp extends Solid{
 		return "Lit Redstone Lamp";
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.3;
 	}
 
@@ -45,9 +45,9 @@ class LitRedstoneLamp extends Solid{
 	}
 
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [
-			[Item::REDSTONE_LAMP, 0 ,1],
+			[Item::REDSTONE_LAMP, 0, 1],
 		];
 	}
 }

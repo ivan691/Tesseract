@@ -36,6 +36,7 @@ class SpellParticle extends GenericParticle{
 		$pk->y = $this->y;
 		$pk->z = $this->z;
 		$pk->data = $this->data;
+
 		return $pk;
 	}
 }

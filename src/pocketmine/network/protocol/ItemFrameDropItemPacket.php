@@ -30,6 +30,7 @@ class ItemFrameDropItemPacket extends DataPacket{
 	public $x;
 	public $y;
 	public $z;
+
 	//public $item;
 
 	public function decode(){
@@ -43,7 +44,7 @@ class ItemFrameDropItemPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "ItemFrameDropItemPacket";
 	}

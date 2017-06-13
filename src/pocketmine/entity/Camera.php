@@ -31,11 +31,11 @@ class Camera extends Living{
 	public $width = 1;
 	public $length = 2;
 	public $height = 2;
-	
+
 	public function getName() : string{
 		return "Camera";
 	}
-	
+
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();
@@ -52,7 +52,7 @@ class Camera extends Living{
 		$player->dataPacket($pk);
 		parent::spawnTo($player);
 	}
-	
+
 	public function getDrops(){
 		return [];
 	}

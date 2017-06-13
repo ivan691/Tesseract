@@ -26,7 +26,7 @@ class Camera extends Item{
 		parent::__construct(self::CAMERA, 0, $count, "Camera");
 	}
 
-	public function getMaxStackSize() : int {
+	public function getMaxStackSize() : int{
 		return 1;
 	}
 }

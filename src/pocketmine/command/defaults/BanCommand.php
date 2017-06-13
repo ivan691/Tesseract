@@ -24,6 +24,7 @@ namespace pocketmine\command\defaults;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\TranslationContainer;
+use pocketmine\Player;
 
 
 class BanCommand extends VanillaCommand{
@@ -58,12 +59,12 @@ class BanCommand extends VanillaCommand{
 			}else{
 				$until = null;
 				$sender->getServer()->getNameBans()->addBan($name, $reason = implode(" ", $args), $until, $sender->getName());
-			}	
-		} else {
+			}
+		}else{
 			$sender->getServer()->getNameBans()->addBan($name);
 		}
 
-        $player = $sender->getServer()->getPlayerExact($name);
+		$player = $sender->getServer()->getPlayerExact($name);
 
 		Command::broadcastCommandMessage($sender, new TranslationContainer("%commands.ban.success", [$player !== null ? $player->getName() : $name]));
 

@@ -41,7 +41,7 @@ class Sapling extends Flowable{
 		$this->meta = $meta;
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 
@@ -56,6 +56,7 @@ class Sapling extends Flowable{
 			6 => "",
 			7 => "",
 		];
+
 		return $names[$this->meta & 0x07];
 	}
 
@@ -110,7 +111,7 @@ class Sapling extends Flowable{
 		return false;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [
 			[$this->id, $this->meta & 0x07, 1],
 		];

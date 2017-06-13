@@ -45,7 +45,7 @@ class GrassPath extends Transparent{
 		return Tool::TYPE_SHOVEL;
 	}
 
-	protected function recalculateBoundingBox() {
+	protected function recalculateBoundingBox(){
 		return new AxisAlignedBB(
 			$this->x,
 			$this->y,
@@ -62,16 +62,18 @@ class GrassPath extends Transparent{
 			if($block->getId() != self::AIR){
 				$this->getLevel()->setBlock($this, new Dirt(), true);
 			}
+
 			return Level::BLOCK_UPDATE_NORMAL;
 		}
+
 		return false;
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.6;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		if($item->getEnchantmentLevel(Enchantment::TYPE_MINING_SILK_TOUCH) > 0){
 			return [
 				[Item::GRASS_PATH, 0, 1],

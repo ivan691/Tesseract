@@ -3,6 +3,7 @@
  * DServerTask 2.0
  * @author MUedsa, PeratX
 */
+
 namespace pocketmine\scheduler;
 
 use pocketmine\Server;
@@ -47,6 +48,7 @@ class DServerTask extends AsyncTask{
 				if($Status_re_1 != ""){
 					$Status_re = $this->decode($Status_re_1);
 					$ServerData = explode("\x00", $Status_re["payload"]);
+
 					return [$ServerData[3], $ServerData[4]];
 				}
 			}
@@ -55,6 +57,7 @@ class DServerTask extends AsyncTask{
 		if($time < $this->autotimes){
 			return $this->getInfo($ds, $time + 1);
 		}elseif($time = $this->autotimes) return [0, 0];
+
 		return [0, 0];
 	}
 
@@ -70,6 +73,7 @@ class DServerTask extends AsyncTask{
 		$redata["packetType"] = ord($buffer{0});
 		$redata["sessionID"] = unpack("N", substr($buffer, 1, 4))[1];
 		$redata["payload"] = rtrim(substr($buffer, 5));
+
 		return $redata;
 	}
 

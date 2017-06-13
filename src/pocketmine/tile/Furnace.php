@@ -77,6 +77,7 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
+
 			return;
 		}
 
@@ -279,7 +280,7 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 
 		return $ret;
 	}
-	
+
 	public function getSpawnCompound(){
 		$nbt = new CompoundTag("", [
 			new StringTag("id", Tile::FURNACE),
@@ -290,10 +291,11 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 			new ShortTag("CookTime", $this->namedtag["CookTime"]),
 			//new ShortTag("BurnDuration", $this->namedtag["BurnTicks"])
 		]);
-		
+
 		if($this->hasName()){
 			$nbt->CustomName = $this->namedtag->CustomName;
 		}
+
 		return $nbt;
 	}
 }

@@ -31,6 +31,7 @@ use pocketmine\entity\Arrow;
 use pocketmine\entity\Attribute;
 use pocketmine\entity\Boat;
 use pocketmine\entity\Effect;
+use pocketmine\entity\EnderPearl;
 use pocketmine\entity\Entity;
 use pocketmine\entity\FishingHook;
 use pocketmine\entity\Human;
@@ -38,6 +39,8 @@ use pocketmine\entity\Item as DroppedItem;
 use pocketmine\entity\Living;
 use pocketmine\entity\Minecart;
 use pocketmine\entity\Projectile;
+use pocketmine\entity\ThrownExpBottle;
+use pocketmine\entity\ThrownPotion;
 use pocketmine\event\entity\EntityCombustByEntityEvent;
 use pocketmine\event\entity\EntityDamageByBlockEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -281,8 +284,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$pk->eid = $this->getFishingHook()->getId();
 			$pk->event = EntityEventPacket::FISH_HOOK_POSITION;
 			$this->server->broadcastPacket($this->level->getPlayers(), $pk);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -305,8 +310,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$pk->event = EntityEventPacket::FISH_HOOK_TEASE;
 			$this->server->broadcastPacket($this->level->getPlayers(), $pk);
 			$this->setFishingHook();
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -550,6 +557,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 */
 	public function addAttachment(Plugin $plugin, $name = null, $value = null){
 		if($this->perm == null) return false;
+
 		return $this->perm->addAttachment($plugin, $name, $value);
 	}
 
@@ -564,6 +572,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			return false;
 		}
 		$this->perm->removeAttachment($attachment);
+
 		return true;
 	}
 
@@ -1038,6 +1047,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev = new DataPacketSendEvent($this, $packet));
 		if($ev->isCancelled()){
 			$timings->stopTiming();
+
 			return false;
 		}
 
@@ -1047,6 +1057,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 		$this->batchedPackets[] = clone $packet;
 		$timings->stopTiming();
+
 		return true;
 	}
 
@@ -1069,6 +1080,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev = new DataPacketSendEvent($this, $packet));
 		if($ev->isCancelled()){
 			$timings->stopTiming();
+
 			return false;
 		}
 
@@ -1078,10 +1090,12 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$this->needACK[$identifier] = false;
 
 			$timings->stopTiming();
+
 			return $identifier;
 		}
 
 		$timings->stopTiming();
+
 		return true;
 	}
 
@@ -1101,6 +1115,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev = new DataPacketSendEvent($this, $packet));
 		if($ev->isCancelled()){
 			$timings->stopTiming();
+
 			return false;
 		}
 
@@ -1110,10 +1125,12 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$this->needACK[$identifier] = false;
 
 			$timings->stopTiming();
+
 			return $identifier;
 		}
 
 		$timings->stopTiming();
+
 		return true;
 	}
 
@@ -1252,6 +1269,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			if($client){ //gamemode change by client in the GUI
 				$this->sendGamemode();
 			}
+
 			return false;
 		}
 
@@ -1305,6 +1323,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->inventory->sendContents($this);
 		$this->inventory->sendContents($this->getViewers());
 		$this->inventory->sendHeldItem($this->hasSpawned);
+
 		return true;
 	}
 
@@ -1360,6 +1379,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	public function setDataProperty($id, $type, $value){
 		if(parent::setDataProperty($id, $type, $value)){
 			$this->sendData($this, [$id => $this->dataProperties[$id]]);
+
 			return true;
 		}
 
@@ -1461,6 +1481,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	protected function processMovement($tickDiff){
 		if(!$this->isAlive() or !$this->spawned or $this->newPosition === null or $this->teleportPosition !== null or $this->isSleeping()){
 			$this->setMoving(false);
+
 			return;
 		}
 
@@ -1626,6 +1647,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 			return true;
 		}
+
 		return false;
 	}
 
@@ -1685,6 +1707,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			if($this->deadTicks >= 10){
 				$this->despawnFromAll();
 			}
+
 			return true;
 		}
 
@@ -1794,6 +1817,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$dV = $this->getDirectionPlane();
 		$dot = $dV->dot(new Vector2($eyePos->x, $eyePos->z));
 		$dot1 = $dV->dot(new Vector2($pos->x, $pos->z));
+
 		return ($dot1 - $dot) >= -$maxDiff;
 	}
 
@@ -1858,11 +1882,13 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			if($p !== $this and strtolower($p->getName()) === strtolower($this->getName())){
 				if($p->kick("logged in from another location") === false){
 					$this->close($this->getLeaveMessage(), "Logged in from another location");
+
 					return;
 				}
 			}elseif($p->loggedIn and $this->getUniqueId()->equals($p->getUniqueId())){
 				if($p->kick("logged in from another location") === false){
 					$this->close($this->getLeaveMessage(), "Logged in from another location");
+
 					return;
 				}
 			}
@@ -2014,6 +2040,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		if($packet::NETWORK_ID === 0xfe){
 			/** @var BatchPacket $packet */
 			$this->server->getNetwork()->processBatch($packet, $this);
+
 			return;
 		}
 
@@ -2024,6 +2051,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev = new DataPacketReceiveEvent($this, $packet));
 		if($ev->isCancelled()){
 			$timings->stopTiming();
+
 			return;
 		}
 
@@ -2685,6 +2713,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					}elseif($packet->action === InteractPacket::ACTION_LEAVE_VEHICLE){
 						$this->setLinked(0, $target);
 					}
+
 					return;
 				}
 
@@ -3336,6 +3365,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		if($ev->isCancelled()){
 			$this->getFloatingInventory()->removeItem($item);
 			$this->getInventory()->addItem($item);
+
 			return;
 		}
 
@@ -3358,6 +3388,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		if($message instanceof TextContainer){
 			if($message instanceof TranslationContainer){
 				$this->sendTranslation($message->getText(), $message->getParameters());
+
 				return false;
 			}
 
@@ -3392,8 +3423,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev);
 		if(!$ev->isCancelled()){
 			$this->dataPacket($pk);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -3406,8 +3439,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$pk->source = $ev->getMessage();
 			$pk->message = $subtitle;
 			$this->dataPacket($pk);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -3424,8 +3459,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$pk->type = TextPacket::TYPE_TIP;
 			$pk->message = $ev->getMessage();
 			$this->dataPacket($pk);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -3434,10 +3471,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 *
 	 * @param        $title
 	 * @param string $subtitle
-	 *
-	 * @param int    $fadein
-	 * @param int    $fadeout
-	 * @param int    $duration
 	 *
 	 * @return bool
 	 */
@@ -3464,10 +3497,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	/**
 	 * Send an action bar text to a player
 	 *
-	 * @param     $title
-	 *
-	 * @param int $fadein
-	 * @param int $fadeout
+	 * @param $title
 	 *
 	 * @return bool
 	 */
@@ -3831,6 +3861,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				$this->exhaust(0.3, PlayerExhaustEvent::CAUSE_DAMAGE);
 			}
 		}
+
 		return true;
 	}
 
@@ -3950,8 +3981,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$this->nextChunkOrderRun = 0;
 			$this->newPosition = null;
 			$this->stopSleep();
+
 			return true;
 		}
+
 		return false;
 	}
 

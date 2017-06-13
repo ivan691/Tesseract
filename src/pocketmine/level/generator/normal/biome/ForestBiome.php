@@ -46,7 +46,7 @@ class ForestBiome extends GrassyBiome{
 		$tallGrass->setBaseAmount(3);
 
 		$this->addPopulator($tallGrass);
-		
+
 		$mushroom = new Mushroom();
 		$this->addPopulator($mushroom);
 

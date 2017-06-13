@@ -17,6 +17,7 @@
  *
  *
  */
+
 namespace pocketmine\event\inventory;
 
 use pocketmine\event\Cancellable;
@@ -54,6 +55,7 @@ class CraftItemEvent extends Event implements Cancellable{
 		foreach($this->input as $i => $item){
 			$items[$i] = clone $item;
 		}
+
 		return $items;
 	}
 
@@ -73,7 +75,7 @@ class CraftItemEvent extends Event implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "CraftItemEvent";
 	}

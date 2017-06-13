@@ -106,7 +106,6 @@ use pocketmine\utils\UUID;
 //TODO use pocketmine\level\generator\ender\Ender;
 
 
-
 /**
  * The class that manages everything
  */
@@ -189,7 +188,7 @@ class Server{
 
 	/** @var int */
 	private $maxPlayers;
-	
+
 	/** @var bool */
 	private $autoSave;
 
@@ -261,6 +260,8 @@ class Server{
 	/** @var Level */
 	private $levelDefault = null;
 
+	private $aboutContent = "";
+
 	/** Advanced Config */
 	public $advancedConfig = null;
 
@@ -298,7 +299,7 @@ class Server{
 	public $antiFly = true;
 	public $allowInstabreak = false;
 	public $folderpluginloader = false;
-	
+
 	/**
 	 * @return string
 	 */
@@ -342,6 +343,7 @@ class Server{
 						: "") . "$hours " . $this->getLanguage()->translateString("%pocketmine.command.status.hours") . " "
 					: "") . "$minutes " . $this->getLanguage()->translateString("%pocketmine.command.status.minutes") . " "
 				: "") . "$seconds " . $this->getLanguage()->translateString("%pocketmine.command.status.seconds");
+
 		return $uptime;
 	}
 
@@ -353,7 +355,7 @@ class Server{
 	}
 
 	public function getFormattedVersion($prefix = ""){
-		return (\pocketmine\VERSION !== ""? $prefix . \pocketmine\VERSION : "");
+		return (\pocketmine\VERSION !== "" ? $prefix . \pocketmine\VERSION : "");
 	}
 
 	/**
@@ -527,6 +529,7 @@ class Server{
 			case "v":
 				return Player::SPECTATOR;
 		}
+
 		return -1;
 	}
 
@@ -557,6 +560,7 @@ class Server{
 			case "h":
 				return 3;
 		}
+
 		return -1;
 	}
 
@@ -618,7 +622,7 @@ class Server{
 
 	/**
 	 * @return \AttachableThreadedLogger|MainLogger|\ThreadedLogger
-     */
+	 */
 	public function getLogger(){
 		return $this->logger;
 	}
@@ -819,9 +823,9 @@ class Server{
 	}
 
 	/**
-	 * @param string   $name
+	 * @param string      $name
 	 * @param CompoundTag $nbtTag
-	 * @param bool     $async
+	 * @param bool        $async
 	 */
 	public function saveOfflinePlayerData($name, CompoundTag $nbtTag, $async = false){
 		if($this->shouldSavePlayerData()){
@@ -910,6 +914,7 @@ class Server{
 			$identifier = $this->identifiers[$hash];
 			unset($this->players[$identifier]);
 			unset($this->identifiers[$hash]);
+
 			return;
 		}
 
@@ -1044,6 +1049,7 @@ class Server{
 			if($this->logger instanceof MainLogger){
 				$this->logger->logException($e);
 			}
+
 			return false;
 		}
 
@@ -1103,6 +1109,7 @@ class Server{
 			if($this->logger instanceof MainLogger){
 				$this->logger->logException($e);
 			}
+
 			return false;
 		}
 
@@ -1409,16 +1416,17 @@ class Server{
 	public static function getInstance() : Server{
 		return self::$instance;
 	}
-	
+
 	function curl($url){
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
-    }
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		return $response;
+	}
 
 	public static function microSleep(int $microseconds){
 		Server::$sleeper->synchronized(function(int $ms){
@@ -1473,7 +1481,7 @@ class Server{
 		$this->antiFly = $this->getAdvancedProperty("anticheat.anti-fly", true);
 		$this->folderpluginloader = $this->getAdvancedProperty("developer.folder-plugin-loader", false);
 	}
-	
+
 	/**
 	 * @return int
 	 *
@@ -1535,17 +1543,17 @@ class Server{
 				mkdir($pluginPath, 0777);
 			}
 
-			if(!file_exists($pluginPath . "Tesseract/")){
-			    mkdir($pluginPath . "Tesseract/", 0777);
-            }
+			if(!$pluginPath . "Tesseract/"){
+				mkdir($pluginPath . "Tesseract/", 0777);
+			}
 
 			if(!file_exists($dataPath . "crashdumps/")){
 				mkdir($dataPath . "crashdumps/", 0777);
 			}
-			
+
 			if(\Phar::running(true) === ""){
-			   $packages = "src";
-			} else {
+				$packages = "src";
+			}else{
 				$packages = "phar";
 			}
 
@@ -1584,7 +1592,7 @@ class Server{
 				"auto-save" => true,
 				"online-mode" => false,
 			]);
-			
+
 			$version = $this->getFormattedVersion();
 			$this->version = $version;
 			$code = $this->getCodename();
@@ -1600,7 +1608,7 @@ class Server{
 			$date = date("D, F d, Y, H:i T");
 			$package = $packages;
 
-			            $this->logger->info("
+			$this->logger->info("
 §6┌─────────────────────────────────────────────────┐  §6-- Loaded: Properties and Configuration --
 §6│                                                 │    §cDate: §d$date
 §6│§b   _______                                _      §6│    §cVersion: §d$version §cCodename: §d$code
@@ -1718,7 +1726,7 @@ class Server{
 				@cli_set_process_title($this->getName() . " " . $this->getPocketMineVersion());
 			}
 
-			$this->logger->info(TextFormat::BLUE."Everything seems to be alright! Server started!");
+			$this->logger->info(TextFormat::BLUE . "Everything seems to be alright! Server started!");
 			$this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
 
 			$this->getLogger()->debug("Server unique id: " . $this->getServerUniqueId());
@@ -1751,23 +1759,23 @@ class Server{
 			$this->pluginManager->setUseTimings($this->getProperty("settings.enable-profiling", false));
 			$this->profilingTickRate = (float) $this->getProperty("settings.profile-report-trigger", 20);
 			$this->pluginManager->registerInterface(PharPluginLoader::class);
-			if($this->getAdvancedProperty("developer.folder-plugin-loader") === true) {
-                $this->pluginManager->registerInterface(FolderPluginLoader::class);
-            }
+			if($this->getAdvancedProperty("developer.folder-plugin-loader") === true){
+				$this->pluginManager->registerInterface(FolderPluginLoader::class);
+			}
 			$this->pluginManager->registerInterface(ScriptPluginLoader::class);
 
 			//set_exception_handler([$this, "exceptionHandler"]);
 			register_shutdown_function([$this, "crashDump"]);
 
 			$this->queryRegenerateTask = new QueryRegenerateEvent($this, 5);
-			
+
 			$this->pluginManager->loadPlugins($this->pluginPath);
 
 			$this->enablePlugins(PluginLoadOrder::STARTUP);
-			
+
 			if($this->getAdvancedProperty("network.raklib-disable") === false){
-			$this->network->registerInterface(new RakLibInterface($this));
-			} else {
+				$this->network->registerInterface(new RakLibInterface($this));
+			}else{
 				$this->logger->notice("Raklib disabled by tesseract.yml!");
 			}
 
@@ -1785,8 +1793,8 @@ class Server{
 			//TODO Generator::addGenerator(Ender::class, "ender");
 
 			if(!$this->getProperty("level-settings.default-format", "mcregion")){
-					$this->getLogger()->warning("McRegion is deprecated please refrain from using it!");
-				}
+				$this->getLogger()->warning("McRegion is deprecated please refrain from using it!");
+			}
 
 			foreach((array) $this->getProperty("worlds", []) as $name => $worldSetting){
 				if($this->loadLevel($name) === false){
@@ -1834,7 +1842,7 @@ class Server{
 
 				return;
 			}
-			
+
 			if($this->netherEnabled){
 				if(!$this->loadLevel($this->netherName)){
 					$this->generateLevel($this->netherName, time(), Generator::getGenerator("nether"));
@@ -1848,12 +1856,12 @@ class Server{
 			}
 
 			$this->enablePlugins(PluginLoadOrder::POSTWORLD);
-			
+
 			if($this->dserverConfig["enable"] and ($this->getAdvancedProperty("dserver.server-list", "") != "")) $this->scheduler->scheduleRepeatingTask(new scheduler\CallbackTask(
-			[
-				$this, "updateDServerInfo"
-			]),
-			$this->dserverConfig["timer"]);
+				                                                                                                                                             [
+					                                                                                                                                             $this, "updateDServerInfo"
+				                                                                                                                                             ]),
+			                                                                                                                                             $this->dserverConfig["timer"]);
 
 			if($cfgVer > $advVer){
 				$this->logger->notice("Your tesseract.yml needs update (Current : $advVer -> Latest: $cfgVer)");
@@ -1870,36 +1878,36 @@ class Server{
 		return $this->getConfigBoolean("online-mode", false);
 
 	}
-	
+
 	public function isExtensionInstalled($type){
 		switch($type){
-			
+
 			case 'OpenSSL':
-			if(!extension_loaded("openssl")){
-				return "false";
-				$this->setConfigBool("online-mode", false);
-				
-			} else {
-				return "true";
-			break;
+				if(!extension_loaded("openssl")){
+					return "false";
+					$this->setConfigBool("online-mode", false);
+
+				}else{
+					return "true";
+					break;
+				}
+			case '$type';
+				if(!extension_loaded($type)){
+					return "false";
+
+				}else{
+					return "true";
+				}
 		}
-		    case '$type';
-			if(!extension_loaded($type)){
-				return "false";
-				
-			} else {
-				return "true";
-			}
 	}
-	}
-	
+
 	public function checkAuthentication(){
-	   if($this->isExtensionInstalled("OpenSSL") == "false"){
-		   return "offline mode/insecure";
-		   
-	   } else {
-		   return "online mode/secure";
-	   }
+		if($this->isExtensionInstalled("OpenSSL") == "false"){
+			return "offline mode/insecure";
+
+		}else{
+			return "online mode/secure";
+		}
 	}
 
 	/**
@@ -2008,6 +2016,7 @@ class Server{
 		$packet->isEncoded = true;
 		if(Network::$BATCH_THRESHOLD >= 0 and strlen($packet->buffer) >= Network::$BATCH_THRESHOLD){
 			$this->batchPackets($players, [$packet->buffer], false);
+
 			return;
 		}
 
@@ -2174,6 +2183,7 @@ class Server{
 
 	/**
 	 * Shutdowns the server correctly
+	 *
 	 * @param bool   $restart
 	 * @param string $msg
 	 */
@@ -2183,10 +2193,10 @@ class Server{
 			$killer->start();
 			$killer->kill();
 		}*/
-		
+
 		$this->getPluginManager()->callEvent($ev = new event\server\ServerShutdownEvent());
- 		if($ev->isCancelled(true)) return;
-		
+		if($ev->isCancelled(true)) return;
+
 		$this->isRunning = false;
 		if($msg != ""){
 			$this->propertyCache["settings.shutdown-message"] = $msg;
@@ -2246,7 +2256,7 @@ class Server{
 				$interface->shutdown();
 				$this->network->unregisterInterface($interface);
 			}
- 			
+
 			//$this->memoryManager->doObjectCleanup();
 
 			gc_collect_cycles();
@@ -2367,6 +2377,7 @@ class Server{
 			$dump = new CrashDump($this);
 		}catch(\Throwable $e){
 			$this->logger->critical($this->getLanguage()->translateString("pocketmine.crash.error", $e->getMessage()));
+
 			return;
 		}
 
@@ -2402,7 +2413,7 @@ class Server{
 		}
 
 		$this->sendFullPlayerListData($player);
-        $player->dataPacket($this->craftingManager->getCraftingDataPacket());
+		$player->dataPacket($this->craftingManager->getCraftingDataPacket());
 	}
 
 	public function addPlayer($identifier, Player $player){
@@ -2549,7 +2560,7 @@ class Server{
 	/**
 	 * @return MemoryManager
 	 */
-	
+
 	public function getMemoryManager(){
 		return $this->memoryManager;
 	}
@@ -2603,6 +2614,7 @@ class Server{
 	 * @param             $variable
 	 * @param null        $defaultValue
 	 * @param Config|null $cfg
+	 *
 	 * @return bool|mixed|null
 	 */
 	public function getAdvancedProperty($variable, $defaultValue = null, Config $cfg = null){
@@ -2656,7 +2668,7 @@ class Server{
 
 		Timings::$connectionTimer->startTiming();
 		$this->network->processInterfaces();
-		
+
 		if($this->rcon !== null){
 			$this->rcon->check();
 		}

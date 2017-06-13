@@ -1,4 +1,5 @@
 <?php
+
 namespace pocketmine\command\defaults;
 
 use pocketmine\command\CommandSender;
@@ -29,13 +30,13 @@ class MakeServerCommand extends VanillaCommand{
 		}
 		$phar = new \Phar($pharPath);
 		$phar->setMetadata([
-			"name" => $server->getName(),
-			"version" => $server->getPocketMineVersion(),
-			"api" => $server->getApiVersion(),
-			"minecraft" => $server->getVersion(),
-			"protocol" => Info::CURRENT_PROTOCOL,
-			"creationDate" => time()
-		]);
+			                   "name" => $server->getName(),
+			                   "version" => $server->getPocketMineVersion(),
+			                   "api" => $server->getApiVersion(),
+			                   "minecraft" => $server->getVersion(),
+			                   "protocol" => Info::CURRENT_PROTOCOL,
+			                   "creationDate" => time()
+		                   ]);
 		$phar->setStub('<?php define("pocketmine\\\\PATH", "phar://". __FILE__ ."/"); require_once("phar://". __FILE__ ."/src/pocketmine/PocketMine.php");  __HALT_COMPILER();');
 		$phar->setSignatureAlgorithm(\Phar::SHA1);
 		$phar->startBuffering();

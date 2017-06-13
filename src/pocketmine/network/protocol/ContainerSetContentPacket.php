@@ -32,7 +32,7 @@ class ContainerSetContentPacket extends DataPacket{
 	const SPECIAL_ARMOR = 0x78;
 	const SPECIAL_CREATIVE = 0x79;
 	const SPECIAL_HOTBAR = 0x7a;
-    const SPECIAL_FIXED_INVENTORY = 0x7b;
+	const SPECIAL_FIXED_INVENTORY = 0x7b;
 
 	public $windowid;
 	public $targetEid;
@@ -42,6 +42,7 @@ class ContainerSetContentPacket extends DataPacket{
 	public function clean(){
 		$this->slots = [];
 		$this->hotbar = [];
+
 		return parent::clean();
 	}
 
@@ -80,7 +81,7 @@ class ContainerSetContentPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "ContainerSetContentPacket";
 	}

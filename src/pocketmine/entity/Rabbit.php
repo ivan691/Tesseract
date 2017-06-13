@@ -67,6 +67,7 @@ class Rabbit extends Animal{
 
 	public function getRandomRabbitType() : int{
 		$arr = [0, 1, 2, 3, 4, 5, 99];
+
 		return $arr[mt_rand(0, count($arr) - 1)];
 	}
 
@@ -116,6 +117,7 @@ class Rabbit extends Animal{
 		if(mt_rand(1, 200) <= (5 + 2 * $lootingL)){
 			$drops[] = ItemItem::get(ItemItem::RABBIT_FOOT, 0, 1);
 		}
+
 		return $drops;
 	}
 

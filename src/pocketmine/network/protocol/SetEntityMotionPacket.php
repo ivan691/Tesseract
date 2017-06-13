@@ -35,6 +35,7 @@ class SetEntityMotionPacket extends DataPacket{
 
 	public function clean(){
 		$this->entities = [];
+
 		return parent::clean();
 	}
 
@@ -50,7 +51,7 @@ class SetEntityMotionPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "SetEntityMotionPacket";
 	}

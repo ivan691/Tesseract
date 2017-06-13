@@ -42,7 +42,7 @@ class PlayerToggleSneakEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerToggleSneakEvent";
 	}

@@ -29,7 +29,7 @@ class BossEventPacket extends DataPacket{
 
 	const NETWORK_ID = Info::BOSS_EVENT_PACKET;
 
-  	public $eid;
+	public $eid;
 	public $type;
 
 	public function decode(){
@@ -44,7 +44,7 @@ class BossEventPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "BossEventPacket";
 	}

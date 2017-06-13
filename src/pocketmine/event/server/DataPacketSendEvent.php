@@ -48,7 +48,7 @@ class DataPacketSendEvent extends ServerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "DataPacketSendEvent";
 	}

@@ -19,7 +19,7 @@
  *
 */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace pocketmine\level\format\io\region;
 
@@ -199,9 +199,11 @@ class McRegion extends BaseLevelProvider{
 			$result->setLightPopulated(isset($chunk->LightPopulated) ? ((bool) $chunk->LightPopulated->getValue()) : false);
 			$result->setPopulated(isset($chunk->TerrainPopulated) ? ((bool) $chunk->TerrainPopulated->getValue()) : false);
 			$result->setGenerated(true);
+
 			return $result;
 		}catch(\Throwable $e){
 			MainLogger::getLogger()->logException($e);
+
 			return null;
 		}
 	}
@@ -309,10 +311,10 @@ class McRegion extends BaseLevelProvider{
 
 	public function saveChunk(int $chunkX, int $chunkZ) : bool{
 		if($this->isChunkLoaded($chunkX, $chunkZ)){
-            $chunk = $this->getChunk($chunkX, $chunkZ);
-            if(!$chunk->isGenerated()){
-                throw new \InvalidStateException("Cannot save un-generated chunk");
-            }
+			$chunk = $this->getChunk($chunkX, $chunkZ);
+			if(!$chunk->isGenerated()){
+				throw new \InvalidStateException("Cannot save un-generated chunk");
+			}
 			$this->getRegion($chunkX >> 5, $chunkZ >> 5)->writeChunk($chunk);
 
 			return true;
@@ -346,6 +348,7 @@ class McRegion extends BaseLevelProvider{
 
 		if($chunk !== null){
 			$this->chunks[$index] = $chunk;
+
 			return true;
 		}else{
 			return false;
@@ -356,6 +359,7 @@ class McRegion extends BaseLevelProvider{
 		$chunk = $this->chunks[$index = Level::chunkHash($chunkX, $chunkZ)] ?? null;
 		if($chunk instanceof Chunk and $chunk->unload($safe)){
 			unset($this->chunks[$index]);
+
 			return true;
 		}
 

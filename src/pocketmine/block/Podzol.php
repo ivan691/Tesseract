@@ -41,7 +41,7 @@ class Podzol extends Solid{
 		return "Podzol";
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.5;
 	}
 
@@ -59,6 +59,6 @@ class Podzol extends Solid{
 				[Item::DIRT, 0, 1],
 			];
 		}
-		
+
 	}
 }

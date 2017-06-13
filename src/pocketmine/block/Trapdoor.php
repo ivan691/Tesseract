@@ -39,7 +39,7 @@ class Trapdoor extends Transparent{
 		return "Wooden Trapdoor";
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 3;
 	}
 
@@ -47,11 +47,11 @@ class Trapdoor extends Transparent{
 		return 15;
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 
-	protected function recalculateBoundingBox() {
+	protected function recalculateBoundingBox(){
 
 		$damage = $this->getDamage();
 
@@ -136,10 +136,11 @@ class Trapdoor extends Transparent{
 			$this->meta |= 0b00000100; //top half of block
 		}
 		$this->getLevel()->setBlock($block, $this, true, true);
+
 		return true;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [
 			[$this->id, 0, 1],
 		];
@@ -153,6 +154,7 @@ class Trapdoor extends Transparent{
 		$this->meta ^= 0b00001000;
 		$this->getLevel()->setBlock($this, $this, true);
 		$this->level->addSound(new DoorSound($this));
+
 		return true;
 	}
 

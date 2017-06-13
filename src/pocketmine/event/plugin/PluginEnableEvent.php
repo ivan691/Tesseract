@@ -37,7 +37,7 @@ class PluginEnableEvent extends PluginEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PluginEnableEvent";
 	}

@@ -22,6 +22,7 @@
 /**
  * Level related events
  */
+
 namespace pocketmine\event\level;
 
 use pocketmine\event\Event;
@@ -47,7 +48,7 @@ abstract class LevelEvent extends Event{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "LevelEvent";
 	}

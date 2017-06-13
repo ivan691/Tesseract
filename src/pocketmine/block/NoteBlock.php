@@ -54,6 +54,7 @@ class Noteblock extends Solid{
 		if($this->meta < 24) $this->meta++;
 		else $this->meta = 0;
 		$this->getLevel()->setBlock($this, $this);
+
 		return $this->meta * 1;
 	}
 
@@ -130,6 +131,7 @@ class Noteblock extends Solid{
 			case Block::COAL_BLOCK:
 				return NoteblockSound::INSTRUMENT_BASS_DRUM;
 		}
+
 		return NoteblockSound::INSTRUMENT_PIANO;
 	}
 
@@ -137,6 +139,7 @@ class Noteblock extends Solid{
 		$up = $this->getSide(Vector3::SIDE_UP);
 		if($up->getId() == 0){
 			$this->getLevel()->addSound(new NoteblockSound($this, $this->getInstrument(), $this->getStrength()));
+
 			return true;
 		}else{
 			return false;

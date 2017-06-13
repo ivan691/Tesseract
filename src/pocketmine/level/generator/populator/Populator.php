@@ -22,6 +22,7 @@
 /**
  * All the Object populator classes
  */
+
 namespace pocketmine\level\generator\populator;
 
 use pocketmine\level\ChunkManager;

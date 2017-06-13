@@ -85,7 +85,7 @@ class SimpleCommandMap implements CommandMap{
 	 * @var Command[]
 	 */
 	protected $knownCommands = [];
-	
+
 	/**
 	 * @var bool[]
 	 */
@@ -171,7 +171,7 @@ class SimpleCommandMap implements CommandMap{
 			$label = $command->getName();
 		}
 		$label = strtolower(trim($label));
-		
+
 		//Check if command was disabled in config and for override
 		if(!(($this->commandConfig[$label] ?? $this->commandConfig["default"] ?? true) or $overrideConfig)){
 			return false;

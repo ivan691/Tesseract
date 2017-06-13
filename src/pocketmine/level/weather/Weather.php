@@ -69,13 +69,13 @@ class Weather{
 		if($this->canCalculate()){
 			$tickDiff = $currentTick - $this->lastUpdate;
 			$this->duration -= $tickDiff;
-			
+
 			if($this->duration <= 0){
 				$duration = mt_rand(
-						min($this->level->getServer()->weatherRandomDurationMin, $this->level->getServer()->weatherRandomDurationMax), 
-						max($this->level->getServer()->weatherRandomDurationMin, $this->level->getServer()->weatherRandomDurationMax));
+					min($this->level->getServer()->weatherRandomDurationMin, $this->level->getServer()->weatherRandomDurationMax),
+					max($this->level->getServer()->weatherRandomDurationMin, $this->level->getServer()->weatherRandomDurationMax));
 
-				if($this->weatherNow === self::SUNNY){ 
+				if($this->weatherNow === self::SUNNY){
 					$weather = $this->randomWeatherData[array_rand($this->randomWeatherData)];
 					$this->setWeather($weather, $duration);
 				}else{
@@ -125,6 +125,7 @@ class Weather{
 			if($weather <= 3){
 				return $weather;
 			}
+
 			return self::SUNNY;
 		}
 		switch(strtolower($weather)){
@@ -183,13 +184,13 @@ class Weather{
 			new LevelEventPacket(),
 			new LevelEventPacket()
 		];
-		
+
 		//Set defaults. These will be sent if the case statement defaults.
 		$pks[0]->evid = LevelEventPacket::EVENT_STOP_RAIN;
-		$pks[0]->data = $this->strength1;	
+		$pks[0]->data = $this->strength1;
 		$pks[1]->evid = LevelEventPacket::EVENT_STOP_THUNDER;
 		$pks[1]->data = $this->strength2;
-		
+
 		switch($this->weatherNow){
 			//If the weather is not clear, overwrite the packet values with these
 			case self::RAIN:
@@ -206,9 +207,10 @@ class Weather{
 				$pks[1]->evid = LevelEventPacket::EVENT_START_THUNDER;
 				$pks[1]->data = $this->strength2;
 				break;
-			default: break;
+			default:
+				break;
 		}
-		
+
 		foreach($pks as $pk){
 			$p->dataPacket($pk);
 		}

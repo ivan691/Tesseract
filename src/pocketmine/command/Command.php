@@ -22,6 +22,7 @@
 /**
  * Command handling related classes
  */
+
 namespace pocketmine\command;
 
 use pocketmine\event\TextContainer;
@@ -113,15 +114,17 @@ abstract class Command{
 		}*/
 		$customData = clone $this->commandData;
 		$customData->aliases = $this->getAliases();
+
 		/*foreach($customData->overloads as &$overload){
 			if(($p = @$overload->pocketminePermission) !== null and !$player->hasPermission($p)){
 				unset($overload);
 			}
 		}*/
+
 		return $customData;
 	}
 
-	public function getOverloads(): \stdClass{
+	public function getOverloads() : \stdClass{
 		return $this->commandData->overloads;
 	}
 
@@ -147,7 +150,7 @@ abstract class Command{
 	public function getPermission(){
 		return $this->commandData->pocketminePermission ?? null;
 	}
-	
+
 
 	/**
 	 * @param string|null $permission
@@ -330,6 +333,7 @@ abstract class Command{
 		if(self::$defaultDataTemplate === null){
 			self::$defaultDataTemplate = json_decode(file_get_contents(Server::getInstance()->getFilePath() . "src/pocketmine/resources/command_default.json"));
 		}
+
 		return clone self::$defaultDataTemplate;
 	}
 
@@ -341,7 +345,7 @@ abstract class Command{
 	public static function broadcastCommandMessage(CommandSender $source, $message, $sendToSource = true){
 		if($message instanceof TextContainer){
 			$m = clone $message;
-			$result = "[".$source->getName().": ".($source->getServer()->getLanguage()->get($m->getText()) !== $m->getText() ? "%" : "") . $m->getText() ."]";
+			$result = "[" . $source->getName() . ": " . ($source->getServer()->getLanguage()->get($m->getText()) !== $m->getText() ? "%" : "") . $m->getText() . "]";
 
 			$users = $source->getServer()->getPluginManager()->getPermissionSubscriptions(Server::BROADCAST_CHANNEL_ADMINISTRATIVE);
 			$colored = TextFormat::GRAY . TextFormat::ITALIC . $result;

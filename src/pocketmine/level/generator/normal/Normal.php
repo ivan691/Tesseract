@@ -94,11 +94,11 @@ class Normal extends Generator{
 		return "Normal";
 	}
 
-	public function getWaterHeight(): int{
-        return $this->waterHeight;
-    }
+	public function getWaterHeight() : int{
+		return $this->waterHeight;
+	}
 
-    public function getSettings(){
+	public function getSettings(){
 		return [];
 	}
 
@@ -149,18 +149,18 @@ class Normal extends Generator{
 
 		$ores = new Ore();
 		$ores->setOreTypes([
-			new OreType(new CoalOre(), 20, 17, 0, 128),
-			new OreType(new IronOre(), 20, 9, 0, 64),
-			new OreType(new RedstoneOre(), 8, 8, 0, 16),
-			new OreType(new LapisOre(), 1, 7, 0, 16),
-			new OreType(new GoldOre(), 2, 9, 0, 32),
-			new OreType(new DiamondOre(), 1, 8, 0, 16),
-			new OreType(new Dirt(), 10, 33, 0, 128),
-            new OreType(new Stone(Stone::GRANITE), 10, 33, 0, 80),
-            new OreType(new Stone(Stone::DIORITE), 10, 33, 0, 80),
-            new OreType(new Stone(Stone::ANDESITE), 10, 33, 0, 80),
-			new OreType(new Gravel(), 8, 33, 0, 128)
-		]);
+			                   new OreType(new CoalOre(), 20, 17, 0, 128),
+			                   new OreType(new IronOre(), 20, 9, 0, 64),
+			                   new OreType(new RedstoneOre(), 8, 8, 0, 16),
+			                   new OreType(new LapisOre(), 1, 7, 0, 16),
+			                   new OreType(new GoldOre(), 2, 9, 0, 32),
+			                   new OreType(new DiamondOre(), 1, 8, 0, 16),
+			                   new OreType(new Dirt(), 10, 33, 0, 128),
+			                   new OreType(new Stone(Stone::GRANITE), 10, 33, 0, 80),
+			                   new OreType(new Stone(Stone::DIORITE), 10, 33, 0, 80),
+			                   new OreType(new Stone(Stone::ANDESITE), 10, 33, 0, 80),
+			                   new OreType(new Gravel(), 8, 33, 0, 128)
+		                   ]);
 		$this->populators[] = $ores;
 	}
 
@@ -210,19 +210,19 @@ class Normal extends Generator{
 
 				$solidLand = false;
 
-                for($y = 127; $y >= 0; --$y){
+				for($y = 127; $y >= 0; --$y){
 					if($y === 0){
 						$chunk->setBlockId($x, $y, $z, Block::BEDROCK);
 						continue;
 					}
 
-                    $noiseAdjustment = 2 * (($maxSum - $y) / ($maxSum - $minSum)) - 1;
+					$noiseAdjustment = 2 * (($maxSum - $y) / ($maxSum - $minSum)) - 1;
 
-                    $caveLevel = $minSum - 10;
-                    $distAboveCaveLevel = max(0, $y - $caveLevel);
+					$caveLevel = $minSum - 10;
+					$distAboveCaveLevel = max(0, $y - $caveLevel);
 
-                    $noiseAdjustment = min($noiseAdjustment, 0.4 + ($distAboveCaveLevel / 10));
-                    $noiseValue = $noise[$x][$z][$y] + $noiseAdjustment;
+					$noiseAdjustment = min($noiseAdjustment, 0.4 + ($distAboveCaveLevel / 10));
+					$noiseValue = $noise[$x][$z][$y] + $noiseAdjustment;
 
 					if($noiseValue > 0){
 						$chunk->setBlockId($x, $y, $z, Block::STONE);

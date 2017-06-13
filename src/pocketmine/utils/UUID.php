@@ -48,6 +48,7 @@ class UUID{
 	 *
 	 * @param string $uuid
 	 * @param int    $version
+	 *
 	 * @return UUID
 	 */
 	public static function fromString($uuid, $version = null){
@@ -59,6 +60,7 @@ class UUID{
 	 *
 	 * @param string $uuid
 	 * @param int    $version
+	 *
 	 * @return UUID
 	 */
 	public static function fromBinary($uuid, $version = null){
@@ -69,12 +71,13 @@ class UUID{
 		return new UUID(Binary::readInt(substr($uuid, 0, 4)), Binary::readInt(substr($uuid, 4, 4)), Binary::readInt(substr($uuid, 8, 4)), Binary::readInt(substr($uuid, 12, 4)), $version);
 	}
 
-    /**
-     * Creates an UUIDv3 from binary data or list of binary data
-     *
-     * @param array|string ...$data
-     * @return UUID
-     */
+	/**
+	 * Creates an UUIDv3 from binary data or list of binary data
+	 *
+	 * @param array|string ...$data
+	 *
+	 * @return UUID
+	 */
 	public static function fromData(...$data){
 		$hash = hash("md5", implode($data), true);
 
@@ -96,6 +99,7 @@ class UUID{
 		if($this->version !== null){
 			return substr($hex, 0, 8) . "-" . substr($hex, 8, 4) . "-" . hexdec($this->version) . substr($hex, 13, 3) . "-8" . substr($hex, 17, 3) . "-" . substr($hex, 20, 12);
 		}
+
 		return substr($hex, 0, 8) . "-" . substr($hex, 8, 4) . "-" . substr($hex, 12, 4) . "-" . substr($hex, 16, 4) . "-" . substr($hex, 20, 12);
 	}
 

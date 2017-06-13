@@ -35,17 +35,20 @@ class WoodenButton extends Transparent{
 	public function __construct($meta = 0){
 		$this->meta = $meta;
 	}
+
 	public function isSolid(){
-    	return false;
+		return false;
 	}
+
 	public function onUpdate($type){
 		if($type == Level::BLOCK_UPDATE_SCHEDULED){
-			if($this->isActivated()) {
+			if($this->isActivated()){
 				$this->meta ^= 0x08;
 				$this->getLevel()->setBlock($this, $this, true, false);
 				$this->getLevel()->addSound(new ButtonClickSound($this));
 				$this->deactivate();
 			}
+
 			return Level::BLOCK_UPDATE_SCHEDULED;
 		}
 		if($type === Level::BLOCK_UPDATE_NORMAL){
@@ -66,6 +69,7 @@ class WoodenButton extends Transparent{
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
+
 		return false;
 	}
 
@@ -92,14 +96,14 @@ class WoodenButton extends Transparent{
 	public function activate(array $ignore = []){
 		parent::activate($ignore = []);
 		$faces = [
-				0 => 1,
-				1 => 0,
-				2 => 3,
-				3 => 2,
-				4 => 5,
-				5 => 4,
+			0 => 1,
+			1 => 0,
+			2 => 3,
+			3 => 2,
+			4 => 5,
+			5 => 4,
 		];
-		
+
 		$side = $this->meta;
 		if($this->isActivated()) $side ^= 0x08;
 
@@ -115,7 +119,7 @@ class WoodenButton extends Transparent{
 		return "Wooden Button";
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.5;
 	}
 
@@ -132,12 +136,14 @@ class WoodenButton extends Transparent{
 		if($target->isTransparent() === false){
 			$this->meta = $face;
 			$this->getLevel()->setBlock($block, $this, true, false);
+
 			return true;
 		}
+
 		return false;
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 
@@ -153,6 +159,7 @@ class WoodenButton extends Transparent{
 			$this->activate();
 			$this->getLevel()->scheduleUpdate($this, 30);
 		}
+
 		return true;
 	}
 }

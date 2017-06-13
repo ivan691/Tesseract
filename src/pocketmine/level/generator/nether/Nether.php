@@ -54,6 +54,8 @@ class Nether extends Generator{
 	private $emptyHeight = 64;
 	private $emptyAmplitude = 1;
 	private $density = 0.5;
+	private $bedrockDepth = 5;
+
 	/** @var Populator[] */
 	private $generationPopulators = [];
 	/** @var Simplex */
@@ -106,11 +108,11 @@ class Nether extends Generator{
 
 		$ores = new NetherOre();
 		$ores->setOreTypes([
-			new OreType(new NetherQuartzOre(), 20, 16, 0, 126),
-			new OreType(new SoulSand(), 5, 64, 0, 126),
-			new OreType(new Gravel(), 8, 33, 0, 126),
-			new OreType(new Lava(), 1, 16, 0, $this->waterHeight),
-		]);
+			                   new OreType(new NetherQuartzOre(), 20, 16, 0, 126),
+			                   new OreType(new SoulSand(), 5, 64, 0, 126),
+			                   new OreType(new Gravel(), 8, 33, 0, 126),
+			                   new OreType(new Lava(), 1, 16, 0, $this->waterHeight),
+		                   ]);
 		$this->populators[] = $ores;
 		$this->populators[] = new NetherGlowStone();
 		$groundFire = new GroundFire();

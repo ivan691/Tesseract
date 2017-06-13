@@ -35,7 +35,7 @@ class Minecart extends Item{
 		parent::__construct(self::MINECART, $meta, $count, "Minecart");
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 
@@ -63,13 +63,14 @@ class Minecart extends Item{
 			$count = $item->getCount();
 			if(--$count <= 0){
 				$player->getInventory()->setItemInHand(Item::get(Item::AIR));
+
 				return true;
 			}
 
 			$item->setCount($count);
 			$player->getInventory()->setItemInHand($item);
 		}
-		
+
 		return true;
 	}
 }

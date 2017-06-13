@@ -32,7 +32,7 @@ class LevelUnloadEvent extends LevelEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "LevelUnloadEvent";
 	}

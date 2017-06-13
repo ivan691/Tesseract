@@ -63,7 +63,7 @@ class PlayerFishEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerFishEvent";
 	}

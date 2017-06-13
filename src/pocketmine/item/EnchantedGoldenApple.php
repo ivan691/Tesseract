@@ -29,8 +29,8 @@ class EnchantedGoldenApple extends Food{
 	public function __construct($meta = 0, $count = 1){
 		parent::__construct(self::ENCHANTED_GOLDEN_APPLE, $meta, $count, "Enchanted Golden Apple");
 	}
-	
-	public function canBeConsumedBy(Entity $entity): bool{
+
+	public function canBeConsumedBy(Entity $entity) : bool{
 		return $entity instanceof Human and $this->canBeConsumed();
 	}
 

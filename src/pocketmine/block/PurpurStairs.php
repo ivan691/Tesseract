@@ -43,7 +43,7 @@ class PurpurStairs extends Stair{
 	}
 
 	public function getName() : string{
-		return "Purpur Stairs"; 
+		return "Purpur Stairs";
 	}
 
 } 

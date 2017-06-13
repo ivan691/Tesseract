@@ -19,7 +19,7 @@
  *
 */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace pocketmine\level\format\io\region;
 
@@ -58,10 +58,10 @@ class Anvil extends McRegion{
 				continue;
 			}
 			$nbt->Sections[++$subChunks] = new CompoundTag(null, [
-				"Y"          => new ByteTag("Y", $y),
-				"Blocks"     => new ByteArrayTag("Blocks", ChunkUtils::reorderByteArray($subChunk->getBlockIdArray())), //Generic in-memory chunks are currently always XZY
-				"Data"       => new ByteArrayTag("Data", ChunkUtils::reorderNibbleArray($subChunk->getBlockDataArray())),
-				"SkyLight"   => new ByteArrayTag("SkyLight", ChunkUtils::reorderNibbleArray($subChunk->getSkyLightArray(), "\xff")),
+				"Y" => new ByteTag("Y", $y),
+				"Blocks" => new ByteArrayTag("Blocks", ChunkUtils::reorderByteArray($subChunk->getBlockIdArray())), //Generic in-memory chunks are currently always XZY
+				"Data" => new ByteArrayTag("Data", ChunkUtils::reorderNibbleArray($subChunk->getBlockDataArray())),
+				"SkyLight" => new ByteArrayTag("SkyLight", ChunkUtils::reorderNibbleArray($subChunk->getSkyLightArray(), "\xff")),
 				"BlockLight" => new ByteArrayTag("BlockLight", ChunkUtils::reorderNibbleArray($subChunk->getBlockLightArray()))
 			]);
 		}
@@ -146,9 +146,11 @@ class Anvil extends McRegion{
 			$result->setLightPopulated(isset($chunk->LightPopulated) ? ((bool) $chunk->LightPopulated->getValue()) : false);
 			$result->setPopulated(isset($chunk->TerrainPopulated) ? ((bool) $chunk->TerrainPopulated->getValue()) : false);
 			$result->setGenerated(true);
+
 			return $result;
 		}catch(\Throwable $e){
 			MainLogger::getLogger()->logException($e);
+
 			return null;
 		}
 	}

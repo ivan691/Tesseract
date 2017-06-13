@@ -53,7 +53,7 @@ class PlayerInteractEvent extends PlayerEvent implements Cancellable{
 
 	/** @var \pocketmine\item\Item */
 	protected $item;
-	
+
 	protected $action;
 
 	public function __construct(Player $player, Item $item, Vector3 $block, $face, $action = PlayerInteractEvent::RIGHT_CLICK_BLOCK){
@@ -107,7 +107,7 @@ class PlayerInteractEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerInteractEvent";
 	}

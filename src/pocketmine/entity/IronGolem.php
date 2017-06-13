@@ -31,17 +31,17 @@ class IronGolem extends Animal{
 	public $width = 0.3;
 	public $length = 0.9;
 	public $height = 2.8;
-	
+
 	public function initEntity(){
 		$this->setMaxHealth(100);
 		parent::initEntity();
 	}
-	
-	public function getName() {
+
+	public function getName(){
 		return "Iron Golem";
 	}
-	
-	public function spawnTo(Player $player) {
+
+	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();
 		$pk->type = self::NETWORK_ID;
@@ -63,6 +63,7 @@ class IronGolem extends Animal{
 		//Not affected by Looting.
 		$drops = array(ItemItem::get(ItemItem::IRON_INGOT, 0, mt_rand(3, 5)));
 		$drops[] = ItemItem::get(ItemItem::POPPY, 0, mt_rand(0, 2));
+
 		return $drops;
 	}
 }

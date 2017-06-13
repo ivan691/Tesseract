@@ -61,6 +61,7 @@ class TimingsCommand extends VanillaCommand{
 		}elseif($mode === "off"){
 			$sender->getServer()->getPluginManager()->setUseTimings(false);
 			$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.disable"));
+
 			return true;
 		}
 

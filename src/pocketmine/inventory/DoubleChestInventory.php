@@ -82,7 +82,7 @@ class DoubleChestInventory extends ChestInventory implements InventoryHolder{
 
 		for($i = 0; $i < $this->size; ++$i){
 			if(!isset($items[$i])){
-				if ($i < $this->left->size){
+				if($i < $this->left->size){
 					if(isset($this->left->slots[$i])){
 						$this->clear($i);
 					}

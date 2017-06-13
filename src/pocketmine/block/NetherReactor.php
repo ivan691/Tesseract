@@ -34,7 +34,7 @@ class NetherReactor extends Solid{
 		return "Nether Reactor";
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 

@@ -88,6 +88,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
+
 			return;
 		}
 
@@ -191,6 +192,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 				return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -304,6 +306,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 		if($this->hasName()){
 			$nbt->CustomName = $this->namedtag->CustomName;
 		}
+
 		return $nbt;
 	}
 }

@@ -22,6 +22,7 @@
 /**
  * Handles the creation of virtual inventories or mapped to an InventoryHolder
  */
+
 namespace pocketmine\inventory;
 
 use pocketmine\item\Item;
@@ -55,23 +56,24 @@ interface Inventory{
 	 * If a plugin refuses the update or $index is invalid, it'll return false
 	 * If a source Player is specified, it won't send a Inventory update to it
 	 *
-	 * @param int    $index
-	 * @param Item   $item
+	 * @param int  $index
+	 * @param Item $item
 	 *
 	 * @return bool
 	 */
 	public function setItem($index, Item $item);
 
-    /**
-     * Stores the given Items in the inventory. This will try to fill
-     * existing stacks and empty slots as well as it can.
-     *
-     * Returns the Items that did not fit.
-     *
-     * @param array $slots
-     * @return Item[]
-     * @internal param Item ...$item
-     */
+	/**
+	 * Stores the given Items in the inventory. This will try to fill
+	 * existing stacks and empty slots as well as it can.
+	 *
+	 * Returns the Items that did not fit.
+	 *
+	 * @param array $slots
+	 *
+	 * @return Item[]
+	 * @internal param Item ...$item
+	 */
 	public function addItem(...$slots);
 
 	/**
@@ -83,14 +85,15 @@ interface Inventory{
 	 */
 	public function canAddItem(Item $item);
 
-    /**
-     * Removes the given Item from the inventory.
-     * It will return the Items that couldn't be removed.
-     *
-     * @param array $slots
-     * @return Item[]
-     * @internal param Item ...$item
-     */
+	/**
+	 * Removes the given Item from the inventory.
+	 * It will return the Items that couldn't be removed.
+	 *
+	 * @param array $slots
+	 *
+	 * @return Item[]
+	 * @internal param Item ...$item
+	 */
 	public function removeItem(...$slots);
 
 	/**
@@ -161,7 +164,7 @@ interface Inventory{
 	/**
 	 * Will clear a specific slot
 	 *
-	 * @param int    $index
+	 * @param int $index
 	 *
 	 * @return bool
 	 */
@@ -212,9 +215,9 @@ interface Inventory{
 	public function onClose(Player $who);
 
 	/**
-	 * @param int    $index
-	 * @param Item   $before
-	 * @param bool   $send
+	 * @param int  $index
+	 * @param Item $before
+	 * @param bool $send
 	 */
 	public function onSlotChange($index, $before, $send);
 }

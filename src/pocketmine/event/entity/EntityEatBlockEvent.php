@@ -50,7 +50,7 @@ class EntityEatBlockEvent extends EntityEatEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityEatBlockEvent";
 	}

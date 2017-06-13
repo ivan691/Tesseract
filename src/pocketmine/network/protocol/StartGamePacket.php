@@ -30,7 +30,7 @@ class StartGamePacket extends DataPacket{
 
 	public $entityUniqueId;
 	public $entityRuntimeId;
-    public $playerGamemode;
+	public $playerGamemode;
 	public $x;
 	public $y;
 	public $z;
@@ -51,7 +51,7 @@ class StartGamePacket extends DataPacket{
 	public $isTexturePacksRequired = 0;
 	public $unknown;
 	public $worldName;
-    public $premiumWorldTemplateId = "";
+	public $premiumWorldTemplateId = "";
 
 	public function decode(){
 
@@ -61,7 +61,7 @@ class StartGamePacket extends DataPacket{
 		$this->reset();
 		$this->putEntityId($this->entityUniqueId); //EntityUniqueID
 		$this->putEntityId($this->entityRuntimeId); //EntityRuntimeID
-        $this->putVarInt($this->playerGamemode); //client gamemode, other field is world gamemode
+		$this->putVarInt($this->playerGamemode); //client gamemode, other field is world gamemode
 		$this->putVector3f($this->x, $this->y, $this->z);
 		$this->putLFloat(0); //TODO: yaw/pitch
 		$this->putLFloat(0);
@@ -81,7 +81,7 @@ class StartGamePacket extends DataPacket{
 		$this->putUnsignedVarInt(0); //TODO: gamerules
 		$this->putString($this->unknown);
 		$this->putString($this->worldName);
-        $this->putString($this->premiumWorldTemplateId);
+		$this->putString($this->premiumWorldTemplateId);
 	}
 
 }

@@ -49,11 +49,11 @@ class TaigaBiome extends SnowyBiome{
 		$this->rainfall = 0.8;
 
 		$this->setGroundCover([
-			Block::get(Block::PODZOL, 0),
-			Block::get(Block::DIRT, 0),
-			Block::get(Block::DIRT, 0),
-			Block::get(Block::DIRT, 0)
-		]);
+			                      Block::get(Block::PODZOL, 0),
+			                      Block::get(Block::DIRT, 0),
+			                      Block::get(Block::DIRT, 0),
+			                      Block::get(Block::DIRT, 0)
+		                      ]);
 	}
 
 	public function getName() : string{

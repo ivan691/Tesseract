@@ -96,6 +96,7 @@ class Cake extends Transparent implements FoodSource{
 
 			if(!$ev->isCancelled()){
 				$this->getLevel()->setBlock($this, $ev->getResidue());
+
 				return true;
 			}
 		}
@@ -117,6 +118,7 @@ class Cake extends Transparent implements FoodSource{
 		if($clone->meta >= 0x06){
 			$clone = new Air();
 		}
+
 		return $clone;
 	}
 

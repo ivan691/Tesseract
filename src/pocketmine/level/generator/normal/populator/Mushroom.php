@@ -61,6 +61,7 @@ class Mushroom extends VariableAmountPopulator{
 	private function canMushroomStay($x, $y, $z){
 		$c = $this->level->getBlockIdAt($x, $y, $z);
 		$b = $this->level->getBlockIdAt($x, $y - 1, $z);
+
 		return ($c === Block::AIR or $c === Block::SNOW_LAYER) and ($b === Block::MYCELIUM or (!Block::$transparent[$b]));
 	}
 
@@ -71,6 +72,7 @@ class Mushroom extends VariableAmountPopulator{
 				break;
 			}
 		}
+
 		return $y === 0 ? -1 : ++$y;
 	}
 }

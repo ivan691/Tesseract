@@ -22,6 +22,7 @@
 /**
  * All the Tile classes and related classes
  */
+
 namespace pocketmine\tile;
 
 use pocketmine\event\Timings;
@@ -33,7 +34,7 @@ use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\StringTag;
 
 abstract class Tile extends Position{
-	
+
 	const BREWING_STAND = "BrewingStand";
 	const CHEST = "Chest";
 	const ENCHANT_TABLE = "EnchantTable";
@@ -72,7 +73,7 @@ abstract class Tile extends Position{
 
 	/** @var \pocketmine\event\TimingsHandler */
 	public $tickTimer;
-	
+
 	public static function init(){
 		self::registerTile(Beacon::class);
 		self::registerTile(BeaconDelayedCheckTask::class);
@@ -93,16 +94,17 @@ abstract class Tile extends Position{
 	}
 
 	/**
-	 * @param string    $type
-	 * @param Level     $level
-	 * @param CompoundTag  $nbt
-	 * @param array $args
+	 * @param string      $type
+	 * @param Level       $level
+	 * @param CompoundTag $nbt
+	 * @param array       $args
 	 *
 	 * @return Tile
 	 */
 	public static function createTile($type, Level $level, CompoundTag $nbt, ...$args){
 		if(isset(self::$knownTiles[$type])){
 			$class = self::$knownTiles[$type];
+
 			return new $class($level, $nbt, ...$args);
 		}
 
@@ -119,6 +121,7 @@ abstract class Tile extends Position{
 		if(is_a($className, Tile::class, true) and !$class->isAbstract()){
 			self::$knownTiles[$class->getShortName()] = $className;
 			self::$shortNames[$className] = $class->getShortName();
+
 			return true;
 		}
 
@@ -138,10 +141,10 @@ abstract class Tile extends Position{
 		$this->timings = Timings::getTileEntityTimings($this);
 
 		$this->namedtag = $nbt;
-        $this->server = $level->getServer();
-        $this->setLevel($level);
-        $this->chunk = $level->getChunk($this->namedtag["x"] >> 4, $this->namedtag["z"] >> 4, false);
-        assert($this->chunk !== null);
+		$this->server = $level->getServer();
+		$this->setLevel($level);
+		$this->chunk = $level->getChunk($this->namedtag["x"] >> 4, $this->namedtag["z"] >> 4, false);
+		assert($this->chunk !== null);
 
 		$this->name = "";
 		$this->lastUpdate = microtime(true);

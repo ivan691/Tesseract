@@ -59,7 +59,7 @@ class EntityInventoryChangeEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityInventoryChangeEvent";
 	}

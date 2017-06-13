@@ -52,7 +52,8 @@ interface Transaction{
 
 	/**
 	 * @param Player $source
+	 *
 	 * @return bool
 	 */
-	public function execute(Player $source): bool;
+	public function execute(Player $source) : bool;
 }

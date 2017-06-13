@@ -49,7 +49,7 @@ class PressurePlate extends Solid{
 		$this->getLevel()->setBlock($this, new Air(), true);
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0.5;
 	}
 

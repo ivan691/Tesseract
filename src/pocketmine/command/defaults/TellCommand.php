@@ -55,12 +55,13 @@ class TellCommand extends VanillaCommand{
 
 		if($player === $sender){
 			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.message.sameTarget"));
+
 			return true;
 		}
 
 		if($player instanceof Player){
-			$sender->sendMessage("[".$sender->getName()." -> " . $player->getDisplayName() . "] " . implode(" ", $args));
-			$player->sendMessage("[" . ($sender instanceof Player ? $sender->getDisplayName() : $sender->getName()) . " -> ".$player->getName()."] " . implode(" ", $args));
+			$sender->sendMessage("[" . $sender->getName() . " -> " . $player->getDisplayName() . "] " . implode(" ", $args));
+			$player->sendMessage("[" . ($sender instanceof Player ? $sender->getDisplayName() : $sender->getName()) . " -> " . $player->getName() . "] " . implode(" ", $args));
 		}else{
 			$sender->sendMessage(new TranslationContainer("commands.generic.player.notFound"));
 		}

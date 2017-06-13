@@ -138,11 +138,13 @@ abstract class Terminal{
 			case "mac":
 			case "bsd":
 				self::getEscapeCodes();
+
 				return;
 
 			case "win":
 			case "android":
 				self::getFallbackEscapeCodes();
+
 				return;
 		}
 

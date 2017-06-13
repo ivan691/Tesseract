@@ -235,6 +235,7 @@ class BlockIterator implements \Iterator{
 		if($this->currentBlockObject === null){
 			throw new \OutOfBoundsException;
 		}
+
 		return $this->currentBlockObject;
 	}
 
@@ -248,6 +249,7 @@ class BlockIterator implements \Iterator{
 
 	public function valid(){
 		$this->scan();
+
 		return $this->currentBlock !== -1;
 	}
 
@@ -258,6 +260,7 @@ class BlockIterator implements \Iterator{
 
 		if($this->maxDistance !== 0 and $this->currentDistance > $this->maxDistanceInt){
 			$this->end = true;
+
 			return;
 		}
 

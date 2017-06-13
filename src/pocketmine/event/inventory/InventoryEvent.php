@@ -22,6 +22,7 @@
 /**
  * Inventory related events
  */
+
 namespace pocketmine\event\inventory;
 
 use pocketmine\event\Event;
@@ -52,7 +53,7 @@ abstract class InventoryEvent extends Event{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "InventoryEvent";
 	}

@@ -39,7 +39,7 @@ abstract class Armor extends Item{
 	const TYPE_LEGGINGS = 2;
 	const TYPE_BOOTS = 3;
 
-	public function getMaxStackSize() : int {
+	public function getMaxStackSize() : int{
 		return 1;
 	}
 
@@ -50,7 +50,7 @@ abstract class Armor extends Item{
 	/**
 	 *
 	 * @param Item $object
-	 * @param int $cost
+	 * @param int  $cost
 	 *
 	 * @return bool
 	 */
@@ -72,11 +72,13 @@ abstract class Armor extends Item{
 		if($this->getDamage() >= $this->getMaxDurability()){
 			$this->setCount(0);
 		}
+
 		return true;
 	}
 
 	public function isUnbreakable(){
 		$tag = $this->getNamedTagEntry("Unbreakable");
+
 		return $tag !== null and $tag->getValue() > 0;
 	}
 
@@ -96,6 +98,7 @@ abstract class Armor extends Item{
 		if(isset($tag->customColor)){
 			return $tag["customColor"];
 		}
+
 		return null;
 	}
 

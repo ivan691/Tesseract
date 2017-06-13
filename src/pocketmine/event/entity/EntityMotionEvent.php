@@ -46,7 +46,7 @@ class EntityMotionEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityMotionEvent";
 	}

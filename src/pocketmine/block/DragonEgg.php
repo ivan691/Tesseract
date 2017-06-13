@@ -39,7 +39,7 @@ class DragonEgg extends Solid{
 	public function getHardness(){
 		return -1;
 	}
-	
+
 	public function getResistance(){
 		return 18000000;
 	}

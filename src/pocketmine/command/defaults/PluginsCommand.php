@@ -42,6 +42,7 @@ class PluginsCommand extends VanillaCommand{
 			return true;
 		}
 		$this->sendPluginList($sender);
+
 		return true;
 	}
 

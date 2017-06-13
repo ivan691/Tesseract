@@ -22,6 +22,7 @@
 /**
  * Task scheduling related classes
  */
+
 namespace pocketmine\scheduler;
 
 use pocketmine\plugin\Plugin;

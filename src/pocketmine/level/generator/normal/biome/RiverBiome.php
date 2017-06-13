@@ -35,7 +35,7 @@ class RiverBiome extends WateryBiome{
 		$tallGrass = new TallGrass();
 		$tallGrass->setBaseAmount(5);
 		$mushroom = new Mushroom();
- 
+
 		$this->addPopulator($mushroom);
 
 		$this->addPopulator($sugarcane);

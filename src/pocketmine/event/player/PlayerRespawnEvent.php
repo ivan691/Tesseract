@@ -59,7 +59,7 @@ class PlayerRespawnEvent extends PlayerEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerRespawnEvent";
 	}

@@ -41,7 +41,7 @@ class PlayerBedLeaveEvent extends PlayerEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerBedLeaveEvent";
 	}

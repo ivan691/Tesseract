@@ -58,12 +58,15 @@ class BinaryStream extends \stdClass{
 	public function get($len){
 		if($len < 0){
 			$this->offset = strlen($this->buffer) - 1;
+
 			return "";
 		}elseif($len === true){
 			$str = substr($this->buffer, $this->offset);
 			$this->offset = strlen($this->buffer);
+
 			return $str;
 		}
+
 		return $len === 1 ? $this->buffer{$this->offset++} : substr($this->buffer, ($this->offset += $len) - $len, $len);
 	}
 
@@ -200,39 +203,40 @@ class BinaryStream extends \stdClass{
 			$nbt = $this->get($nbtLen);
 		}
 
-        $canPlaceOn = $this->getVarInt();
-        if($canPlaceOn > 0){
-            for($i = 0; $i < $canPlaceOn; ++$i){
-                $this->getString();
-            }
-        }
+		$canPlaceOn = $this->getVarInt();
+		if($canPlaceOn > 0){
+			for($i = 0; $i < $canPlaceOn; ++$i){
+				$this->getString();
+			}
+		}
 
-        $canDestroy = $this->getVarInt();
-        if($canDestroy > 0){
-            for($i = 0; $i < $canDestroy; ++$i){
-                $this->getString();
-            }
-        }
+		$canDestroy = $this->getVarInt();
+		if($canDestroy > 0){
+			for($i = 0; $i < $canDestroy; ++$i){
+				$this->getString();
+			}
+		}
 
-        return Item::get($id, $data, $cnt, $nbt);
+		return Item::get($id, $data, $cnt, $nbt);
 	}
 
 
 	public function putSlot(Item $item){
 		if($item->getId() === 0){
 			$this->putVarInt(0);
+
 			return;
 		}
 
 		$this->putVarInt($item->getId());
-        $auxValue = ($item->getDamage() << 8) | $item->getCount();
+		$auxValue = ($item->getDamage() << 8) | $item->getCount();
 		$this->putVarInt($auxValue);
 		$nbt = $item->getCompoundTag();
 		$this->putLShort(strlen($nbt));
 		$this->put($nbt);
 
-        $this->putVarInt(0); //CanPlaceOn entry count (TODO)
-        $this->putVarInt(0); //CanDestroy entry count (TODO)
+		$this->putVarInt(0); //CanPlaceOn entry count (TODO)
+		$this->putVarInt(0); //CanDestroy entry count (TODO)
 	}
 
 	public function getString(){
@@ -253,10 +257,11 @@ class BinaryStream extends \stdClass{
 		return Binary::readUnsignedVarInt($this);
 	}
 
-    /**
-     * Writes an unsigned varint32 to the stream.
-     * @param $v
-     */
+	/**
+	 * Writes an unsigned varint32 to the stream.
+	 *
+	 * @param $v
+	 */
 	public function putUnsignedVarInt($v){
 		$this->put(Binary::writeUnsignedVarInt($v));
 	}
@@ -268,10 +273,11 @@ class BinaryStream extends \stdClass{
 		return Binary::readVarInt($this);
 	}
 
-    /**
-     * Writes a signed varint32 to the stream.
-     * @param $v
-     */
+	/**
+	 * Writes a signed varint32 to the stream.
+	 *
+	 * @param $v
+	 */
 	public function putVarInt($v){
 		$this->put(Binary::writeVarInt($v));
 	}
@@ -279,7 +285,7 @@ class BinaryStream extends \stdClass{
 	public function getEntityId(){
 		return $this->getVarInt();
 	}
-	
+
 	public function putEntityId($v){
 		$this->putVarInt($v);
 	}
@@ -295,13 +301,13 @@ class BinaryStream extends \stdClass{
 		$this->putUnsignedVarInt($y);
 		$this->putVarInt($z);
 	}
-	
+
 	public function getVector3f(&$x, &$y, &$z){
 		$x = $this->getLFloat(4);
 		$y = $this->getLFloat(4);
 		$z = $this->getLFloat(4);
 	}
-	
+
 	public function putVector3f($x, $y, $z){
 		$this->putLFloat($x);
 		$this->putLFloat($y);

@@ -34,7 +34,7 @@ class Horse extends Living{
 	public function getName() : string{
 		return "Horse";
 	}
-	
+
 	public function setChestPlate($id){
 		/*	
 		416, 417, 418, 419 only
@@ -42,16 +42,16 @@ class Horse extends Living{
 		$pk = new MobArmorEquipmentPacket();
 		$pk->eid = $this->getId();
 		$pk->slots = [
-		ItemItem::get(0,0),
-		ItemItem::get($id,0),
-		ItemItem::get(0,0),
-		ItemItem::get(0,0)
+			ItemItem::get(0, 0),
+			ItemItem::get($id, 0),
+			ItemItem::get(0, 0),
+			ItemItem::get(0, 0)
 		];
 		foreach($this->level->getPlayers() as $player){
 			$player->dataPacket($pk);
 		}
 	}
-	
+
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();

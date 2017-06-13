@@ -37,7 +37,7 @@ class Bookshelf extends Solid{
 		return "Bookshelf";
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 1.5;
 	}
 

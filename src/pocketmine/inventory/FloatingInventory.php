@@ -26,10 +26,11 @@ namespace pocketmine\inventory;
  */
 class FloatingInventory extends BaseInventory{
 
-    /**
-     * @param InventoryHolder $holder
-     * @internal param InventoryType $inventoryType
-     */
+	/**
+	 * @param InventoryHolder $holder
+	 *
+	 * @internal param InventoryType $inventoryType
+	 */
 	public function __construct(InventoryHolder $holder){
 		parent::__construct($holder, InventoryType::get(InventoryType::PLAYER_FLOATING));
 	}

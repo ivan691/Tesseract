@@ -132,6 +132,7 @@ class Attribute{
 			$this->desynchronized = true;
 			$this->minValue = $minValue;
 		}
+
 		return $this;
 	}
 
@@ -148,6 +149,7 @@ class Attribute{
 			$this->desynchronized = true;
 			$this->maxValue = $maxValue;
 		}
+
 		return $this;
 	}
 
@@ -164,6 +166,7 @@ class Attribute{
 			$this->desynchronized = true;
 			$this->defaultValue = $defaultValue;
 		}
+
 		return $this;
 	}
 
@@ -187,6 +190,7 @@ class Attribute{
 		if($shouldSend){
 			$this->desynchronized = true;
 		}
+
 		return $this;
 	}
 

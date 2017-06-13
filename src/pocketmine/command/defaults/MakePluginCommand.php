@@ -1,4 +1,5 @@
 <?php
+
 namespace pocketmine\command\defaults;
 
 use pocketmine\command\CommandSender;
@@ -25,18 +26,21 @@ class MakePluginCommand extends VanillaCommand{
 
 		if(count($args) === 0){
 			$sender->sendMessage(TextFormat::RED . "Usage: " . $this->usageMessage);
+
 			return true;
 		}
 
 		$pluginName = trim(implode(" ", $args));
 		if($pluginName === "" or !(($plugin = Server::getInstance()->getPluginManager()->getPlugin($pluginName)) instanceof Plugin)){
 			$sender->sendMessage(TextFormat::RED . "Invalid plugin name, check the name case.");
+
 			return true;
 		}
 		$description = $plugin->getDescription();
 
 		if(!($plugin->getPluginLoader() instanceof FolderPluginLoader)){
 			$sender->sendMessage(TextFormat::RED . "Plugin " . $description->getName() . " is not in folder structure.");
+
 			return true;
 		}
 
@@ -47,16 +51,16 @@ class MakePluginCommand extends VanillaCommand{
 		}
 		$phar = new \Phar($pharPath);
 		$phar->setMetadata([
-			"name" => $description->getName(),
-			"version" => $description->getVersion(),
-			"main" => $description->getMain(),
-			"api" => $description->getCompatibleApis(),
-			"depend" => $description->getDepend(),
-			"description" => $description->getDescription(),
-			"authors" => $description->getAuthors(),
-			"website" => $description->getWebsite(),
-			"creationDate" => time()
-		]);
+			                   "name" => $description->getName(),
+			                   "version" => $description->getVersion(),
+			                   "main" => $description->getMain(),
+			                   "api" => $description->getCompatibleApis(),
+			                   "depend" => $description->getDepend(),
+			                   "description" => $description->getDescription(),
+			                   "authors" => $description->getAuthors(),
+			                   "website" => $description->getWebsite(),
+			                   "creationDate" => time()
+		                   ]);
 		if($description->getName() === "DevTools"){
 			$phar->setStub('<?php require("phar://". __FILE__ ."/src/DevTools/ConsoleScript.php"); __HALT_COMPILER();');
 		}else{
@@ -88,6 +92,7 @@ class MakePluginCommand extends VanillaCommand{
 		}
 		$phar->stopBuffering();
 		$sender->sendMessage("Phar plugin " . $description->getName() . " v" . $description->getVersion() . " has been created on " . $pharPath);
+
 		return true;
 	}
 }

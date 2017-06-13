@@ -17,7 +17,7 @@
  *
  *
  */
- 
+
 namespace pocketmine\event\server;
 
 
@@ -29,7 +29,7 @@ class ServerShutdownEvent extends ServerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "ServerShutdownEvent";
 	}

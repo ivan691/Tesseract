@@ -216,6 +216,7 @@ class ListTag extends NamedTag implements \ArrayAccess, \Countable{
 				$str .= get_class($tag) . ":" . $tag->__toString() . "\n";
 			}
 		}
+
 		return $str . "}";
 	}
 }

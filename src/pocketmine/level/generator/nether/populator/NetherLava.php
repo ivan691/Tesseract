@@ -96,6 +96,7 @@ class NetherLava extends VariableAmountPopulator{
 					$this->level->setBlockDataAt($x, $y, $z, $decay);
 					$this->level->updateBlockLight($x, $y, $z);
 					$this->lavaSpread($x, $y, $z);
+
 					return;
 				}
 			}
@@ -152,6 +153,7 @@ class NetherLava extends VariableAmountPopulator{
 		if($id === Block::AIR or $id === Block::LAVA or $id === Block::STILL_LAVA){
 			return true;
 		}
+
 		return false;
 	}
 
@@ -265,6 +267,7 @@ class NetherLava extends VariableAmountPopulator{
 
 	private function canNetherLavaStay($x, $y, $z){
 		$b = $this->level->getBlockIdAt($x, $y, $z);
+
 		return $b === Block::AIR;
 	}
 

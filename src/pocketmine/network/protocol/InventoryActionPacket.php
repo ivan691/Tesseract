@@ -33,7 +33,7 @@ class InventoryActionPacket extends DataPacket{
 	public function decode(){
 
 	}
-	
+
 	public function encode(){
 		$this->putUnsignedVarInt($this->unknown);
 		$this->putSlot($this->item);
@@ -41,7 +41,7 @@ class InventoryActionPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "InventoryActionPacket";
 	}

@@ -67,6 +67,7 @@ class Item extends Entity{
 		}
 		if(!isset($this->namedtag->Item)){
 			$this->close();
+
 			return;
 		}
 
@@ -92,9 +93,9 @@ class Item extends Entity{
 		if($this->closed){
 			return false;
 		}
-		
+
 		$this->age++;
-		
+
 		$tickDiff = $currentTick - $this->lastUpdate;
 		if($tickDiff <= 0 and !$this->justCreated){
 			return true;
@@ -137,7 +138,7 @@ class Item extends Entity{
 				$this->motionY *= -0.5;
 			}
 
-			if($currentTick % 5 ==0)
+			if($currentTick % 5 == 0)
 				$this->updateMovement();
 
 			if($this->age > 2000){

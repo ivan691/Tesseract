@@ -30,7 +30,7 @@ class HopperInventory extends ContainerInventory{
 
 	/**
 	 * @return InventoryHolder|Hopper
-     */
+	 */
 	public function getHolder(){
 		return $this->holder;
 	}

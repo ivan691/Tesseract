@@ -49,7 +49,7 @@ class InventoryCloseEvent extends InventoryEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "InventoryCloseEvent";
 	}

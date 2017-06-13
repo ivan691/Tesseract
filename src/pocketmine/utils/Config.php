@@ -20,6 +20,7 @@
 */
 
 namespace pocketmine\utils;
+
 use pocketmine\scheduler\FileWriteTask;
 use pocketmine\Server;
 
@@ -71,9 +72,9 @@ class Config{
 	];
 
 	/**
-	 * @param string $file     Path of the file to be loaded
-	 * @param int    $type     Config type to load, -1 by default (detect)
-	 * @param array  $default  Array with the default values that will be written to the file if it did not exist
+	 * @param string $file Path of the file to be loaded
+	 * @param int    $type Config type to load, -1 by default (detect)
+	 * @param array  $default Array with the default values that will be written to the file if it did not exist
 	 * @param null   &$correct Sets correct to true if everything has been loaded correctly
 	 */
 	public function __construct($file, $type = Config::DETECT, $default = [], &$correct = null){
@@ -329,7 +330,7 @@ class Config{
 		foreach($this->nestedCache as $nestedKey => $nvalue){
 			if(substr($nestedKey, 0, strlen($k) + 1) === ($k . ".")){
 				unset($this->nestedCache[$nestedKey]);
-  			}
+			}
 		}
 	}
 
@@ -350,6 +351,7 @@ class Config{
 		if($lowercase === true){
 			$k = strtolower($k); //Convert requested  key to lower
 			$array = array_change_key_case($this->config, CASE_LOWER); //Change all keys in array to lower
+
 			return isset($array[$k]); //Find $k in modified array
 		}else{
 			return isset($this->config[$k]);

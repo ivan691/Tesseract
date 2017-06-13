@@ -124,18 +124,18 @@ class Normal2 extends Normal{
 
 		$ores = new Ore();
 		$ores->setOreTypes([
-			new OreType(new CoalOre(), 20, 17, 0, 128),
-			new OreType(new IronOre(), 20, 9, 0, 64),
-			new OreType(new RedstoneOre(), 8, 8, 0, 16),
-			new OreType(new LapisOre(), 1, 7, 0, 16),
-			new OreType(new GoldOre(), 2, 9, 0, 32),
-			new OreType(new DiamondOre(), 1, 8, 0, 16),
-			new OreType(new Dirt(), 10, 33, 0, 128),
-			new OreType(new Gravel(), 8, 33, 0, 128),
-			new OreType(new Stone(Stone::GRANITE), 10, 33, 0, 80),
-			new OreType(new Stone(Stone::DIORITE), 10, 33, 0, 80),
-			new OreType(new Stone(Stone::ANDESITE), 10, 33, 0, 80)
-		]);
+			                   new OreType(new CoalOre(), 20, 17, 0, 128),
+			                   new OreType(new IronOre(), 20, 9, 0, 64),
+			                   new OreType(new RedstoneOre(), 8, 8, 0, 16),
+			                   new OreType(new LapisOre(), 1, 7, 0, 16),
+			                   new OreType(new GoldOre(), 2, 9, 0, 32),
+			                   new OreType(new DiamondOre(), 1, 8, 0, 16),
+			                   new OreType(new Dirt(), 10, 33, 0, 128),
+			                   new OreType(new Gravel(), 8, 33, 0, 128),
+			                   new OreType(new Stone(Stone::GRANITE), 10, 33, 0, 80),
+			                   new OreType(new Stone(Stone::DIORITE), 10, 33, 0, 80),
+			                   new OreType(new Stone(Stone::ANDESITE), 10, 33, 0, 80)
+		                   ]);
 		$this->populators[] = $ores;
 	}
 
@@ -190,7 +190,7 @@ class Normal2 extends Normal{
 						$genyHeight = $this->seaFloorHeight;
 					}
 					$canRiver = false;
-				}else if($genyHeight <= $this->beathStopHeight && $genyHeight >= $this->beathStartHeight){
+				}elseif($genyHeight <= $this->beathStopHeight && $genyHeight >= $this->beathStartHeight){
 					$biome = Biome::getBiome(Biome::BEACH);
 				}else{
 					$biome = $this->pickBiome($chunkX * 16 + $genx, $chunkZ * 16 + $genz);

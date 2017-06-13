@@ -41,11 +41,12 @@ use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\protocol\AddPlayerPacket;
+use pocketmine\network\protocol\RemoveEntityPacket;
 use pocketmine\Player;
 use pocketmine\utils\UUID;
 
 class Human extends Creature implements ProjectileSource, InventoryHolder{
-	
+
 	const DATA_PLAYER_FLAG_SLEEP = 1;
 	const DATA_PLAYER_FLAG_DEAD = 2; //TODO: CHECK
 
@@ -55,7 +56,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 
 	/** @var PlayerInventory */
 	protected $inventory;
-	
+
 	/** @var EnderChestInventory */
 	protected $enderChestInventory;
 
@@ -233,8 +234,10 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		$this->server->getPluginManager()->callEvent($ev = new PlayerExperienceChangeEvent($this, $level, $this->getXpProgress()));
 		if(!$ev->isCancelled()){
 			$this->attributeMap->getAttribute(Attribute::EXPERIENCE_LEVEL)->setValue($ev->getExpLevel());
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -252,6 +255,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 
 	public function setXpProgress(float $progress) : bool{
 		$this->attributeMap->getAttribute(Attribute::EXPERIENCE)->setValue($progress);
+
 		return true;
 	}
 
@@ -262,7 +266,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 	/**
 	 * Changes the total exp of a player
 	 *
-	 * @param int $xp
+	 * @param int  $xp
 	 * @param bool $syncLevel This will reset the level to be in sync with the total. Usually you don't want to do this,
 	 *                        because it'll mess up use of xp in anvils and enchanting tables.
 	 *
@@ -305,8 +309,10 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 			$this->totalXp = $xp;
 			$this->setXpLevel($ev->getExpLevel());
 			$this->setXpProgress($ev->getProgress());
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -328,6 +334,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 
 	public function recalculateXpProgress() : float{
 		$this->setXpProgress($progress = $this->getRemainderXp() / self::getLevelXpRequirement($this->getXpLevel()));
+
 		return $progress;
 	}
 
@@ -359,6 +366,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		}elseif($level <= 21863){
 			return (4.5 * ($level ** 2)) - (162.5 * $level) + 2220;
 		}
+
 		return PHP_INT_MAX; //prevent float returns for invalid levels on 32-bit systems
 	}
 
@@ -377,6 +385,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		}elseif($level <= 21863){
 			return (9 * $level) - 158;
 		}
+
 		return PHP_INT_MAX;
 	}
 
@@ -412,13 +421,14 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 		$answer = max(Math::solveQuadratic($a, $b, $c)); //Use largest result value
 		$level = floor($answer);
 		$progress = $answer - $level;
+
 		return [$level, $progress];
 	}
 
 	public function getInventory(){
 		return $this->inventory;
 	}
-	
+
 	public function getEnderChestInventory(){
 		return $this->enderChestInventory;
 	}
@@ -433,6 +443,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 			//Potential for crashes here if a plugin attempts to use this, say for an NPC plugin or something...
 			$this->transactionQueue = new SimpleTransactionQueue($this);
 		}
+
 		return $this->transactionQueue;
 	}
 
@@ -619,7 +630,7 @@ class Human extends Creature implements ProjectileSource, InventoryHolder{
 				}
 			}
 		}
-		
+
 		$this->namedtag->EnderChestInventory = new ListTag("EnderChestInventory", []);
 		$this->namedtag->Inventory->setTagType(NBT::TAG_Compound);
 		if($this->enderChestInventory !== null){

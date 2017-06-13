@@ -58,7 +58,7 @@ class NetherBrickFence extends Transparent{
 		return ($block instanceof NetherBrickFence) or ($block->isSolid() and !$block->isTransparent());
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		if($item->isPickaxe() >= Tool::TIER_WOODEN){
 			return [
 				[Item::NETHER_BRICK_FENCE, $this->meta, 1],

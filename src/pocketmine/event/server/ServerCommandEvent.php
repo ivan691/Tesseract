@@ -74,7 +74,7 @@ class ServerCommandEvent extends ServerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "ServerCommandEvent";
 	}

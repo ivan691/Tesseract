@@ -71,7 +71,7 @@ class PlayerInventory extends BaseInventory{
 					}
 				}
 			}else{
-				throw new \InvalidArgumentException("Expecting ListTag, received ".gettype($contents));
+				throw new \InvalidArgumentException("Expecting ListTag, received " . gettype($contents));
 			}
 		}
 	}
@@ -96,13 +96,14 @@ class PlayerInventory extends BaseInventory{
 		return ($index >= 0 and $index < $this->getHotbarSize()) ? $this->hotbar[$index] : -1;
 	}
 
-    /**
-     * @deprecated
-     *
-     * Changes the linkage of the specified hotbar slot. This should never be done unless it is requested by the client.
-     * @param $index
-     * @param $slot
-     */
+	/**
+	 * @deprecated
+	 *
+	 * Changes the linkage of the specified hotbar slot. This should never be done unless it is requested by the client.
+	 *
+	 * @param $index
+	 * @param $slot
+	 */
 	public function setHotbarSlotIndex($index, $slot){
 		if($this->getHolder()->getServer()->getProperty("settings.deprecated-verbose") !== false){
 			trigger_error("Do not attempt to change hotbar links in plugins!", E_USER_DEPRECATED);
@@ -151,6 +152,7 @@ class PlayerInventory extends BaseInventory{
 					if($ev->isCancelled()){
 						$this->sendHeldItem($this->getHolder());
 						$this->sendContents($this->getHolder());
+
 						return;
 					}
 				}
@@ -216,6 +218,7 @@ class PlayerInventory extends BaseInventory{
 
 	/**
 	 * @deprecated
+	 *
 	 * @param int $slot
 	 */
 	public function setHeldItemSlot($slot){
@@ -281,14 +284,14 @@ class PlayerInventory extends BaseInventory{
 	public function setArmorItem($index, Item $item){
 		return $this->setItem($this->getSize() + $index, $item);
 	}
-	
+
 	public function damageArmor($index, $cost){
- 		$this->slots[$this->getSize() + $index]->useOn($this->slots[$this->getSize() + $index], $cost);
- 	    if($this->slots[$this->getSize() + $index]->getDamage() >= $this->slots[$this->getSize() + $index]->getMaxDurability()){
- 		$this->setItem($this->getSize() + $index, Item::get(Item::AIR, 0, 0));
+		$this->slots[$this->getSize() + $index]->useOn($this->slots[$this->getSize() + $index], $cost);
+		if($this->slots[$this->getSize() + $index]->getDamage() >= $this->slots[$this->getSize() + $index]->getMaxDurability()){
+			$this->setItem($this->getSize() + $index, Item::get(Item::AIR, 0, 0));
 		}
- 		$this->sendArmorContents($this->getViewers());
- 	}
+		$this->sendArmorContents($this->getViewers());
+	}
 
 	public function getHelmet(){
 		return $this->getItem($this->getSize());
@@ -333,6 +336,7 @@ class PlayerInventory extends BaseInventory{
 			Server::getInstance()->getPluginManager()->callEvent($ev = new EntityArmorChangeEvent($this->getHolder(), $this->getItem($index), $item, $index));
 			if($ev->isCancelled() and $this->getHolder() instanceof Human){
 				$this->sendArmorSlot($index, $this->getViewers());
+
 				return false;
 			}
 			$item = $ev->getNewItem();
@@ -340,6 +344,7 @@ class PlayerInventory extends BaseInventory{
 			Server::getInstance()->getPluginManager()->callEvent($ev = new EntityInventoryChangeEvent($this->getHolder(), $this->getItem($index), $item, $index));
 			if($ev->isCancelled()){
 				$this->sendSlot($index, $this->getViewers());
+
 				return false;
 			}
 			$item = $ev->getNewItem();
@@ -365,6 +370,7 @@ class PlayerInventory extends BaseInventory{
 					}else{
 						$this->sendSlot($index, $this->getViewers());
 					}
+
 					return false;
 				}
 				$item = $ev->getNewItem();
@@ -376,6 +382,7 @@ class PlayerInventory extends BaseInventory{
 					}else{
 						$this->sendSlot($index, $this->getViewers());
 					}
+
 					return false;
 				}
 				$item = $ev->getNewItem();
@@ -435,7 +442,7 @@ class PlayerInventory extends BaseInventory{
 				$pk2 = new ContainerSetContentPacket();
 				$pk2->windowid = ContainerSetContentPacket::SPECIAL_ARMOR;
 				$pk2->slots = $armor;
-                $pk2->targetEid = $player->getId();
+				$pk2->targetEid = $player->getId();
 				$player->dataPacket($pk2);
 			}else{
 				$player->dataPacket($pk);
@@ -524,7 +531,7 @@ class PlayerInventory extends BaseInventory{
 				continue;
 			}
 			$pk->windowid = $id;
-            $pk->targetEid = $player->getId();
+			$pk->targetEid = $player->getId();
 			$player->dataPacket(clone $pk);
 		}
 	}
@@ -560,7 +567,7 @@ class PlayerInventory extends BaseInventory{
 
 	/**
 	 * @return Human|InventoryHolder|Player
-     */
+	 */
 	public function getHolder(){
 		return parent::getHolder();
 	}

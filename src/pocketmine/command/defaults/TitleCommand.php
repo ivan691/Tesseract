@@ -20,15 +20,14 @@
  * 
  *
  */
- 
- namespace pocketmine\command\defaults;
 
+namespace pocketmine\command\defaults;
+
+use pocketmine\network\protocol\SetTitlePacket;
 use pocketmine\command\CommandSender;
-use pocketmine\Player;
 
-class TitleCommand extends VanillaCommand {
+class TitleCommand extends VanillaCommand{
 
-	//TODO
 	public function __construct($name){
 		parent::__construct(
 			$name,
@@ -37,16 +36,17 @@ class TitleCommand extends VanillaCommand {
 		);
 		$this->setPermission("pocketmine.command.title");
 	}
-  
+
 	public function execute(CommandSender $sender, $currentAlias, array $args){
 		if($sender instanceof Player){
 			if(!$this->testPermission($sender)){
 				return true;
 			}
 			if(count($args) <= 0){
-				$sender->sendMessage("pocketmine.command.title.usage");
+				$sender->sendMessage("Usage: /title <title> <subtile> [text]");
+
 				return false;
 			}
-        }
-    }
+		}
+	}
 }

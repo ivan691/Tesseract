@@ -46,6 +46,7 @@ class CraftingDataPacket extends DataPacket{
 
 	public function clean(){
 		$this->entries = [];
+
 		return parent::clean();
 	}
 
@@ -114,6 +115,7 @@ class CraftingDataPacket extends DataPacket{
 		}elseif($entry instanceof FurnaceRecipe){
 			return self::writeFurnaceRecipe($entry, $stream);
 		}
+
 		//TODO: add MultiRecipe
 
 		return -1;
@@ -200,7 +202,7 @@ class CraftingDataPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "CraftingDataPacket";
 	}

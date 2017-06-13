@@ -44,7 +44,7 @@ class ProjectileHitEvent extends EntityEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "ProjectileHitEvent";
 	}

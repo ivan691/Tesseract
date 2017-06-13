@@ -32,7 +32,7 @@ class EntityGenerateEvent extends EntityEvent implements Cancellable{
 	const CAUSE_AI_HOLDER = 0;
 	const CAUSE_MOB_SPAWNER = 1;
 
-	/** @var Position  */
+	/** @var Position */
 	private $position;
 	private $cause;
 	private $entityType;
@@ -70,7 +70,7 @@ class EntityGenerateEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityGenerateEvent";
 	}

@@ -47,6 +47,7 @@ class LilyPad extends VariableAmountPopulator{
 
 	private function canLilyPadStay($x, $y, $z){
 		$b = $this->level->getBlockIdAt($x, $y, $z);
+
 		return ($b === Block::AIR or $b === Block::SNOW_LAYER) and $this->level->getBlockIdAt($x, $y - 1, $z) === Block::STILL_WATER;
 	}
 

@@ -42,6 +42,7 @@ class MelonStem extends Crops{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if($this->getSide(0)->isTransparent() === true){
 				$this->getLevel()->useBreakOn($this);
+
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}elseif($type === Level::BLOCK_UPDATE_RANDOM){
@@ -79,7 +80,7 @@ class MelonStem extends Crops{
 		return false;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [
 			[Item::MELON_SEEDS, 0, mt_rand(0, 2)],
 		];

@@ -22,6 +22,7 @@
 /**
  * Events related Plugin enable / disable events
  */
+
 namespace pocketmine\event\plugin;
 
 use pocketmine\event\Event;
@@ -45,7 +46,7 @@ abstract class PluginEvent extends Event{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PluginEvent";
 	}

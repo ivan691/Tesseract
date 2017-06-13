@@ -45,7 +45,7 @@ class WaterLily extends Flowable{
 		return "Lily Pad";
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 0;
 	}
 
@@ -57,7 +57,7 @@ class WaterLily extends Flowable{
 		return true;
 	}
 
-	protected function recalculateBoundingBox() {
+	protected function recalculateBoundingBox(){
 		return new AxisAlignedBB(
 			$this->x,
 			$this->y,
@@ -74,6 +74,7 @@ class WaterLily extends Flowable{
 			$up = $target->getSide(Vector3::SIDE_UP);
 			if($up->getId() === Block::AIR){
 				$this->getLevel()->setBlock($up, $this, true, true);
+
 				return true;
 			}
 		}
@@ -85,6 +86,7 @@ class WaterLily extends Flowable{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if(!($this->getSide(0) instanceof Water)){
 				$this->getLevel()->useBreakOn($this);
+
 				return Level::BLOCK_UPDATE_NORMAL;
 			}
 		}
@@ -92,7 +94,7 @@ class WaterLily extends Flowable{
 		return false;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [
 			[$this->id, 0, 1]
 		];

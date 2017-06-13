@@ -127,6 +127,7 @@ class Cave extends Populator{
 				if($startingNode == $intersectionMode and $horizontalScale > 1 and $nodeAmount > 0){
 					$this->generateCaveBranch($level, $chunk, $target, $random->nextFloat() * 0.5 + 0.5, 1, $horizontalAngle - pi() / 2, $verticalAngle / 3, $startingNode, $nodeAmount, new Random($random->nextInt()));
 					$this->generateCaveBranch($level, $chunk, $target, $random->nextFloat() * 0.5 + 0.5, 1, $horizontalAngle - pi() / 2, $verticalAngle / 3, $startingNode, $nodeAmount, new Random($random->nextInt()));
+
 					return;
 				}
 
@@ -217,6 +218,7 @@ class CaveNode{
 				}
 			}
 		}
+
 		return true;
 	}
 

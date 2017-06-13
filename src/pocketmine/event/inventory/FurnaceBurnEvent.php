@@ -86,7 +86,7 @@ class FurnaceBurnEvent extends BlockEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "FurnaceBurnEvent";
 	}

@@ -93,6 +93,7 @@ class Villager extends Creature implements NPC, Ageable{
 
 	public function getProfession() : int{
 		$pro = (int) $this->namedtag["Profession"];
+
 		return min(4, max(0, $pro));
 	}
 

@@ -129,6 +129,7 @@ class AxisAlignedBB{
 		$this->maxX = $bb->maxX;
 		$this->maxY = $bb->maxY;
 		$this->maxZ = $bb->maxZ;
+
 		return $this;
 	}
 

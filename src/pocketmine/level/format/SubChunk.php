@@ -19,7 +19,7 @@
  *
 */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace pocketmine\level\format;
 
@@ -48,10 +48,10 @@ class SubChunk{
 
 	public function isEmpty() : bool{
 		return (
-            substr_count($this->ids, "\x00") === 4096 and
-            substr_count($this->skyLight, "\xff") === 2048 and
-            substr_count($this->blockLight, "\x00") === 2048
-    );
+			substr_count($this->ids, "\x00") === 4096 and
+			substr_count($this->skyLight, "\xff") === 2048 and
+			substr_count($this->blockLight, "\x00") === 2048
+		);
 	}
 
 	public function getBlockId(int $x, int $y, int $z) : int{
@@ -60,6 +60,7 @@ class SubChunk{
 
 	public function setBlockId(int $x, int $y, int $z, int $id) : bool{
 		$this->ids{($x << 8) | ($z << 4) | $y} = chr($id);
+
 		return true;
 	}
 
@@ -79,6 +80,7 @@ class SubChunk{
 		}else{
 			$this->data{$i} = chr((($data & 0x0f) << 4) | (ord($this->data{$i}) & 0x0f));
 		}
+
 		return true;
 	}
 
@@ -135,6 +137,7 @@ class SubChunk{
 		}else{
 			$this->blockLight{$i} = chr((($level & 0x0f) << 4) | ($byte & 0x0f));
 		}
+
 		return true;
 	}
 
@@ -155,6 +158,7 @@ class SubChunk{
 		}else{
 			$this->skyLight{$i} = chr((($level & 0x0f) << 4) | ($byte & 0x0f));
 		}
+
 		return true;
 	}
 
@@ -186,21 +190,25 @@ class SubChunk{
 
 	public function getBlockIdArray() : string{
 		assert(strlen($this->ids) === 4096, "Wrong length of ID array, expecting 4096 bytes, got " . strlen($this->ids));
+
 		return $this->ids;
 	}
 
 	public function getBlockDataArray() : string{
 		assert(strlen($this->data) === 2048, "Wrong length of data array, expecting 2048 bytes, got " . strlen($this->data));
+
 		return $this->data;
 	}
 
 	public function getSkyLightArray() : string{
 		assert(strlen($this->skyLight) === 2048, "Wrong length of skylight array, expecting 2048 bytes, got " . strlen($this->skyLight));
+
 		return $this->skyLight;
 	}
 
 	public function getBlockLightArray() : string{
 		assert(strlen($this->blockLight) === 2048, "Wrong length of light array, expecting 2048 bytes, got " . strlen($this->blockLight));
+
 		return $this->blockLight;
 	}
 
@@ -219,7 +227,7 @@ class SubChunk{
 
 	public static function fastDeserialize(string $data) : SubChunk{
 		return new SubChunk(
-			substr($data,    0, 4096), //ids
+			substr($data, 0, 4096), //ids
 			substr($data, 4096, 2048), //data
 			substr($data, 6144, 2048), //sky light
 			substr($data, 8192, 2048)  //block light

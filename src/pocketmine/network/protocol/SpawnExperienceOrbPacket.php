@@ -1,4 +1,5 @@
 <?php
+
 namespace pocketmine\network\protocol;
 
 #include <rules/DataPacket.h>
@@ -25,7 +26,7 @@ class SpawnExperienceOrbPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "SpawnExperienceOrbPacket";
 	}

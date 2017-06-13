@@ -73,8 +73,10 @@ class Cauldron extends Spawnable{
 			$green = ($color >> 8) & 0xff;
 			$red = ($color >> 16) & 0xff;
 			$blue = ($color) & 0xff;
+
 			return Color::getRGB($red, $green, $blue);
 		}
+
 		return null;
 	}
 
@@ -125,6 +127,7 @@ class Cauldron extends Spawnable{
 		if($this->getPotionId() === 0xffff and $this->isCustomColor()){
 			$nbt->CustomColor = $this->namedtag->CustomColor;
 		}
+
 		return $nbt;
 	}
 }

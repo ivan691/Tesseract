@@ -22,6 +22,7 @@
 /**
  * Named Binary Tag handling classes
  */
+
 namespace pocketmine\nbt;
 
 use pocketmine\nbt\tag\ByteArrayTag;
@@ -145,6 +146,7 @@ class NBT{
 				$tag1->{$k} = clone $v;
 			}
 		}
+
 		return $tag1;
 	}
 
@@ -155,6 +157,7 @@ class NBT{
 			if($c === "{"){
 				++$offset;
 				$data = self::parseCompound($data, $offset);
+
 				return new CompoundTag("", $data);
 			}elseif($c !== " " and $c !== "\r" and $c !== "\n" and $c !== "\t"){
 				throw new \Exception("Syntax error: unexpected '$c' at offset $offset");
@@ -402,6 +405,7 @@ class NBT{
 	public function get($len){
 		if($len < 0){
 			$this->offset = strlen($this->buffer) - 1;
+
 			return "";
 		}elseif($len === true){
 			return substr($this->buffer, $this->offset);
@@ -462,6 +466,7 @@ class NBT{
 			foreach($this->data as $tag){
 				$this->writeTag($tag, $network);
 			}
+
 			return $this->buffer;
 		}
 
@@ -541,6 +546,7 @@ class NBT{
 				$tag = new EndTag;
 				break;
 		}
+
 		return $tag;
 	}
 
@@ -572,6 +578,7 @@ class NBT{
 		if($network === true){
 			return Binary::readVarInt($this);
 		}
+
 		return $this->endianness === self::BIG_ENDIAN ? Binary::readInt($this->get(4)) : Binary::readLInt($this->get(4));
 	}
 
@@ -609,6 +616,7 @@ class NBT{
 
 	public function getString(bool $network = false){
 		$len = $network ? Binary::readUnsignedVarInt($this) : $this->getShort();
+
 		return $this->get($len);
 	}
 

@@ -40,7 +40,7 @@ class Zombie extends Monster{
 	public function getName() : string{
 		return "Zombie";
 	}
-	
+
 	public function initEntity(){
 		$this->setMaxHealth(20);
 		parent::initEntity();

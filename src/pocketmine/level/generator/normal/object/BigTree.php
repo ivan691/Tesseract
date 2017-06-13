@@ -58,8 +58,10 @@ class BigTree extends Tree{
 			if($availableSpace != -1){
 				$this->totalHeight = $availableSpace;
 			}
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -77,7 +79,7 @@ class BigTree extends Tree{
 				$this->generateGroupLayer($level, $groupX, $yy, $groupZ, $this->getLeafGroupLayerSize($yy - $groupY));
 			}
 		}
-		$trunk = new VectorIterator($level, new Vector3($x, $y -1, $z), new Vector3($x, $y + $this->trunkHeight, $z));
+		$trunk = new VectorIterator($level, new Vector3($x, $y - 1, $z), new Vector3($x, $y + $this->trunkHeight, $z));
 		while($trunk->valid()){
 			$trunk->next();
 			$pos = $trunk->current();
@@ -132,6 +134,7 @@ class BigTree extends Tree{
 			}
 			$groupY--;
 		}
+
 		return $groups;
 	}
 
@@ -139,6 +142,7 @@ class BigTree extends Tree{
 		if($y >= 0 and $y < $this->leafDistanceLimit){
 			return (int) (($y != ($this->leafDistanceLimit - 1)) ? 3 : 2);
 		}
+
 		return -1;
 	}
 
@@ -156,7 +160,7 @@ class BigTree extends Tree{
 		}
 	}
 
-	private function getRoughLayerSize(int $layer) : float {
+	private function getRoughLayerSize(int $layer) : float{
 		$halfHeight = $this->totalHeight / 2;
 		if($layer < ($this->totalHeight / 3)){
 			return -1;
@@ -196,6 +200,7 @@ class BigTree extends Tree{
 			}
 			$count++;
 		}
+
 		return -1;
 	}
 }

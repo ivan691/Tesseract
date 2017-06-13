@@ -17,6 +17,7 @@
  * @link https://itxtech.org
  *
  */
+
 namespace pocketmine\tile;
 
 use pocketmine\item\Item;
@@ -92,6 +93,7 @@ class ItemFrame extends Spawnable{
 		if($this->hasItem()){
 			$tag->Item = $this->namedtag->Item;
 		}
+
 		return $tag;
 	}
 

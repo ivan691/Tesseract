@@ -202,6 +202,7 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 		if(isset($this->originals[$type])){
 			return $this->originals[$type];
 		}
+
 		return 0;
 	}
 
@@ -237,6 +238,7 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 		if(isset($this->rateModifiers[$type])){
 			return $this->rateModifiers[$type];
 		}
+
 		return 1;
 	}
 
@@ -274,12 +276,13 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 				$damage += $d;
 			}
 		}
+
 		return $damage;
 	}
 
 	/**
 	 * @return array|Item
-     * notice: $usedArmors $index->$cost
+	 * notice: $usedArmors $index->$cost
 	 * $index: the $index of ArmorInventory
 	 * $cost:  the num of durability cost
 	 */
@@ -307,8 +310,10 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 					}
 				}
 			}
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -334,13 +339,14 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 			return false;
 		}else{
 			$this->usedArmors[$this->thornsArmor] = 3;
+
 			return true;
 		}
 	}
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityDamageEvent";
 	}

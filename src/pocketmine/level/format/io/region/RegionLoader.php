@@ -19,7 +19,7 @@
  *
 */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace pocketmine\level\format\io\region;
 
@@ -100,6 +100,7 @@ class RegionLoader{
 				$this->locationTable[$index][1] = 1;
 				MainLogger::getLogger()->error("Corrupted chunk header detected");
 			}
+
 			return null;
 		}
 
@@ -109,6 +110,7 @@ class RegionLoader{
 			$this->writeLocationIndex($index);
 		}elseif($compression !== self::COMPRESSION_ZLIB and $compression !== self::COMPRESSION_GZIP){
 			MainLogger::getLogger()->error("Invalid compression type");
+
 			return null;
 		}
 
@@ -117,6 +119,7 @@ class RegionLoader{
 			return $chunk;
 		}else{
 			MainLogger::getLogger()->error("Corrupted chunk detected");
+
 			return null;
 		}
 	}
@@ -128,7 +131,7 @@ class RegionLoader{
 	protected function saveChunk(int $x, int $z, string $chunkData){
 		$length = strlen($chunkData) + 1;
 		if($length + 4 > self::MAX_SECTOR_LENGTH){
-			throw new ChunkException("Chunk is too big! ".($length + 4)." > ".self::MAX_SECTOR_LENGTH);
+			throw new ChunkException("Chunk is too big! " . ($length + 4) . " > " . self::MAX_SECTOR_LENGTH);
 		}
 		$sectors = (int) ceil(($length + 4) / 4096);
 		$index = self::getChunkOffset($x, $z);
@@ -248,6 +251,7 @@ class RegionLoader{
 			$lastSector = $sector;
 		}
 		ftruncate($this->filePointer, ($sector + 1) << 12); //Truncate to the end of file written
+
 		return $shift;
 	}
 

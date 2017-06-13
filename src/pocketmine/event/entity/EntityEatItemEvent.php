@@ -46,7 +46,7 @@ class EntityEatItemEvent extends EntityEatEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityEatItemEvent";
 	}

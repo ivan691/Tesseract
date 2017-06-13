@@ -57,6 +57,7 @@ class OpCommand extends VanillaCommand{
 			$player->sendMessage(TextFormat::GRAY . "You are now op!");
 		}
 		$player->setOp(true);
+
 		return true;
 	}
 }

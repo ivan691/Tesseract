@@ -122,10 +122,12 @@ abstract class AsyncTask extends \Threaded implements \Collectable{
 	 * You have to initialize this in some way from the task on run
 	 *
 	 * @param string $identifier
+	 *
 	 * @return mixed
 	 */
 	public function getFromThreadStore($identifier){
 		global $store;
+
 		return $this->isGarbage() ? null : $store[$identifier];
 	}
 

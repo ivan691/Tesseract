@@ -59,10 +59,10 @@ class DropItemTransaction extends BaseTransaction{
 
 	public function getChange(){
 		return ["in" => $this->getTargetItem(),
-				"out" => null];
+			"out" => null];
 	}
 
-	public function execute(Player $source): bool{
+	public function execute(Player $source) : bool{
 		$droppedItem = $this->getTargetItem();
 		if(!$source->getServer()->allowInventoryCheats and !$source->isCreative()){
 			if(!$source->getFloatingInventory()->contains($droppedItem)){
@@ -71,6 +71,7 @@ class DropItemTransaction extends BaseTransaction{
 			$source->getFloatingInventory()->removeItem($droppedItem);
 		}
 		$source->dropItem($droppedItem);
+
 		return true;
 	}
 }

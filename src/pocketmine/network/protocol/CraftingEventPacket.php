@@ -37,6 +37,7 @@ class CraftingEventPacket extends DataPacket{
 	public function clean(){
 		$this->input = [];
 		$this->output = [];
+
 		return parent::clean();
 	}
 
@@ -62,7 +63,7 @@ class CraftingEventPacket extends DataPacket{
 
 	/**
 	 * @return PacketName|string
-     */
+	 */
 	public function getName(){
 		return "CraftingEventPacket";
 	}

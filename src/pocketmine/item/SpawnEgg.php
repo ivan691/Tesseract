@@ -37,7 +37,7 @@ class SpawnEgg extends Item{
 		parent::__construct(self::SPAWN_EGG, $meta, $count, "Spawn Egg");
 	}
 
-	public function canBeActivated() : bool {
+	public function canBeActivated() : bool{
 		return true;
 	}
 
@@ -75,6 +75,7 @@ class SpawnEgg extends Item{
 					$player->getInventory()->setItemInHand($item);
 				}
 				$entity->spawnToAll();
+
 				return true;
 			}
 		}

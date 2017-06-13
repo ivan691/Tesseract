@@ -43,6 +43,7 @@ abstract class Food extends Item implements FoodSource{
 		}else{
 			$new = clone $this;
 			$new->count--;
+
 			return $new;
 		}
 	}
@@ -58,9 +59,9 @@ abstract class Food extends Item implements FoodSource{
 		if($human instanceof Player){
 			$human->dataPacket($pk);
 		}
-		
+
 		$server = $human->getLevel()->getServer();
-		
+
 		$server->broadcastPacket($human->getViewers(), $pk);
 
 		Server::getInstance()->getPluginManager()->callEvent($ev = new EntityEatItemEvent($human, $this));

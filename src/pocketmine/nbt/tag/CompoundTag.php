@@ -108,6 +108,7 @@ class CompoundTag extends NamedTag implements \ArrayAccess{
 				$str .= get_class($tag) . ":" . $tag->__toString() . "\n";
 			}
 		}
+
 		return $str . "}";
 	}
 }

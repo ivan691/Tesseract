@@ -114,6 +114,7 @@ class BanEntry{
 				$datetime = \DateTime::createFromFormat(self::$format, array_shift($str));
 				if(!($datetime instanceof \DateTime)){
 					MainLogger::getLogger()->alert("Error parsing date for BanEntry for player \"" . $entry->getName() . "\", the format may be invalid!");
+
 					return $entry;
 				}
 				$entry->setCreated($datetime);

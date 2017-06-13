@@ -22,6 +22,7 @@
 /**
  * All the NBT Tags
  */
+
 namespace pocketmine\nbt\tag;
 
 use pocketmine\nbt\NBT;

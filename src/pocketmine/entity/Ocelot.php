@@ -42,7 +42,7 @@ class Ocelot extends Animal{
 	public $height = 0.75;
 
 	public $dropExp = [1, 3];
-	
+
 	public function getName() : string{
 		return "Ocelot";
 	}

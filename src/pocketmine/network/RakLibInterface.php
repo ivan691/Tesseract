@@ -23,6 +23,7 @@ namespace pocketmine\network;
 
 use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\network\protocol\DataPacket;
+use pocketmine\network\protocol\Info as ProtocolInfo;
 use pocketmine\network\protocol\Info;
 use pocketmine\network\protocol\BatchPacket;
 use pocketmine\Player;
@@ -152,7 +153,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 	public function blockAddress($address, $timeout = 300){
 		$this->interface->blockAddress($address, $timeout);
 	}
-	
+
 	public function unblockAddress($address){
 		$this->interface->unblockAddress($address);
 	}
@@ -185,11 +186,11 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 		}
 
 		$this->interface->sendOption("name",
-			"MCPE;" . rtrim(addcslashes($name, ";"), '\\') . ";" .
-			Info::CURRENT_PROTOCOL . ";" .
-			Info::MINECRAFT_VERSION_NETWORK . ";" .
-			$poc . ";" .
-			$pc
+		                             "MCPE;" . rtrim(addcslashes($name, ";"), '\\') . ";" .
+		                             Info::CURRENT_PROTOCOL . ";" .
+		                             Info::MINECRAFT_VERSION_NETWORK . ";" .
+		                             $poc . ";" .
+		                             $pc
 		);
 	}
 
@@ -209,7 +210,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 			$identifier = $this->identifiers[$h];
 			if(!$packet->isEncoded){
 				$packet->encode();
-                $packet->isEncoded = true;
+				$packet->isEncoded = true;
 			}
 
 			if($packet instanceof BatchPacket){
@@ -234,9 +235,11 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 				}
 
 				$this->interface->sendEncapsulated($identifier, $pk, ($needACK === true ? RakLib::FLAG_NEED_ACK : 0) | ($immediate === true ? RakLib::PRIORITY_IMMEDIATE : RakLib::PRIORITY_NORMAL));
+
 				return $pk->identifierACK;
 			}else{
 				$this->server->batchPackets([$player], [$packet], true);
+
 				return null;
 			}
 		}

@@ -60,6 +60,7 @@ class VectorIterator implements \Iterator{
 		if($from->equals($to)){
 			$this->end = true;
 			$this->currentBlock = -1;
+
 			return;
 		}
 		$direction = $to->subtract($from)->normalize();
@@ -234,13 +235,14 @@ class VectorIterator implements \Iterator{
 
 	/**
 	 * @return Block|Vector3
-     *
+	 *
 	 * @throws \OutOfBoundsException
 	 */
 	public function current(){
 		if($this->currentBlockObject === null){
 			throw new \OutOfBoundsException;
 		}
+
 		return $this->currentBlockObject;
 	}
 
@@ -254,6 +256,7 @@ class VectorIterator implements \Iterator{
 
 	public function valid(){
 		$this->scan();
+
 		return $this->currentBlock !== -1;
 	}
 
@@ -264,6 +267,7 @@ class VectorIterator implements \Iterator{
 
 		if($this->maxDistance !== 0 and $this->currentDistance > $this->maxDistanceInt){
 			$this->end = true;
+
 			return;
 		}
 

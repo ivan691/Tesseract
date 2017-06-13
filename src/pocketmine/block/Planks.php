@@ -38,7 +38,7 @@ class Planks extends Solid{
 		$this->meta = $meta;
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 2;
 	}
 
@@ -65,6 +65,7 @@ class Planks extends Solid{
 			6 => "Unknown Planks",
 			7 => "Unknown Planks"
 		];
+
 		return $names[$this->meta & 0x07];
 	}
 

@@ -44,7 +44,7 @@ class BlockSpreadEvent extends BlockFormEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "BlockSpreadEvent";
 	}

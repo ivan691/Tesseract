@@ -20,6 +20,7 @@
  */
 
 namespace pocketmine\event\server;
+
 use pocketmine\utils\Utils;
 
 
@@ -88,7 +89,7 @@ class LowMemoryEvent extends ServerEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "LowMemoryEvent";
 	}

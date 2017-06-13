@@ -37,7 +37,7 @@ class Sheep extends Animal implements Colorable{
 	public $width = 0.625;
 	public $length = 1.4375;
 	public $height = 1.8;
-	
+
 	public function getName() : string{
 		return "Sheep";
 	}
@@ -68,6 +68,7 @@ class Sheep extends Animal implements Colorable{
 		$rand .= str_repeat(Wool::RED . " ", 5);
 		$rand .= str_repeat(Wool::BLACK . " ", 10);
 		$arr = explode(" ", $rand);
+
 		return intval($arr[mt_rand(0, count($arr) - 1)]);
 	}
 
@@ -78,7 +79,7 @@ class Sheep extends Animal implements Colorable{
 	public function setColor(int $color){
 		$this->namedtag->Color = new ByteTag("Color", $color);
 	}
-	
+
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();
@@ -96,11 +97,12 @@ class Sheep extends Animal implements Colorable{
 
 		parent::spawnTo($player);
 	}
-	
+
 	public function getDrops(){
 		$drops = [
 			ItemItem::get(ItemItem::WOOL, $this->getColor(), 1)
 		];
+
 		return $drops;
 	}
 }

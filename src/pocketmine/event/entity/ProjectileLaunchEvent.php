@@ -45,7 +45,7 @@ class ProjectileLaunchEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "ProjectileLaunchEvent";
 	}

@@ -62,6 +62,7 @@ class Bucket extends Item{
 					if($player->isSurvival()){
 						$player->getInventory()->setItemInHand($ev->getItem());
 					}
+
 					return true;
 				}else{
 					$player->getInventory()->sendContents($player);
@@ -80,6 +81,7 @@ class Bucket extends Item{
 				if($player->isSurvival()){
 					$player->getInventory()->setItemInHand($ev->getItem());
 				}
+
 				return true;
 			}else{
 				$player->getInventory()->sendContents($player);

@@ -172,6 +172,7 @@ abstract class Projectile extends Entity{
 					}
 
 					$this->kill();
+
 					return true;
 				}
 			}

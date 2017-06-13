@@ -22,6 +22,7 @@
 /**
  * Block related events
  */
+
 namespace pocketmine\event\block;
 
 use pocketmine\block\Block;
@@ -47,7 +48,7 @@ abstract class BlockEvent extends Event{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "BlockEvent";
 	}

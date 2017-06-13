@@ -53,7 +53,7 @@ class PlayerItemConsumeEvent extends PlayerEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerItemConsumeEvent";
 	}

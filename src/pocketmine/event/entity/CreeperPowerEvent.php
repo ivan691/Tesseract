@@ -53,7 +53,7 @@ class CreeperPowerEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "CreeperPowerEvent";
 	}

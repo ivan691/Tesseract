@@ -34,7 +34,7 @@ class SimpleTransactionQueue implements TransactionQueue{
 	protected $transactionQueue;
 	/** @var \SplQueue */
 	protected $transactionsToRetry;
-	
+
 	/** @var Inventory[] */
 	protected $inventories;
 

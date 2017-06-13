@@ -28,11 +28,11 @@ class Silverfish extends Monster{
 	const NETWORK_ID = 39;
 
 	public $dropExp = [5, 5];
-	
+
 	public function getName() : string{
 		return "Silverfish";
 	}
-	
+
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();

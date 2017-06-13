@@ -51,7 +51,7 @@ class Purpur extends Solid{
 		return $names[$this->meta & 0x0f] ?? "Purpur Block"; //TODO fix properly;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		if($item->isPickaxe() >= Tool::TIER_WOODEN){
 
 			return [

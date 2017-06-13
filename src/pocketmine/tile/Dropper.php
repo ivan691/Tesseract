@@ -165,6 +165,7 @@ class Dropper extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function setName($str){
 		if($str === ""){
 			unset($this->namedtag->CustomName);
+
 			return;
 		}
 
@@ -224,6 +225,7 @@ class Dropper extends Spawnable implements InventoryHolder, Container, Nameable{
 					if($t instanceof Tile){
 						if($t->getInventory()->canAddItem($needItem)){
 							$t->getInventory()->addItem($needItem);
+
 							return;
 						}
 					}

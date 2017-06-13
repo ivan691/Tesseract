@@ -30,7 +30,7 @@ class DropperInventory extends ContainerInventory{
 
 	/**
 	 * @return InventoryHolder|Dropper
-     */
+	 */
 	public function getHolder(){
 		return $this->holder;
 	}

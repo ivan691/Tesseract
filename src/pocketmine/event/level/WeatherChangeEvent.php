@@ -56,7 +56,7 @@ class WeatherChangeEvent extends LevelEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "WeatherChangeEvent";
 	}

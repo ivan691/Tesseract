@@ -33,7 +33,7 @@ class Wither extends FlyingAnimal{
 	public $height = 2;
 
 	public $dropExp = 50;
-	
+
 	public function getName() : string{
 		return "Wither";
 	}
@@ -42,7 +42,7 @@ class Wither extends FlyingAnimal{
 		$this->setMaxHealth(300);
 		parent::initEntity();
 	}
-	
+
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();
@@ -65,6 +65,7 @@ class Wither extends FlyingAnimal{
 
 	public function getDrops(){
 		$drops = [ItemItem::get(ItemItem::NETHER_STAR, 0, 1)];
+
 		return $drops;
 	}
 }

@@ -22,6 +22,7 @@
 /**
  * Permission related classes
  */
+
 namespace pocketmine\permission;
 
 use pocketmine\Server;
@@ -179,6 +180,7 @@ class Permission{
 		if($name instanceof Permission){
 			$name->getChildren()[$this->getName()] = $value;
 			$name->recalculatePermissibles();
+
 			return;
 		}else{
 			$perm = Server::getInstance()->getPluginManager()->getPermission($name);

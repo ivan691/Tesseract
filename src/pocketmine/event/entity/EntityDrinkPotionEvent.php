@@ -32,7 +32,7 @@ class EntityDrinkPotionEvent extends EntityEvent implements Cancellable{
 
 	/* @var Potion */
 	private $potion;
-	
+
 	/* @var Effect[] */
 	private $effects;
 
@@ -52,7 +52,7 @@ class EntityDrinkPotionEvent extends EntityEvent implements Cancellable{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "EntityDrinkPotionEvent";
 	}

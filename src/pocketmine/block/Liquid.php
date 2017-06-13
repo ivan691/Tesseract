@@ -261,6 +261,7 @@ abstract class Liquid extends Transparent{
 				if($this instanceof Lava and $bottomBlock instanceof Water){
 					$this->getLevel()->setBlock($bottomBlock, Block::get(Item::STONE), true);
 					$this->triggerLavaMixEffects($bottomBlock);
+
 					return;
 				}
 
@@ -284,6 +285,7 @@ abstract class Liquid extends Transparent{
 
 				if($l >= 8){
 					$this->checkForHarden();
+
 					return;
 				}
 
@@ -370,7 +372,7 @@ abstract class Liquid extends Transparent{
 		return $cost;
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 100;
 	}
 
@@ -459,7 +461,7 @@ abstract class Liquid extends Transparent{
 		return null;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		return [];
 	}
 

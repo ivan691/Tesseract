@@ -41,10 +41,11 @@ class MovePlayerPacket extends DataPacket{
 	public $pitch;
 	public $mode = self::MODE_NORMAL;
 	public $onGround;
-    public $eid2;
+	public $eid2;
 
 	public function clean(){
 		$this->teleport = false;
+
 		return parent::clean();
 	}
 

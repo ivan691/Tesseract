@@ -131,6 +131,7 @@ class MobSpawner extends Spawnable{
 		if($hasPlayer and $count < 15){ // Spawn limit = 15
 			return true;
 		}
+
 		return false;
 	}
 

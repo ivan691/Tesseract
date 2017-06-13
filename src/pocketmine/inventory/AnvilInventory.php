@@ -23,6 +23,7 @@ namespace pocketmine\inventory;
 
 use pocketmine\item\Item;
 use pocketmine\item\EnchantedBook;
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\level\Position;
 use pocketmine\Player;
 use pocketmine\Server;
@@ -41,7 +42,7 @@ class AnvilInventory extends TemporaryInventory{
 
 	/**
 	 * @return FakeBlockMenu|InventoryHolder
-     */
+	 */
 	public function getHolder(){
 		return $this->holder;
 	}
@@ -60,7 +61,7 @@ class AnvilInventory extends TemporaryInventory{
 			return false;
 		}
 		$player->takeXpLevel($resultItem->getRepairCost());
-		
+
 		$this->clearAll();
 		if(!$player->getServer()->allowInventoryCheats and !$player->isCreative()){
 			if(!$player->getFloatingInventory()->canAddItem($resultItem)){
@@ -68,6 +69,7 @@ class AnvilInventory extends TemporaryInventory{
 			}
 			$player->getFloatingInventory()->addItem($resultItem);
 		}
+
 		return true;
 	}
 
@@ -76,6 +78,7 @@ class AnvilInventory extends TemporaryInventory{
 		Server::getInstance()->getPluginManager()->callEvent($ev = new AnvilProcessEvent($this));
 		if($ev->isCancelled()){
 			$this->clearAll();
+
 			return false;
 		}
 		if($sacrifice instanceof EnchantedBook && $sacrifice->hasEnchantments()){ //Enchanted Books!
@@ -98,10 +101,11 @@ class AnvilInventory extends TemporaryInventory{
 		}
 	}
 
-	public function processSlotChange(Transaction $transaction): bool{
+	public function processSlotChange(Transaction $transaction) : bool{
 		if($transaction->getSlot() === $this->getResultSlotIndex()){
 			return false;
 		}
+
 		return true;
 	}
 

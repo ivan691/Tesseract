@@ -57,6 +57,7 @@ class SimpleChunkManager implements ChunkManager{
 		if($chunk = $this->getChunk($x >> 4, $z >> 4)){
 			return $chunk->getBlockId($x & 0xf, $y & Level::Y_MASK, $z & 0xf);
 		}
+
 		return 0;
 	}
 
@@ -87,6 +88,7 @@ class SimpleChunkManager implements ChunkManager{
 		if($chunk = $this->getChunk($x >> 4, $z >> 4)){
 			return $chunk->getBlockData($x & 0xf, $y & Level::Y_MASK, $z & 0xf);
 		}
+
 		return 0;
 	}
 
@@ -117,6 +119,7 @@ class SimpleChunkManager implements ChunkManager{
 		if($chunk = $this->getChunk($x >> 4, $z >> 4)){
 			return $chunk->getBlockLight($x & 0x0f, $y & 0x7f, $z & 0x0f);
 		}
+
 		return 0;
 	}
 
@@ -136,7 +139,7 @@ class SimpleChunkManager implements ChunkManager{
 
 	/**
 	 * Updates the light around the block
-	 * 
+	 *
 	 * @param $x
 	 * @param $y
 	 * @param $z
@@ -246,6 +249,7 @@ class SimpleChunkManager implements ChunkManager{
 	public function setChunk(int $chunkX, int $chunkZ, Chunk $chunk = null){
 		if($chunk === null){
 			unset($this->chunks[Level::chunkHash($chunkX, $chunkZ)]);
+
 			return;
 		}
 		$this->chunks[Level::chunkHash($chunkX, $chunkZ)] = $chunk;

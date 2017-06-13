@@ -24,7 +24,7 @@ namespace pocketmine\block;
 use pocketmine\item\Item;
 
 
-class PoweredRepeater extends Solid {
+class PoweredRepeater extends Solid{
 	protected $id = self::POWERED_REPEATER_BLOCK;
 
 	const ACTION_ACTIVATE = "Repeater Activate";

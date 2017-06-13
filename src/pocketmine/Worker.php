@@ -60,6 +60,7 @@ abstract class Worker extends \Worker{
 			if($this->getClassLoader() === null){
 				$this->setClassLoader();
 			}
+
 			return parent::start($options);
 		}
 

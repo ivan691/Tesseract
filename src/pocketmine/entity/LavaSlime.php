@@ -30,11 +30,11 @@ class LavaSlime extends Living{
 	const DATA_SLIME_SIZE = 16;
 
 	public $dropExp = [1, 4];
-	
+
 	public function getName() : string{
 		return "LavaSlime";
 	}
-	
+
 	public function spawnTo(Player $player){
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();

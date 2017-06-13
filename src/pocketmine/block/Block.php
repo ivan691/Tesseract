@@ -22,6 +22,7 @@
 /**
  * All Block classes are in here
  */
+
 namespace pocketmine\block;
 
 use pocketmine\entity\Entity;
@@ -38,7 +39,7 @@ use pocketmine\metadata\MetadataValue;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
 
-class Block extends Position implements BlockIds, Metadatable{	
+class Block extends Position implements BlockIds, Metadatable{
 
 	/** @var \SplFixedArray */
 	public static $list = null;
@@ -167,7 +168,7 @@ class Block extends Position implements BlockIds, Metadatable{
 			self::$list[self::IRON_TRAPDOOR] = IronTrapdoor::class;
 
 			self::$list[self::STONE_BRICKS] = StoneBricks::class;
-			
+
 			self::$list[self::BROWN_MUSHROOM_BLOCK] = BrownMushroomBlock::class;
 			self::$list[self::RED_MUSHROOM_BLOCK] = RedMushroomBlock::class;
 
@@ -470,7 +471,7 @@ class Block extends Position implements BlockIds, Metadatable{
 		if($this->isSolid()){
 			return true;
 		}else{
-			if($this instanceof Stair and ($this->getDamage() &4) == 4){
+			if($this instanceof Stair and ($this->getDamage() & 4) == 4){
 				return true;
 			}elseif($this instanceof Slab and ($this->getDamage() & 8) == 8){
 				return true;
@@ -478,6 +479,7 @@ class Block extends Position implements BlockIds, Metadatable{
 				return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -487,6 +489,7 @@ class Block extends Position implements BlockIds, Metadatable{
 				return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -744,6 +747,7 @@ class Block extends Position implements BlockIds, Metadatable{
 		if($this->boundingBox === null){
 			$this->boundingBox = $this->recalculateBoundingBox();
 		}
+
 		return $this->boundingBox;
 	}
 

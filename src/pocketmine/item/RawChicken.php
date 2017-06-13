@@ -35,7 +35,7 @@ class RawChicken extends Food{
 	public function getSaturationRestore() : float{
 		return 1.2;
 	}
-	
+
 	public function getAdditionalEffects() : array{
 		$chance = mt_rand(0, 100);
 		if($chance >= 70){

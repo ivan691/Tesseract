@@ -41,11 +41,11 @@ class IronDoor extends Door{
 		return Tool::TYPE_PICKAXE;
 	}
 
-	public function getHardness() {
+	public function getHardness(){
 		return 5;
 	}
 
-	public function getDrops(Item $item) : array {
+	public function getDrops(Item $item) : array{
 		if($item->isPickaxe() >= 1){
 			return [
 				[Item::IRON_DOOR, 0, 1],

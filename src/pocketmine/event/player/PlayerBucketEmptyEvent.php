@@ -35,7 +35,7 @@ class PlayerBucketEmptyEvent extends PlayerBucketEvent{
 
 	/**
 	 * @return EventName|string
-     */
+	 */
 	public function getName(){
 		return "PlayerBucketEmptyEvent";
 	}

@@ -62,18 +62,19 @@ class Boat extends Item{
 		]));
 		$boat->spawnToAll();
 
-		if($player->isSurvival()) {
+		if($player->isSurvival()){
 			$item = $player->getInventory()->getItemInHand();
 			$count = $item->getCount();
 			if(--$count <= 0){
 				$player->getInventory()->setItemInHand(Item::get(Item::AIR));
+
 				return true;
 			}
 
 			$item->setCount($count);
 			$player->getInventory()->setItemInHand($item);
 		}
-		
+
 		return true;
 	}
 }

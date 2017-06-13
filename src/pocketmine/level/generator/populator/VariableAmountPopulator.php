@@ -45,6 +45,7 @@ abstract class VariableAmountPopulator extends Populator{
 		if($random->nextRange(0, $this->odd) == 0){
 			return true;
 		}
+
 		return false;
 	}
 

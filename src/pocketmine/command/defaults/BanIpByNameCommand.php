@@ -51,8 +51,8 @@ class BanIpByNameCommand extends VanillaCommand{
 
 		$name = \array_shift($args);
 		$reason = \implode(" ", $args);
-		
-		if ($sender->getServer()->getPlayer($name) instanceof Player) $target = $sender->getServer()->getPlayer($name);
+
+		if($sender->getServer()->getPlayer($name) instanceof Player) $target = $sender->getServer()->getPlayer($name);
 		else return \false;
 
 		$sender->getServer()->getIPBans()->addBan($target->getAddress(), $reason, \null, $sender->getName());

@@ -213,6 +213,7 @@ abstract class PluginBase implements Plugin{
 		$ret = stream_copy_to_stream($resource, $fp = fopen($out, "wb")) > 0;
 		fclose($fp);
 		fclose($resource);
+
 		return $ret;
 	}
 
