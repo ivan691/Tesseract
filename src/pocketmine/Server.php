@@ -1537,6 +1537,10 @@ class Server{
 				mkdir($pluginPath, 0777);
 			}
 
+			if(!$pluginPath . "Tesseract/"){
+			    mkdir($pluginPath . "Tesseract/", 0777);
+            }
+
 			if(!file_exists($dataPath . "crashdumps/")){
 				mkdir($dataPath . "crashdumps/", 0777);
 			}
