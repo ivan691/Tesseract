@@ -1,13 +1,11 @@
 ![Tesseract](http://i.imgur.com/1ga0ATy.jpg)
 ## Tesseract Introduction
 -------------
-**Tesseract is the advanced server software based on the original Pocketmine-MP and the new PMMP <br>
-Tesseract supports packet and event debug system (for plugin developers) <br>
+**Tesseract is the advanced server software based on Genisys, PocketMine-MP, and PMMP**<br>
 
 ## Notice
 
-**Tesseract is supported to Minecraft:PE 1.1.x (PE & Win10)** <br>
-**Report any issues and we will try to fix them for you.**  <br>
+**Tesseract is on 1.1, and is very unstable, please feel free to report issues that you have with the software.** <br>
 
 ## Builds
 __Travis-CI Build:__<br>
@@ -44,8 +42,8 @@ __[Back to QuickLinks](#quick-links-instead-of-scrolling-click-these)__
 
 ## Acknowledgements
 
-- Tesseract is a "spoon" of **[Pocketmine-MP](http://github.com/pmmp/PocketMine-MP/)**
-- Most of the original code was written by PocketMine Team and the new PMMP Team. <br>
+- Tesseract is a "spoon" of **[Genisys](https://github.com/iTXTech/Genisys/), and [PMMP](https://github.com/pmmp/PocketMine-MP/)**
+- Most of the original code was written by ITXTech, PocketMine-MP, and the PMMP Team. <br>
 
 __[Back to QuickLinks](#quick-links-instead-of-scrolling-click-these)__<br>
 
