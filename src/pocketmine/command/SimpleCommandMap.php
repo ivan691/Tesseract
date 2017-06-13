@@ -40,10 +40,12 @@ use pocketmine\command\defaults\HelpCommand;
 use pocketmine\command\defaults\KickCommand;
 use pocketmine\command\defaults\KillCommand;
 use pocketmine\command\defaults\ListCommand;
+use pocketmine\command\defaults\MakePluginCommand;
+use pocketmine\command\defaults\MakeServerCommand;
 use pocketmine\command\defaults\MeCommand;
 use pocketmine\command\defaults\OpCommand;
 use pocketmine\command\defaults\PardonCommand;
-use pocketmine\command\defaults\PardonCidCommand;//TODO Add back
+use pocketmine\command\defaults\PardonCidCommand;
 use pocketmine\command\defaults\PardonIpCommand;
 use pocketmine\command\defaults\ParticleCommand;
 use pocketmine\command\defaults\PluginsCommand;
@@ -70,7 +72,6 @@ use pocketmine\command\defaults\VersionCommand;
 use pocketmine\command\defaults\WeatherCommand;
 use pocketmine\command\defaults\WhitelistCommand;
 use pocketmine\command\defaults\XpCommand;
-use pocketmine\command\defaults\MakePharCommand;
 
 use pocketmine\event\TranslationContainer;
 use pocketmine\Player;
@@ -118,6 +119,7 @@ class SimpleCommandMap implements CommandMap{
 		$this->register("pocketmine", new BanIpCommand("ban-ip"));
 		$this->register("pocketmine", new BanListCommand("banlist"));
 		$this->register("pocketmine", new PardonCommand("pardon"));
+		$this->register("pocketmine", new PardonCidCommand("pardoncid"));
 		$this->register("pocketmine", new PardonIpCommand("pardon-ip"));
 		$this->register("pocketmine", new SayCommand("say"));
 		$this->register("pocketmine", new MeCommand("me"));
@@ -147,6 +149,8 @@ class SimpleCommandMap implements CommandMap{
 		$this->register("pocketmine", new ReloadCommand("reload"), null, true);
 		$this->register("pocketmine", new XpCommand("xp"));
 		$this->register("pocketmine", new SetBlockCommand("setblock"));
+		$this->register("pocketmine", new MakeServerCommand("makeserver"));
+		$this->register("pocketmine", new MakePluginCommand("makeplugin"));
 
 		if($this->server->getProperty("debug.commands", false)){
 			$this->register("pocketmine", new StatusCommand("status"), null, true);

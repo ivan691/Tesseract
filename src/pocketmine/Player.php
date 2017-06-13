@@ -1227,6 +1227,15 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		return $this->gamemode;
 	}
 
+    public static function getClientFriendlyGamemode(int $gamemode) : int{
+        $gamemode &= 0x03;
+        if($gamemode === Player::SPECTATOR){
+            return Player::CREATIVE;
+        }
+
+        return $gamemode;
+    }
+
 	/**
 	 * Sets the gamemode, and if needed, kicks the Player.
 	 *
@@ -1243,10 +1252,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev = new PlayerGameModeChangeEvent($this, $gm));
 		if($ev->isCancelled()){
 			if($client){ //gamemode change by client in the GUI
-				$pk = new SetPlayerGameTypePacket();
-				$pk->gamemode = $this->gamemode & 0x01;
-				$this->dataPacket($pk);
-				$this->sendSettings();
+				$this->sendGamemode();
 			}
 			return false;
 		}
@@ -1303,6 +1309,12 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->inventory->sendHeldItem($this->hasSpawned);
 		return true;
 	}
+
+    public function sendGamemode(){
+        $pk = new SetPlayerGameTypePacket();
+        $pk->gamemode = Player::getClientFriendlyGamemode($this->gamemode);
+        $this->dataPacket($pk);
+    }
 
 	/**
 	 * Sends all the option flags
@@ -2829,8 +2841,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 				$this->craftingType = 0;
 				$commandText = $packet->command;
-				if($packet->args !== null){
-					foreach($packet->args as $arg){ //command ordering will be an issue
+				if($packet->inputJson !== null){
+					foreach($packet->inputJson as $arg){ //command ordering will be an issue
 						$commandText .= " " . $arg;
 					}
 				}
@@ -3240,11 +3252,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 				break;
 			case ProtocolInfo::SET_PLAYER_GAME_TYPE_PACKET:
-				if($packet->gamemode !== ($this->gamemode & 0x01)){
-					//GUI gamemode change, set it back to original for now (only possible through client bug or hack with current allowed client permissions)
-					$pk = new SetPlayerGameTypePacket();
-					$pk->gamemode = $this->gamemode & 0x01;
-					$this->dataPacket($pk);
+                if($packet->gamemode !== $this->gamemode){
+                    $this->sendGamemode();
 					$this->sendSettings();
 				}
 				break;

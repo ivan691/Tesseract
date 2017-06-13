@@ -35,6 +35,7 @@ class MoveEntityPacket extends DataPacket{
 	public $yaw;
 	public $headYaw;
 	public $pitch;
+	public $byte1;
 
 	public function decode(){
 		$this->eid = $this->getEntityId();
@@ -42,6 +43,7 @@ class MoveEntityPacket extends DataPacket{
 		$this->pitch = $this->getByte() * (360.0 / 256);
 		$this->yaw = $this->getByte() * (360.0 / 256);
 		$this->headYaw = $this->getByte() * (360.0 / 256);
+        $this->byte1 = $this->getByte();
 	}
 
 	public function encode(){
@@ -51,13 +53,7 @@ class MoveEntityPacket extends DataPacket{
 		$this->putByte($this->pitch / (360.0 / 256));
 		$this->putByte($this->yaw / (360.0 / 256));
 		$this->putByte($this->headYaw / (360.0 / 256));
-	}
-
-	/**
-	 * @return PacketName|string
-     */
-	public function getName(){
-		return "MoveEntityPacket";
+		$this->putByte($this->byte1);
 	}
 
 }

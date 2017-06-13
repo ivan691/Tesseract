@@ -32,7 +32,7 @@ class CompressBatchedTask extends AsyncTask{
 	public $final;
 	public $targets;
 
-	public function __construct($data, array $targets, $level = 7){
+	public function __construct(z$data, array $targets, $level = 7){
 		$this->data = $data;
 		$this->targets = serialize($targets);
 		$this->level = $level;

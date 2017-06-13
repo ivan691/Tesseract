@@ -199,12 +199,22 @@ class BinaryStream extends \stdClass{
 		if($nbtLen > 0){
 			$nbt = $this->get($nbtLen);
 		}
-		return Item::get(
-			$id,
-			$data,
-			$cnt,
-			$nbt
-		);
+
+        $canPlaceOn = $this->getVarInt();
+        if($canPlaceOn > 0){
+            for($i = 0; $i < $canPlaceOn; ++$i){
+                $this->getString();
+            }
+        }
+
+        $canDestroy = $this->getVarInt();
+        if($canDestroy > 0){
+            for($i = 0; $i < $canDestroy; ++$i){
+                $this->getString();
+            }
+        }
+
+        return Item::get($id, $data, $cnt, $nbt);
 	}
 
 
@@ -215,11 +225,14 @@ class BinaryStream extends \stdClass{
 		}
 
 		$this->putVarInt($item->getId());
-		$auxValue = (($item->getDamage() ?? -1) << 8) | $item->getCount();
+        $auxValue = ($item->getDamage() << 8) | $item->getCount();
 		$this->putVarInt($auxValue);
 		$nbt = $item->getCompoundTag();
 		$this->putLShort(strlen($nbt));
 		$this->put($nbt);
+
+        $this->putVarInt(0); //CanPlaceOn entry count (TODO)
+        $this->putVarInt(0); //CanDestroy entry count (TODO)
 	}
 
 	public function getString(){
