@@ -171,6 +171,10 @@ class Attribute{
 		return $this;
 	}
 
+	public function resetToDefault(){
+		return $this->setValue($this->getDefaultValue());
+	}
+
 	public function getValue(){
 		return $this->currentValue;
 	}

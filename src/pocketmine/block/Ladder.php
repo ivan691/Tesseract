@@ -36,6 +36,10 @@ class Ladder extends Transparent{
 		$this->meta = $meta;
 	}
 
+	public function canClimb() : bool{
+		return true;
+	}
+
 	public function getName() : string{
 		return "Ladder";
 	}

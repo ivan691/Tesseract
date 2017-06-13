@@ -585,6 +585,10 @@ class Block extends Position implements BlockIds, Metadatable{
 		return false;
 	}
 
+	public function canClimb() : bool{
+		return false;
+	}
+
 	/**
 	 * @return string
 	 */
