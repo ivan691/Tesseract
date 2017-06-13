@@ -22,12 +22,13 @@
  */
  
  namespace pocketmine\command\defaults;
- 
-use pocketmine\network\protocol\SetTitlePacket;
+
 use pocketmine\command\CommandSender;
+use pocketmine\Player;
 
 class TitleCommand extends VanillaCommand {
 
+	//TODO
 	public function __construct($name){
 		parent::__construct(
 			$name,
@@ -43,7 +44,7 @@ class TitleCommand extends VanillaCommand {
 				return true;
 			}
 			if(count($args) <= 0){
-				$sender->sendMessage("Usage: /title <title> <subtile> [text]");
+				$sender->sendMessage("pocketmine.command.title.usage");
 				return false;
 			}
         }

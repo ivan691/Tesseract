@@ -31,7 +31,6 @@ use pocketmine\entity\Arrow;
 use pocketmine\entity\Attribute;
 use pocketmine\entity\Boat;
 use pocketmine\entity\Effect;
-use pocketmine\entity\EnderPearl;
 use pocketmine\entity\Entity;
 use pocketmine\entity\FishingHook;
 use pocketmine\entity\Human;
@@ -39,8 +38,6 @@ use pocketmine\entity\Item as DroppedItem;
 use pocketmine\entity\Living;
 use pocketmine\entity\Minecart;
 use pocketmine\entity\Projectile;
-use pocketmine\entity\ThrownExpBottle;
-use pocketmine\entity\ThrownPotion;
 use pocketmine\event\entity\EntityCombustByEntityEvent;
 use pocketmine\event\entity\EntityDamageByBlockEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -3438,6 +3435,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 * @param        $title
 	 * @param string $subtitle
 	 *
+	 * @param int    $fadein
+	 * @param int    $fadeout
+	 * @param int    $duration
+	 *
 	 * @return bool
 	 */
 	public function sendTitle($title, $subtitle = "", $fadein = 20, $fadeout = 20, $duration = 5){
@@ -3463,7 +3464,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	/**
 	 * Send an action bar text to a player
 	 *
-	 * @param $title
+	 * @param     $title
+	 *
+	 * @param int $fadein
+	 * @param int $fadeout
 	 *
 	 * @return bool
 	 */

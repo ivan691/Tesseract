@@ -42,6 +42,7 @@ class AddEntityPacket extends DataPacket{
 	public $speedZ;
 	public $yaw;
 	public $pitch;
+	/** @var Attribute */
 	public $attributes = [];
 	public $metadata = [];
 	public $links = [];

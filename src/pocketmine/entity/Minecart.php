@@ -52,15 +52,10 @@ class Minecart extends Vehicle{
 	private $state = Minecart::STATE_INITIAL;
 	private $direction = -1;
 	private $moveVector = [];
-	private $requestedPosition = null;
 
 	public function initEntity(){
 		$this->setMaxHealth(1);
 		$this->setHealth($this->getMaxHealth());
-		$this->moveVector[Entity::NORTH] = new Vector3(-1, 0, 0);
-		$this->moveVector[Entity::SOUTH] = new Vector3(1, 0, 0);
-		$this->moveVector[Entity::EAST] = new Vector3(0, 0, -1);
-		$this->moveVector[Entity::WEST] = new Vector3(0, 0, 1);
 		parent::initEntity();
 	}
 
